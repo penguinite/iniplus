@@ -1,39 +1,12 @@
 # iniplus
 
-An extended INI parser for Nim
+An extended INI parser for Nim. Intended to be as performant as `std/parsecfg` whilst being nearly as flexible with data types as TOML.
 
-[products]
-sort: "alphabetically"
+## Status
 
-[products.1]
-id: 1
-name: "Ultra Product #1"
-price: 75
-inStock: false
-isDeprecated: true
-newProductId: 2
-; iniplus does not support timestamps.
-; as a workaround, you can format your time to an ISO-compatible date
-; and format it when you read it again
-releaseDate: "2020-10-29T16:17:07Z"
+The two most important things (arrays and tables) are missing but the rest is working. Helper functions for retrieving data and writing to configs are also missing.
 
-[products.2]
-id = 2
-name = "Ultra Product #2"
-price = 150 
-inStock = true
-isDeprecated = false
-# iniplus does not support timestamps.
-# as a workaround, you can format your time to an ISO-compatible date
-# and format it when you read it again
-releaseDate = "2023-10-29T16:17:07Z"
+## Copyright 
 
-[legal]
-shippingTo = [
-    "US", "UK", "EU"
-]
-
-bannedCustomers = {
-    "John Doe": "Asked for a refund",
-    "Jane McKenzie": "Made a bird implode"
-}
+Copyright (c) systemonia 2023 <systemonia@proton.me>
+Licensed under the BSD 3-Clause license.
