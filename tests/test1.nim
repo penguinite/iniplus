@@ -9,4 +9,6 @@ import iniplus/reader
 
 const file = staticRead("test.conf")
 
-echo parseString(file)
+let config = parseString(file)
+
+echo config.dump

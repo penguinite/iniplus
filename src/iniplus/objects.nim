@@ -7,14 +7,15 @@ type
     None, Int, Bool, String, Sequence, Table
   
   ConfigValue* = object of RootObj
-    kind*: ConfigValueType
-    intVal*: int
-    boolVal*: bool
-    stringVal*: string
-    sequence*: seq[ConfigValue]
-    table*: OrderedTable[string, ConfigValue]
+    case kind*: ConfigValueType
+    of None: nil
+    of Int: intVal*: int
+    of Bool: boolVal*: bool
+    of String: stringVal*: string
+    of Sequence: sequence*: seq[ConfigValue]
+    of Table: table*: OrderedTable[string, ConfigValue]
 
   ConfigTable* = OrderedTable[string, ConfigValue]
 
   ConfigParserMode* = enum
-    None, Section, Key, PreValue, Value, Sequence, Table
+    None, Section, Key, PreValue, Single, Multi
