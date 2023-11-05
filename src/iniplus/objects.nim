@@ -19,5 +19,4 @@ type
 
   ConfigTable* = OrderedTable[string, ConfigValue]
 
-  ConfigParserMode* = enum
-    None, Section, Key, PreValue, Single, Multi
+proc create*(): ConfigValue = return result
