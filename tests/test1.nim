@@ -5,10 +5,10 @@
 #
 # To run these tests, simply execute `nimble test`.
 
-import iniplus/reader
+import iniplus
 
 const file = staticRead("test.conf")
 
 let config = parseString(file)
 
-echo config.dump
+echo config.toString()
