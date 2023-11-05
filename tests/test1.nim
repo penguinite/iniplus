@@ -11,4 +11,4 @@ const file = staticRead("test.conf")
 
 let config = parseString(file)
 
-echo config.toString()
+echo config.dump()
