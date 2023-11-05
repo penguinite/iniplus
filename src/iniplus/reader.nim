@@ -126,10 +126,26 @@ proc parseString*(str: string): ConfigTable =
         continue
 
   if mode == Single:
-      result[section & '|' & key] = convertFromRaw(cleanString(value), mode)
+      result[section & "|" & key] = convertFromRaw(cleanString(value), mode)
+
+proc splitTableItem*(str: string): seq[string] =
+  var tmp = ""
+  for ch in str:
+    if ch == '|':
+      result.add(tmp)
+      tmp = ""
+      continue
+    tmp.add(ch)
+  result.add(tmp)
+
 
 proc dump*(table: ConfigTable): string =
   for key,val in table.pairs:
-    result.add "\"" & key & "\": \"" & $val & "\"\n"
-
-  return result
+    let list = splitTableItem(key)
+    result.add("\t")
+    if list[0] != "":
+      result.add("[" & list[0] & "] ") # Section
+    result.add("\"" & list[1] & "\": ") # Key
+    result.add($val & "\n") # Value
+  result = result[0..^2] # Remove last newline char
+  return "{\n" & result & "\n}" # Add curly brackets
