@@ -51,14 +51,12 @@ import iniplus
 
 let table = parseFile("config_file.conf")
 # OR, to read a string as a config table.
-let table = parseString("[config]file=\".\"")
+let table = parseString("name = \"John Doe\"")
 ```
-
 You can then retrieve various data types.
 
 ```nim
-
-assert table.getString("config","file") == "."
+assert table.getString("", "name") == "John Doe"
 
 # This functions sees if a specified key is available, if it is then it returns it.
 # If not then it returns whatever you have specified in the third parameter
