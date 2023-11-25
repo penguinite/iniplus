@@ -28,14 +28,12 @@ proc toString*(val: ConfigValue): string =
   of Int: result = $(val.intVal)
   of Bool: result = $(val.boolVal)
   of Sequence:
-    for item in val.sequence:
-      result.add(toString(item) & ", ")
-    result = result[0..^2]
-    result = "[\n" & result & "\n]"
-  of Table:
-    for key,val in val.table:
-      result.add("\"" & key & "\": " & toString(val) & ";\n")
-    result = "{\n" & result & "\n}"
+    result = ""
+    if len(val.sequence) > 0:
+      for item in val.sequence:
+        result.add("\t" & toString(item) & ",\n")
+      result = "\n" & result[0..^2] & "\n"
+    result = "[" & result & "]"
   return result
 
 proc toString*(table: ConfigTable): string =
@@ -64,6 +62,88 @@ proc toString*(table: ConfigTable): string =
     result.add(val)
 
   return result
+
+proc newValue*(value: string): ConfigValue =
+  result = create(objects.String)
+  result.stringVal = value
+
+proc newValue*(value: int): ConfigValue =
+  result = create(objects.Int)
+  result.intVal = value
+
+proc newValue*(value: bool): ConfigValue =
+  result = create(objects.Bool)
+  result.boolVal = value
+
+proc newValue*(value: seq[ConfigValue]): ConfigValue =
+  result = create(objects.Sequence)
+  result.sequence = value
+
+proc newValue*(value: varargs[ConfigValue]): ConfigValue =
+  result = create(objects.Sequence)
+  var i: seq[ConfigValue] = @[]
+  for x in value:
+    i.add(x)
+  result.sequence = i
+
+proc newConfigTable*(): ConfigTable =
+  ## Simply returns a new, empty, ConfigTable object.
+  return result
+
+proc setKey*(table: var ConfigTable, section, key: string, value: ConfigValue) =
+  ## Changes a key of a section inside of a table to a specific value
+  # This example cannot be ran due to its dependence on functions elsewhere.
+  # It would create a circular dependency
+  runnableExamples "--run:off":
+    var
+      table = newConfigTable()
+      # Creates a String ConfigValue object
+      valueStr = newValue("Hello World!")
+      # Creates a Sequence ConfigValue object
+      valueArr = newValue(
+        newValue("Hello World!"),
+        newValue(1000)
+      )
+
+    # Inserting a handmade string into a table
+    table.setKey("handmade","quote",valueStr)
+    assert table.getString("handmade","quote") == "Hello World!"
+
+    # Inserting a handmade array into a table
+    table.setKey("handmade","list",valueArr)
+    assert table.getArray("handmade", "list")[0].stringVal == "Hello World!"
+    assert table.getArray("handmade", "list")[1].intVal == 1000
+
+  table[section & '|' & key] = value
+
+proc setKeySingleVal*(table: var ConfigTable, section, key: string, value: string) =
+  ## Sets a value in a table to a single value (string, bool or int)
+  # This example cannot be ran due to its dependence on functions elsewhere.
+  # It would create a circular dependency
+  runnableExamples "--run:off":
+    var table = newConfigTable()
+
+    table.setKeySingleVal("single","number","1000")
+    table.setKeySingleVal("single","quote","\"Hello World!\"")
+    table.setKeySingleVal("single","true_false","false")
+
+    assert table.getString("single","quote") == "Hello World!"
+    assert table.getInt("single","number") == 1000
+    assert table.getBool("single", "true_false") == false
+
+  table[section & '|' & key] = convertValue(value)
+
+proc setKeyMultiVal*(table: var ConfigTable, section, key: string, value: string) =
+  ## Sets a value in a table to a multi value (array)
+  runnableExamples "--run:off":
+    var table = newTable()
+
+    table.setKeyMultiVal("multi","list","[\"Hello World!\",1000]")
+
+    assert table.getArray("multi","list")[0] == "Hello World!"
+    assert table.getArray("multi","list")[1] == 1000
+
+  table[section & '|' & key] = convertValue(value)
 
 proc writeToFile*(filename: string, table: ConfigTable): bool =
   try:
