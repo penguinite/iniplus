@@ -23,14 +23,14 @@ proc dump*(table: ConfigTable): string =
 proc toString*(val: ConfigValue): string =
   ## Converts a configuration value into a loadable, human-readable string.
   case val.kind:
-  of None: return ""
-  of String: result = "\"" & val.stringVal & "\""
-  of Int: result = $(val.intVal)
-  of Bool: result = $(val.boolVal)
-  of Sequence:
+  of CVNone: return ""
+  of CVString: result = "\"" & val.stringVal & "\""
+  of CVInt: result = $(val.intVal)
+  of CVBool: result = $(val.boolVal)
+  of CVSequence:
     result = ""
-    if len(val.sequence) > 0:
-      for item in val.sequence:
+    if len(val.sequenceVal) > 0:
+      for item in val.sequenceVal:
         result.add("\t" & toString(item) & ",\n")
       result = "\n" & result[0..^2] & "\n"
     result = "[" & result & "]"

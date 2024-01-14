@@ -4,7 +4,7 @@ import objects
 import std/[tables, times, strutils]
 export tables, times
 
-proc raiseValueError(kind: ConfigValueType, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" has wrong type (" & $kind & ")")
+proc raiseValueError(kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" has wrong type (" & $kind & ")")
 proc raiseIndexDefect(section, key: string) = raise (ref IndexDefect)(msg: "key \"" & key & "\" in section \"" & section & "\" does not exist")
 
 proc exists*(table: ConfigTable, section, key: string): bool =
@@ -25,7 +25,7 @@ proc getValue*(table: ConfigTable, section, key: string): ConfigValue =
   ## data types or for some other reason.
   runnableExamples:
     let config = parseString("name = \"John Doe\"")
-    assert config.getValue("","name").kind == String
+    assert config.getValue("","name").kind == CVString
     assert config.getValue("","name").stringVal == "John Doe"
 
   if not table.exists(section, key):
@@ -42,7 +42,7 @@ proc getString*(table: ConfigTable, section, key: string): string =
     """)
     assert config.getString("dialog","info_text") == "Insert some informational text here."
   let val = table.getValue(section, key)
-  if val.kind != String:
+  if val.kind != CVString:
     raiseValueError(val.kind, section, key)
   return val.stringVal
 
@@ -70,8 +70,8 @@ proc getBool*(table: ConfigTable, section, key: string): bool =
     assert config.getBool("","enable_feature") == true
   let val = table.getValue(section, key)
   case val.kind:
-  of String: result = parseBool(val.stringVal)
-  of Bool: result = val.boolVal
+  of CVString: result = parseBool(val.stringVal)
+  of CVBool: result = val.boolVal
   else: raiseValueError(val.kind, section, key)
 
 proc getInt*(table: ConfigTable, section, key: string): int =
@@ -82,8 +82,8 @@ proc getInt*(table: ConfigTable, section, key: string): int =
 
   let val = table.getValue(section, key)
   case val.kind:
-  of String: result = parseInt(val.stringVal)
-  of Int: result = val.intVal
+  of CVString: result = parseInt(val.stringVal)
+  of CVInt: result = val.intVal
   else: raiseValueError(val.kind, section, key)
 
 proc getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] =
@@ -93,17 +93,17 @@ proc getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] =
       config = parseString("employees = [\"John\",\"Katie\",1000]")
       employees = config.getArray("","employees")
 
-    assert employees[0].kind == String
-    assert employees[1].kind == String
-    assert employees[2].kind == Int
+    assert employees[0].kind == CVString
+    assert employees[1].kind == CVString
+    assert employees[2].kind == CVInt
 
     assert employees[0].stringVal == "John"
     assert employees[1].stringVal == "Katie"
     assert employees[2].intVal == 1000
   let val = table.getValue(section, key)
-  if val.kind != Sequence:
+  if val.kind != CVSequence:
     raiseValueError(val.kind, section, key)
-  return val.sequence
+  return val.sequenceVal
 
 proc getStringArray*(table: ConfigTable, section, key: string): seq[string] =
   ## This procedure retrieves a string-only array from a table. It also throws out any non-string items
@@ -117,10 +117,10 @@ proc getStringArray*(table: ConfigTable, section, key: string): seq[string] =
     assert len(employees) == 2
     
   let val = table.getValue(section, key)
-  if val.kind != Sequence:
+  if val.kind != CVSequence:
     raiseValueError(val.kind, section, key)
-  for item in val.sequence:
-    if item.kind == String: result.add(item.stringVal)
+  for item in val.sequenceVal:
+    if item.kind == CVString: result.add(item.stringVal)
   return result
 
 proc getIntArray*(table: ConfigTable, section, key: string): seq[int] =
@@ -135,10 +135,10 @@ proc getIntArray*(table: ConfigTable, section, key: string): seq[int] =
     assert len(number) == 2
 
   let val = table.getValue(section, key)
-  if val.kind != Sequence:
+  if val.kind != CVSequence:
     raiseValueError(val.kind, section, key)
-  for item in val.sequence:
-    if item.kind == Int: result.add(item.intVal)
+  for item in val.sequenceVal:
+    if item.kind == CVInt: result.add(item.intVal)
   return result
 
 proc getBoolArray*(table: ConfigTable, section, key: string): seq[bool] =
@@ -152,17 +152,18 @@ proc getBoolArray*(table: ConfigTable, section, key: string): seq[bool] =
     assert myFavoriteBooleans[1] == false
     assert len(myFavoriteBooleans) == 2
   let val = table.getValue(section, key)
-  if val.kind != Sequence:
+  if val.kind != CVSequence:
     raiseValueError(val.kind, section, key)
-  for item in val.sequence:
-    if item.kind == Bool: result.add(item.boolVal)
+  for item in val.sequenceVal:
+    if item.kind == CVBool: result.add(item.boolVal)
   return result
 
 # No... I am not gonna make a getArrayArray()
 
 proc unroll*(table: Table[string, ConfigValue]): Table[string, string] =
+  ## Unrolls a configuration table into a string-only table.
   for key,val in table:
-    if val.kind == String:
+    if val.kind == CVString:
       result[key] = val.stringVal
     continue
 

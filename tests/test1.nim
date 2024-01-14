@@ -79,9 +79,9 @@ assert table.getArray("multi","list")[1].intVal == 1000
 table = parseString("employees = [\"John\",\"Katie\",1000]")
 var employees = table.getArray("","employees")
 
-assert employees[0].kind == String
-assert employees[1].kind == String
-assert employees[2].kind == Int
+assert employees[0].kind == CVString
+assert employees[1].kind == CVString
+assert employees[2].kind == CVInt
 
 assert employees[0].stringVal == "John"
 assert employees[1].stringVal == "Katie"
@@ -109,7 +109,7 @@ assert myFavoriteBooleans[1] == false
 assert len(myFavoriteBooleans) == 2
 
 table = parseString("name = \"John Doe\"")
-assert table.getValue("","name").kind == String
+assert table.getValue("","name").kind == CVString
 assert table.getValue("","name").stringVal == "John Doe"
 
 table = parseString("""

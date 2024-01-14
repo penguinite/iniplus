@@ -5,16 +5,17 @@ import std/[tables, strutils]
 export tables
 
 type
-  ConfigValueType* = enum
-    None, Int, Bool, String, Sequence
+  ConfigValueKind* = enum
+    CVNone, CVInt, CVBool, CVString, CVSequence
+
   
   ConfigValue* = object of RootObj
-    case kind*: ConfigValueType
-    of None: nil
-    of Int: intVal*: int
-    of Bool: boolVal*: bool
-    of String: stringVal*: string
-    of Sequence: sequence*: seq[ConfigValue]
+    case kind*: ConfigValueKind
+    of CVNone: nil
+    of CVInt: intVal*: int
+    of CVBool: boolVal*: bool
+    of CVString: stringVal*: string
+    of CVSequence: sequenceVal*: seq[ConfigValue]
 
   ConfigTable* = OrderedTable[string, ConfigValue]
 
@@ -39,11 +40,11 @@ proc trimString*(raw: string): string =
   if raw.endsWith('"') or raw.endsWith('\''): result = result[0..^2]
   return result
 
-proc getKind(raw: string): ConfigValueType =
-  if isBoolean(raw): return Bool
-  if isOnlyDigits(raw): return Int
-  if raw.startsWith("["): return Sequence
-  return String
+proc getKind(raw: string): ConfigValueKind =
+  if isBoolean(raw): return CVBool
+  if isOnlyDigits(raw): return CVInt
+  if raw.startsWith("["): return CVSequence
+  return CVString
 
 proc splitByComma(ar: string): seq[string] =
   # "B", 100, "A"
@@ -80,12 +81,11 @@ proc trimArrayString(raw: string): string =
 proc convertValue*(raw: string): ConfigValue =
   result = create(getKind(raw))
 
-  case result.kind:
-  of Bool: result.boolVal = parseBool(raw)
-  of Int: result.intVal = parseInt(raw)
-  of String: result.stringVal = trimString(raw)
-  of Sequence:
-
+  case kind:
+  of CVBool: result.boolVal = parseBool(raw)
+  of CVInt: result.intVal = parseInt(raw)
+  of CVString: result.stringVal = trimString(raw)
+  of CVSequence:
     for item in splitByComma(trimArrayString(raw)):
       result.sequence.add(convertValue(item))
   else:
