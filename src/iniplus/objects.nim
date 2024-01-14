@@ -19,11 +19,6 @@ type
 
   ConfigTable* = OrderedTable[string, ConfigValue]
 
-proc create*(kind: ConfigValueType): ConfigValue =
-  ## TODO: Figure out how to turn off "Warning: Potential object case transition, instantiate new object instead"
-  result.kind = kind
-  return result
-
 proc isBoolean(raw: string): bool =
   if raw.toLower() == "true" or raw.toLower() == "false": return true
   else: return false
@@ -79,7 +74,8 @@ proc trimArrayString(raw: string): string =
   return result
 
 proc convertValue*(raw: string): ConfigValue =
-  result = create(getKind(raw))
+  let kind = getKind(raw)
+  result = ConfigValue(kind: kind)
 
   case kind:
   of CVBool: result.boolVal = parseBool(raw)
@@ -87,6 +83,8 @@ proc convertValue*(raw: string): ConfigValue =
   of CVString: result.stringVal = trimString(raw)
   of CVSequence:
     for item in splitByComma(trimArrayString(raw)):
-      result.sequence.add(convertValue(item))
+      result.sequenceVal.add(convertValue(item))
   else:
     return
+
+  return result
