@@ -58,6 +58,12 @@ proc parseString*(input: string): ConfigTable =
           mode = None
           section = section.strip()
           continue
+
+        if ch == '|':
+          log "| cannot be used inside sections! Replacing with _"            
+          section.add("_")
+          continue
+
         section.add(ch)
       of PreValue:
         if ch in Whitespace: continue

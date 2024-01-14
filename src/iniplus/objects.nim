@@ -88,3 +88,6 @@ proc convertValue*(raw: string): ConfigValue =
     return
 
   return result
+
+template log*(str: varargs[string,`$`]) =
+  echo("[iniplus:" & instantiationInfo().filename & ":" & $(instantiationInfo().line) & "]: " & str.join())
