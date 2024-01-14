@@ -53,6 +53,8 @@ var
     newValue("Hello World!"),
     newValue(1000)
   )
+  value: ConfigValue
+  config: ConfigTable
   
 # Inserting a handmade string into a table
 table.setKey("handmade","quote",valueStr)
@@ -127,3 +129,62 @@ assert table.getInt("","port") == 8080
 
 table = parseString(file)
 echo table.dump()
+
+table = ConfigTable()
+
+table.setBulkKeys(
+  c("hello","world","!"), # Strings
+  c("goodbye","world","!"), # Strings^2
+  c("favorite","people", %("John"), %("Katie"), %(true)), # Sequences
+  c("favorite","number", 9001), # Numbers
+  c("favorite","boolean",true) # Booleans
+)
+
+assert table.getString("hello","world") == "!"
+assert table.getString("goodbye","world") == "!"
+assert table.getArray("favorite","people")[0].stringVal == "John"
+assert table.getArray("favorite","people")[1].stringVal == "Katie"
+assert table.getArray("favorite","people")[2].boolVal == true
+assert table.getInt("favorite", "number") == 9001
+assert table.getBool("favorite", "boolean") == true
+
+let
+  tableA = newConfigTable()
+  tableB = ConfigTable()
+    
+assert tableA.len() == tableB.len()
+
+config = parseString("my_favorite_people=[\"John\", \"Katie\", true]")
+
+assert config.getArray("","my_favorite_people")[0].stringVal == "John"
+assert config.getArray("","my_favorite_people")[1].stringVal == "Katie"
+assert config.getArray("","my_favorite_people")[2].boolVal == true
+
+config = parseString("my_favorite_people=[\"John\", \"Katie\", true]")
+value = newValue(@[
+    newValue("John"),
+    newValue("Katie"),
+    newValue(true)
+  ]
+)
+assert config.getValue("","my_favorite_people").sequenceVal[0].stringVal == value.sequenceVal[0].stringVal
+assert config.getValue("","my_favorite_people").sequenceVal[1].stringVal == value.sequenceVal[1].stringVal
+assert config.getValue("","my_favorite_people").sequenceVal[2].boolVal == value.sequenceVal[2].boolVal
+
+config = parseString("favorite_boolean=true")
+value = newValue(true)
+assert config.getValue("","favorite_boolean").boolVal == value.boolVal
+
+config = parseString("favorite_number=9001")
+value = newValue(9001)    
+assert config.getValue("","favorite_number").intVal == value.intVal
+
+config = parseString("favorite_person_number_one=\"John\"")
+value = newValue("John")
+assert config.getValue("","favorite_person_number_one").stringVal == value.stringVal
+
+config = parseString("test_key=\"Hello\"")
+echo toString(config)
+
+value = newValue("John")
+assert toString(value) == "\"John\""

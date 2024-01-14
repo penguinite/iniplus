@@ -8,7 +8,7 @@ type
   ConfigValueKind* = enum
     CVNone, CVInt, CVBool, CVString, CVSequence
 
-  
+
   ConfigValue* = object of RootObj
     case kind*: ConfigValueKind
     of CVNone: nil

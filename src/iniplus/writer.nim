@@ -10,6 +10,10 @@ proc dump*(table: ConfigTable): string =
   ## Converts a config table into a human-readable format similar to JSON.
   ## This should only ever be used for debugging, if you want to convert a config
   ## table to a string you can load again then use the `toString()` procedure.
+  runnableExamples:
+    let config = parseString("test_key=\"String\"")
+    echo dump(config)
+
   for key,val in table.pairs:
     let list = key.split('|')
     result.add("\t")
@@ -21,7 +25,10 @@ proc dump*(table: ConfigTable): string =
   return "{\n" & result & "\n}" # Add curly brackets
 
 proc toString*(val: ConfigValue): string =
-  ## Converts a configuration value into a loadable, human-readable string.
+  ## Converts a single, individual configuration value into a loadable, human-readable string.
+  runnableExamples:
+    let value = newValue("John")
+    echo toString(config)
   case val.kind:
   of CVNone: return ""
   of CVString: result = "\"" & val.stringVal & "\""
@@ -37,7 +44,11 @@ proc toString*(val: ConfigValue): string =
   return result
 
 proc toString*(table: ConfigTable): string =
-  ## Converts a configuration table into a loadable, human-readable string.
+  ## Converts a whole configuration table into a loadable, human-readable string.
+  runnableExamples:
+    let config = parseString("test_key=\"Hello\"")
+
+    assert toString(config).startsWith("test_key=\"Hello\"")
   var
     tmpTable: Table[string, string]
 
@@ -64,30 +75,94 @@ proc toString*(table: ConfigTable): string =
   return result
 
 proc newValue*(value: string): ConfigValue =
-  result = create(objects.String)
+  ## Creates an individual string ConfigValue object.
+  # This example cannot be ran due to its dependence on functions elsewhere.
+  # It would create a circular dependency
+  runnableExamples "--run:off":
+    let
+      config = parseString("favorite_person_number_one=\"John\"")
+      value = newValue("John")
+    
+    assert config.getValue("","favorite_person_number_one").stringVal == value.stringVal
+  result = ConfigValue(kind: CVString)
   result.stringVal = value
 
 proc newValue*(value: int): ConfigValue =
-  result = create(objects.Int)
+  # This example cannot be ran due to its dependence on functions elsewhere.
+  # It would create a circular dependency
+  runnableExamples "--run:off":
+    let
+      config = parseString("favorite_number=9001")
+      value = newValue(9001)
+    
+    assert config.getValue("","favorite_number").intVal == value.intVal
+  result = ConfigValue(kind: CVInt)
   result.intVal = value
 
 proc newValue*(value: bool): ConfigValue =
-  result = create(objects.Bool)
+  # This example cannot be ran due to its dependence on functions elsewhere.
+  # It would create a circular dependency
+  runnableExamples "--run:off":
+    let
+      config = parseString("favorite_boolean=true")
+      value = newValue(true)
+
+    assert config.getValue("","favorite_boolean").boolVal == value.boolVal
+  result = ConfigValue(kind: CVBool)
   result.boolVal = value
 
 proc newValue*(value: seq[ConfigValue]): ConfigValue =
-  result = create(objects.Sequence)
-  result.sequence = value
+  ## Creates a Sequence-like ConfigValue object. This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects.
+  # This example cannot be ran due to its dependence on functions elsewhere.
+  # It would create a circular dependency
+  runnableExamples "--run:off":
+    let
+      config = parseString["my_favorite_people=[\"John\", \"Katie\", true]"]
+      value = newValue(@[
+          newValue("John"),
+          newValue("Katie"),
+          newValue(true)
+        ]
+      )
+
+    # Yes, this is a mess. Just use the regular getArray() procedure if you want an easier time dealing with arrays.
+    assert config.getValue("","my_favorite_people").sequenceVal[0].stringVal == value.sequenceVal[0].stringVal
+    assert config.getValue("","my_favorite_people").sequenceVal[1].stringVal == value.sequenceVal[1].stringVal
+    assert config.getValue("","my_favorite_people").sequenceVal[2].boolVal == value.sequenceVal[2].boolVal
+  result = ConfigValue(kind: CVSequence)
+  result.sequenceVal = value
 
 proc newValue*(value: varargs[ConfigValue]): ConfigValue =
-  result = create(objects.Sequence)
+  ## Creates a Sequence-like ConfigValue object.
+  # This example cannot be ran due to its dependence on functions elsewhere.
+  # It would create a circular dependency
+  runnableExamples "--run:off":
+    let
+      config = parseString("my_favorite_people=[\"John\", \"Katie\", true]")
+      value = newValue(
+        newValue("John"),
+        newValue("Katie"),
+        newValue(true)
+      )
+    
+    # Yes, this is a mess. Just use the regular getArray() procedure if you want an easier time dealing with arrays.
+    assert config.getValue("","my_favorite_people").sequenceVal[0].stringVal == value.sequenceVal[0].stringVal
+    assert config.getValue("","my_favorite_people").sequenceVal[1].stringVal == value.sequenceVal[1].stringVal
+    assert config.getValue("","my_favorite_people").sequenceVal[2].boolVal == value.sequenceVal[2].boolVal
+  result = ConfigValue(kind: CVSequence)
   var i: seq[ConfigValue] = @[]
   for x in value:
     i.add(x)
-  result.sequence = i
+  result.sequenceVal = i
 
 proc newConfigTable*(): ConfigTable =
   ## Simply returns a new, empty, ConfigTable object.
+  runnableExamples:
+    let
+      tableA = newConfigTable()
+      tableB = ConfigTable()
+    
+    assert tableA == tableB
   return result
 
 proc setKey*(table: var ConfigTable, section, key: string, value: ConfigValue) =
@@ -140,8 +215,8 @@ proc setKeyMultiVal*(table: var ConfigTable, section, key: string, value: string
 
     table.setKeyMultiVal("multi","list","[\"Hello World!\",1000]")
 
-    assert table.getArray("multi","list")[0] == "Hello World!"
-    assert table.getArray("multi","list")[1] == 1000
+    assert table.getArray("multi","list")[0].stringVal == "Hello World!"
+    assert table.getArray("multi","list")[1].intVal == 1000
 
   table[section & '|' & key] = convertValue(value)
 
