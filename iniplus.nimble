@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.0"
+version       = "0.2.0"
 author        = "penguinite"
 description   = "An extended INI parser for Nim."
 license       = "BSD-3-Clause"
