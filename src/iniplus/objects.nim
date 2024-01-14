@@ -17,6 +17,10 @@ type
     of CVString: stringVal*: string
     of CVSequence: sequenceVal*: seq[ConfigValue]
 
+  CondensedConfigValue* = object of RootObj
+    section*, key*: string
+    value*: ConfigValue
+
   ConfigTable* = OrderedTable[string, ConfigValue]
 
 proc isBoolean(raw: string): bool =

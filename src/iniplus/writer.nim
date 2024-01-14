@@ -145,6 +145,53 @@ proc setKeyMultiVal*(table: var ConfigTable, section, key: string, value: string
 
   table[section & '|' & key] = convertValue(value)
 
+template semiCondense(section, key: string, value: untyped): untyped {.dirty.} = 
+  result.section = section
+  result.key = key
+  result.value = newValue(value)
+
+proc setBulkKeys*(table: var ConfigTable, vals: varargs[CondensedConfigValue]) =
+  ## Allows you to set multiple keys, similar to how std/json's % macro does.
+  ## But with procedures instead! Since I don't know meta-programming
+  ## the `c` proc is neccessary, I tried also using the `%` for it but it didn't work for some reason.
+  runnableExamples "--run:off":
+    var table = ConfigTable()
+    table.setBulkKeys(
+      c("hello","world","!"), # Strings
+      c("goodbye","world","!"), # Strings^2
+      c("favorite","people", %("John"), %("Katie"), %(true)), # Sequences
+      c("favorite","number", 9001), # Numbers
+      c("favorite","boolean",true), # Booleans
+    )
+
+    assert table.getString("hello","world") == "!"
+    assert table.getString("goodbye","world") == "!"
+    assert table.getArray("favorite","people")[0].stringVal == "John"
+    assert table.getArray("favorite","people")[1].stringVal == "Katie"
+    assert table.getArray("favorite","people")[2].boolVal == true
+    assert table.getInt("favorite", "number") == 9001
+    assert table.getBool("favorite", "boolean") == true
+  for val in vals:
+    table.setKey(val.section, val.key, val.value)
+
+proc c*(section,key: string, value: bool): CondensedConfigValue = semiCondense(section, key, value)
+proc c*(section,key: string, value: string): CondensedConfigValue = semiCondense(section, key, value)
+proc c*(section,key: string, value: int): CondensedConfigValue = semiCondense(section, key, value)
+proc c*(section,key: string, value: seq[ConfigValue]): CondensedConfigValue = semiCondense(section, key, value)
+proc c*(section,key: string, value: varargs[ConfigValue]): CondensedConfigValue = semiCondense(section, key, value)
+proc `%`*(value: string): ConfigValue =
+  ## Shorthand for newValue(value), useful for when you have to use setBulkKeys
+  newValue(value)
+proc `%`*(value: seq[ConfigValue]): ConfigValue =
+  ## Shorthand for newValue(value), useful for when you have to use setBulkKeys
+  newValue(value)
+proc `%`*(value: int): ConfigValue =
+  ## Shorthand for newValue(value), useful for when you have to use setBulkKeys
+  newValue(value)
+proc `%`*(value: bool): ConfigValue =
+  ## Shorthand for newValue(value), useful for when you have to use setBulkKeys
+  newValue(value)
+
 proc writeToFile*(filename: string, table: ConfigTable): bool =
   try:
     writeFile(filename,toString(table))
