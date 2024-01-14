@@ -1,4 +1,4 @@
-# Copyright (c) systemonia 2023 <systemonia@proton.me>
+# Copyright (c) penguinite 2023 <penguinite@proton.me>
 # Licensed under the BSD-3-Clause license
 ## This module contains functions for writing config files or converting config
 ## tables to string representations that are human-readable, loadable or both.

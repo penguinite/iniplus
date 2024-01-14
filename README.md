@@ -65,5 +65,5 @@ assert table.getStringOrDefault("config","thing","..") == ".."
 
 ## Copyright 
 
-Copyright (c) systemonia 2023 <systemonia@proton.me>
+Copyright (c) penguinite 2023 <penguinite@proton.me>
 Licensed under the BSD 3-Clause license.
