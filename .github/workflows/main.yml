@@ -3,9 +3,6 @@ on:
   push:
     tags:
       - '*.*.*'
-    push:
-      branches: [ "main" ]
-    pull_request:
       branches: [ "main" ]
 
 env:
