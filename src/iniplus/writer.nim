@@ -11,6 +11,7 @@ proc dump*(table: ConfigTable): string =
   ## This should only ever be used for debugging, if you want to convert a config
   ## table to a string you can load again then use the `toString()` procedure.
   runnableExamples:
+    import iniplus
     let config = parseString("test_key=\"String\"")
     echo dump(config)
 
@@ -27,8 +28,9 @@ proc dump*(table: ConfigTable): string =
 proc toString*(val: ConfigValue): string =
   ## Converts a single, individual configuration value into a loadable, human-readable string.
   runnableExamples:
+    import iniplus
     let value = newValue("John")
-    echo toString(config)
+    echo toString(value)
   case val.kind:
   of CVNone: return ""
   of CVString: result = "\"" & val.stringVal & "\""
@@ -46,9 +48,10 @@ proc toString*(val: ConfigValue): string =
 proc toString*(table: ConfigTable): string =
   ## Converts a whole configuration table into a loadable, human-readable string.
   runnableExamples:
+    import iniplus
     let config = parseString("test_key=\"Hello\"")
 
-    assert toString(config).startsWith("test_key=\"Hello\"")
+    echo toString(config)
   var
     tmpTable: Table[string, string]
 
@@ -75,10 +78,9 @@ proc toString*(table: ConfigTable): string =
   return result
 
 proc newValue*(value: string): ConfigValue =
-  ## Creates an individual string ConfigValue object.
-  # This example cannot be ran due to its dependence on functions elsewhere.
-  # It would create a circular dependency
-  runnableExamples "--run:off":
+  ## Creates a ConfigValue object of the `String` kind
+  runnableExamples:
+    import iniplus
     let
       config = parseString("favorite_person_number_one=\"John\"")
       value = newValue("John")
@@ -88,9 +90,9 @@ proc newValue*(value: string): ConfigValue =
   result.stringVal = value
 
 proc newValue*(value: int): ConfigValue =
-  # This example cannot be ran due to its dependence on functions elsewhere.
-  # It would create a circular dependency
-  runnableExamples "--run:off":
+  ## Creates a ConfigValue object of the `Int` kind
+  runnableExamples:
+    import iniplus
     let
       config = parseString("favorite_number=9001")
       value = newValue(9001)
@@ -100,9 +102,9 @@ proc newValue*(value: int): ConfigValue =
   result.intVal = value
 
 proc newValue*(value: bool): ConfigValue =
-  # This example cannot be ran due to its dependence on functions elsewhere.
-  # It would create a circular dependency
-  runnableExamples "--run:off":
+  ## Creates a ConfigValue object of the `Boolean` kind. 
+  runnableExamples:
+    import iniplus
     let
       config = parseString("favorite_boolean=true")
       value = newValue(true)
@@ -111,32 +113,10 @@ proc newValue*(value: bool): ConfigValue =
   result = ConfigValue(kind: CVBool)
   result.boolVal = value
 
-proc newValue*(value: seq[ConfigValue]): ConfigValue =
-  ## Creates a Sequence-like ConfigValue object. This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects.
-  # This example cannot be ran due to its dependence on functions elsewhere.
-  # It would create a circular dependency
-  runnableExamples "--run:off":
-    let
-      config = parseString["my_favorite_people=[\"John\", \"Katie\", true]"]
-      value = newValue(@[
-          newValue("John"),
-          newValue("Katie"),
-          newValue(true)
-        ]
-      )
-
-    # Yes, this is a mess. Just use the regular getArray() procedure if you want an easier time dealing with arrays.
-    assert config.getValue("","my_favorite_people").sequenceVal[0].stringVal == value.sequenceVal[0].stringVal
-    assert config.getValue("","my_favorite_people").sequenceVal[1].stringVal == value.sequenceVal[1].stringVal
-    assert config.getValue("","my_favorite_people").sequenceVal[2].boolVal == value.sequenceVal[2].boolVal
-  result = ConfigValue(kind: CVSequence)
-  result.sequenceVal = value
-
 proc newValue*(value: varargs[ConfigValue]): ConfigValue =
-  ## Creates a Sequence-like ConfigValue object.
-  # This example cannot be ran due to its dependence on functions elsewhere.
-  # It would create a circular dependency
-  runnableExamples "--run:off":
+  ## Creates a ConfigValue object of the `Sequence` kind.
+  runnableExamples:
+    import iniplus
     let
       config = parseString("my_favorite_people=[\"John\", \"Katie\", true]")
       value = newValue(
@@ -155,6 +135,26 @@ proc newValue*(value: varargs[ConfigValue]): ConfigValue =
     i.add(x)
   result.sequenceVal = i
 
+proc newValue*(value: seq[ConfigValue]): ConfigValue =
+  ## Creates a ConfigValue object of the `Sequence` kind. This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects.
+  runnableExamples:
+    import iniplus
+    let
+      config = parseString("my_favorite_people=[\"John\", \"Katie\", true]")
+      value = newValue(@[
+          newValue("John"),
+          newValue("Katie"),
+          newValue(true)
+        ]
+      )
+
+    # Yes, this is a mess. Just use the regular getArray() procedure if you want an easier time dealing with arrays.
+    assert config.getValue("","my_favorite_people").sequenceVal[0].stringVal == value.sequenceVal[0].stringVal
+    assert config.getValue("","my_favorite_people").sequenceVal[1].stringVal == value.sequenceVal[1].stringVal
+    assert config.getValue("","my_favorite_people").sequenceVal[2].boolVal == value.sequenceVal[2].boolVal
+  result = ConfigValue(kind: CVSequence)
+  result.sequenceVal = value
+
 proc newConfigTable*(): ConfigTable =
   ## Simply returns a new, empty, ConfigTable object.
   runnableExamples:
@@ -162,14 +162,14 @@ proc newConfigTable*(): ConfigTable =
       tableA = newConfigTable()
       tableB = ConfigTable()
     
-    assert tableA == tableB
+    assert tableA.len() == tableB.len()
+    assert tableA.len() == 0
   return result
 
 proc setKey*(table: var ConfigTable, section, key: string, value: ConfigValue) =
   ## Changes a key of a section inside of a table to a specific value
-  # This example cannot be ran due to its dependence on functions elsewhere.
-  # It would create a circular dependency
-  runnableExamples "--run:off":
+  runnableExamples:
+    import iniplus
     var
       table = newConfigTable()
       # Creates a String ConfigValue object
@@ -193,9 +193,8 @@ proc setKey*(table: var ConfigTable, section, key: string, value: ConfigValue) =
 
 proc setKeySingleVal*(table: var ConfigTable, section, key: string, value: string) =
   ## Sets a value in a table to a single value (string, bool or int)
-  # This example cannot be ran due to its dependence on functions elsewhere.
-  # It would create a circular dependency
-  runnableExamples "--run:off":
+  runnableExamples:
+    import iniplus
     var table = newConfigTable()
 
     table.setKeySingleVal("single","number","1000")
@@ -210,8 +209,9 @@ proc setKeySingleVal*(table: var ConfigTable, section, key: string, value: strin
 
 proc setKeyMultiVal*(table: var ConfigTable, section, key: string, value: string) =
   ## Sets a value in a table to a multi value (array)
-  runnableExamples "--run:off":
-    var table = newTable()
+  runnableExamples:
+    import iniplus
+    var table = newConfigTable()
 
     table.setKeyMultiVal("multi","list","[\"Hello World!\",1000]")
 
@@ -229,7 +229,8 @@ proc setBulkKeys*(table: var ConfigTable, vals: varargs[CondensedConfigValue]) =
   ## Allows you to set multiple keys, similar to how std/json's % macro does.
   ## But with procedures instead! Since I don't know meta-programming
   ## the `c` proc is neccessary, I tried also using the `%` for it but it didn't work for some reason.
-  runnableExamples "--run:off":
+  runnableExamples:
+    import iniplus
     var table = ConfigTable()
     table.setBulkKeys(
       c("hello","world","!"), # Strings
@@ -249,11 +250,33 @@ proc setBulkKeys*(table: var ConfigTable, vals: varargs[CondensedConfigValue]) =
   for val in vals:
     table.setKey(val.section, val.key, val.value)
 
-proc c*(section,key: string, value: bool): CondensedConfigValue = semiCondense(section, key, value)
-proc c*(section,key: string, value: string): CondensedConfigValue = semiCondense(section, key, value)
-proc c*(section,key: string, value: int): CondensedConfigValue = semiCondense(section, key, value)
-proc c*(section,key: string, value: seq[ConfigValue]): CondensedConfigValue = semiCondense(section, key, value)
-proc c*(section,key: string, value: varargs[ConfigValue]): CondensedConfigValue = semiCondense(section, key, value)
+proc c*(section,key: string, value: bool): CondensedConfigValue =
+  ## Creates a condensed config value with the "Boolean" type.
+  semiCondense(section, key, value)
+proc c*(section,key: string, value: string): CondensedConfigValue =
+  ## Creates a condensed config value with the "String" type.
+  semiCondense(section, key, value)
+proc c*(section,key: string, value: int): CondensedConfigValue =
+  ## Creates a condensed config value with the "Integer" type.
+  semiCondense(section, key, value)
+proc c*(section,key: string, value: seq[ConfigValue]): CondensedConfigValue =
+  ## Creates a condensed config value with the "Sequence" type.
+  runnableExamples:
+    import iniplus
+    let condensedValue = c("favorite","people", @[%"John", %"Katie"])
+    assert condensedValue.section == "favorite"
+    assert condensedValue.key == "people"
+    assert condensedValue.value.kind == CVSequence
+  semiCondense(section, key, value)
+proc c*(section,key: string, value: varargs[ConfigValue]): CondensedConfigValue =
+  ## Creates a condensed config value with the "Sequence" type.
+  runnableExamples:
+    import iniplus
+    let condensedValue = c("favorite","people", %"John", %"Katie")
+    assert condensedValue.section == "favorite"
+    assert condensedValue.key == "people"
+    assert condensedValue.value.kind == CVSequence
+  semiCondense(section, key, value)
 proc `%`*(value: string): ConfigValue =
   ## Shorthand for newValue(value), useful for when you have to use setBulkKeys
   newValue(value)

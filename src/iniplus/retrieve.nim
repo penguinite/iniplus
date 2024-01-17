@@ -11,6 +11,7 @@ proc exists*(table: ConfigTable, section, key: string): bool =
   ## Simply detects if a given key inside of a given section exists.
   ## Returns true if it does, false if it doesn't.
   runnableExamples:
+    import iniplus
     let config = parseString("name = \"John Doe\"")
     assert config.exists("","name") == true
     
@@ -24,6 +25,7 @@ proc getValue*(table: ConfigTable, section, key: string): ConfigValue =
   ## Returns a pure ConfigValue object, typically this is only used for custom
   ## data types or for some other reason.
   runnableExamples:
+    import iniplus
     let config = parseString("name = \"John Doe\"")
     assert config.getValue("","name").kind == CVString
     assert config.getValue("","name").stringVal == "John Doe"
@@ -36,6 +38,7 @@ proc getValue*(table: ConfigTable, section, key: string): ConfigValue =
 proc getString*(table: ConfigTable, section, key: string): string =
   ## Returns a string from a table with the specified section and key.
   runnableExamples:
+    import iniplus
     let config = parseString("""
     [dialog]
     info_text = "Insert some informational text here."
@@ -50,6 +53,7 @@ proc getStringOrDefault*(table: ConfigTable, section, key, default: string): str
   ## Returns a string from a table with the specified section and key, *or* if the key does
   ## not exist, it returns whatever the third parameter `default` has been set to.
   runnableExamples:
+    import iniplus
     let config = parseString("""
     [dialog]
     info_text = "Insert some informational text here."
@@ -66,6 +70,7 @@ proc getStringOrDefault*(table: ConfigTable, section, key, default: string): str
 proc getBool*(table: ConfigTable, section, key: string): bool =
   ## Returns a boolean from a table with the specified section and key.
   runnableExamples:
+    import iniplus
     let config = parseString("enable_feature = true")
     assert config.getBool("","enable_feature") == true
   let val = table.getValue(section, key)
@@ -77,6 +82,7 @@ proc getBool*(table: ConfigTable, section, key: string): bool =
 proc getInt*(table: ConfigTable, section, key: string): int =
   ## Returns an integer from a table with the specified section and key.
   runnableExamples:
+    import iniplus
     let config = parseString("port = 8080")
     assert config.getInt("","port") == 8080
 
@@ -89,6 +95,7 @@ proc getInt*(table: ConfigTable, section, key: string): int =
 proc getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] =
   ## Returns an array containing a set of ConfigValue objects from a table with the specified section and key.
   runnableExamples:
+    import iniplus
     let
       config = parseString("employees = [\"John\",\"Katie\",1000]")
       employees = config.getArray("","employees")
@@ -108,6 +115,7 @@ proc getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] =
 proc getStringArray*(table: ConfigTable, section, key: string): seq[string] =
   ## This procedure retrieves a string-only array from a table. It also throws out any non-string items
   runnableExamples:
+    import iniplus
     let
       config = parseString("employees = [\"John\",\"Katie\",1000]")
       employees = config.getStringArray("","employees")
@@ -126,6 +134,7 @@ proc getStringArray*(table: ConfigTable, section, key: string): seq[string] =
 proc getIntArray*(table: ConfigTable, section, key: string): seq[int] =
   ## This procedure retrieves a integer-only array from a table. It also throws out any non-integer items
   runnableExamples:
+    import iniplus
     let
       config = parseString("numbers = [1000, 2000, \"Michael\"]")
       number = config.getIntArray("","numbers")
@@ -144,6 +153,7 @@ proc getIntArray*(table: ConfigTable, section, key: string): seq[int] =
 proc getBoolArray*(table: ConfigTable, section, key: string): seq[bool] =
   ## This procedure retrieves a boolean-only array from a table. It also throws out any non-boolean items
   runnableExamples:
+    import iniplus 
     let
       config = parseString("[my_favorite]\nbooleans=[true, \"Jimmy\", false]")
       myFavoriteBooleans = config.getBoolArray("my_favorite","booleans")

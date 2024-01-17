@@ -13,6 +13,11 @@ template log(str: varargs[string,`$`]) =
   echo("[iniplus:" & instantiationInfo().filename & ":" & $(instantiationInfo().line) & "]: " & str.join())
 
 proc parseString*(input: string): ConfigTable =
+  ## This procedure takes a string of some kind as its input and returns a parsed ConfigTable object.
+  runnableExamples:
+    import iniplus
+    let config = parseString("my_favorite_key=\"My Favorite Value\"\n")
+    assert config.getString("","my_favorite_key") == "My Favorite Value"
   var
     section, key, value = ""
     mode: ConfigParserMode = None
@@ -93,4 +98,6 @@ proc parseString*(input: string): ConfigTable =
   
 proc parseFile*(filename: string): ConfigTable =
   ## Opens a file, reads the entirety of it and returns a configuration table.
+  runnableExamples "--run:off":
+    let config = parseFile("app.ini")
   return parseString(filename.readFile())

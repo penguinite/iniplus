@@ -188,3 +188,13 @@ echo toString(config)
 
 value = newValue("John")
 assert toString(value) == "\"John\""
+
+var condensedValue = c("favorite","people", @[%"John", %"Katie"])
+assert condensedValue.section == "favorite"
+assert condensedValue.key == "people"
+assert condensedValue.value.kind == CVSequence
+
+condensedValue = c("favorite","people", %"John", %"Katie")
+assert condensedValue.section == "favorite"
+assert condensedValue.key == "people"
+assert condensedValue.value.kind == CVSequence
