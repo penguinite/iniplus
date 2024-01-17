@@ -8,6 +8,10 @@ type
   ConfigParserMode = enum
     None, Section, PreValue, Single, Multi
 
+
+template log(str: varargs[string,`$`]) =
+  echo("[iniplus:" & instantiationInfo().filename & ":" & $(instantiationInfo().line) & "]: " & str.join())
+
 proc parseString*(input: string): ConfigTable =
   var
     section, key, value = ""
