@@ -166,15 +166,3 @@ proc unroll*(table: Table[string, ConfigValue]): Table[string, string] =
     if val.kind == CVString:
       result[key] = val.stringVal
     continue
-
-proc getDate*(table: ConfigTable, section, key: string): DateTime =
-  ## Returns a date from a table with the specified section and key.
-  runnableExamples:
-    let config = parseString("""
-    [maintenance]
-    64bit_system_upgrade_time = "2023-01-19'T'03:14:07000"
-    """)
-
-    assert config.getDate("maintenance","64bit_system_upgrade_time").year == 2038
-
-  return table.getString(section,key).parse("yyyy-MM-dd'T'HH:mm:sszzz", utc())

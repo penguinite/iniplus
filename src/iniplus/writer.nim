@@ -266,10 +266,3 @@ proc `%`*(value: int): ConfigValue =
 proc `%`*(value: bool): ConfigValue =
   ## Shorthand for newValue(value), useful for when you have to use setBulkKeys
   newValue(value)
-
-proc writeToFile*(filename: string, table: ConfigTable): bool =
-  try:
-    writeFile(filename,toString(table))
-    return true
-  except:
-    return false

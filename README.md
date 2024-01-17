@@ -6,8 +6,7 @@ An INI parser written in Nim with support for arrays. It's intended to be as per
 
 1. iniplus does not support triple quoted string literals or raw string literals like `std/parsecfg` does.
 2. iniplus does not support nesting of sections.
-4. iniplus supports arrays/sequences consisting of all supported data types.
-5. iniplus supports timestamps when they are enclosed in a string (Format: `yyyy-MM-dd'T'HH:mm:sszzz`)
+3. iniplus supports arrays/sequences consisting of all supported data types.
 
 ## Status
 
