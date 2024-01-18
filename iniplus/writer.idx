@@ -1,0 +1,27 @@
+nimTitle	writer	iniplus/writer.html	module src/iniplus/writer		0
+nim	dump	iniplus/writer.html#dump,ConfigTable	proc dump(table: ConfigTable): string		9
+nim	toString	iniplus/writer.html#toString,ConfigValue	proc toString(val: ConfigValue): string		28
+nim	toString	iniplus/writer.html#toString,ConfigTable	proc toString(table: ConfigTable): string		48
+nim	newValue	iniplus/writer.html#newValue,string	proc newValue(value: string): ConfigValue		80
+nim	newValue	iniplus/writer.html#newValue,int	proc newValue(value: int): ConfigValue		92
+nim	newValue	iniplus/writer.html#newValue,bool	proc newValue(value: bool): ConfigValue		104
+nim	newValue	iniplus/writer.html#newValue,varargs[ConfigValue]	proc newValue(value: varargs[ConfigValue]): ConfigValue		116
+nim	newValue	iniplus/writer.html#newValue,seq[ConfigValue]	proc newValue(value: seq[ConfigValue]): ConfigValue		138
+nim	newConfigTable	iniplus/writer.html#newConfigTable	proc newConfigTable(): ConfigTable		158
+nim	setKey	iniplus/writer.html#setKey,ConfigTable,string,string,ConfigValue	proc setKey(table: var ConfigTable; section, key: string; value: ConfigValue)		169
+nim	setKeySingleVal	iniplus/writer.html#setKeySingleVal,ConfigTable,string,string,string	proc setKeySingleVal(table: var ConfigTable; section, key: string; value: string)		194
+nim	setKeyMultiVal	iniplus/writer.html#setKeyMultiVal,ConfigTable,string,string,string	proc setKeyMultiVal(table: var ConfigTable; section, key: string; value: string)		210
+nim	setBulkKeys	iniplus/writer.html#setBulkKeys,ConfigTable,varargs[CondensedConfigValue]	proc setBulkKeys(table: var ConfigTable; vals: varargs[CondensedConfigValue])		228
+nim	c	iniplus/writer.html#c,string,string,bool	proc c(section, key: string; value: bool): CondensedConfigValue		253
+nim	c	iniplus/writer.html#c,string,string,string	proc c(section, key: string; value: string): CondensedConfigValue		256
+nim	c	iniplus/writer.html#c,string,string,int	proc c(section, key: string; value: int): CondensedConfigValue		259
+nim	c	iniplus/writer.html#c,string,string,seq[ConfigValue]	proc c(section, key: string; value: seq[ConfigValue]): CondensedConfigValue		262
+nim	c	iniplus/writer.html#c,string,string,varargs[ConfigValue]	proc c(section, key: string; value: varargs[ConfigValue]): CondensedConfigValue		271
+nim	`%`	iniplus/writer.html#%,string	proc `%`(value: string): ConfigValue		280
+nim	`%`	iniplus/writer.html#%,seq[ConfigValue]	proc `%`(value: seq[ConfigValue]): ConfigValue		283
+nim	`%`	iniplus/writer.html#%,int	proc `%`(value: int): ConfigValue		286
+nim	`%`	iniplus/writer.html#%,bool	proc `%`(value: bool): ConfigValue		289
+nimgrp	newvalue	iniplus/writer.html#newValue-procs-all	proc		80
+nimgrp	c	iniplus/writer.html#c-procs-all	proc		253
+nimgrp	tostring	iniplus/writer.html#toString-procs-all	proc		28
+nimgrp	%	iniplus/writer.html#%-procs-all	proc		280

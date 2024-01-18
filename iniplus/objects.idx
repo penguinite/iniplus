@@ -1,0 +1,12 @@
+nimTitle	objects	iniplus/objects.html	module src/iniplus/objects		0
+nim	CVNone	iniplus/objects.html#CVNone	ConfigValueKind.CVNone		9
+nim	CVInt	iniplus/objects.html#CVInt	ConfigValueKind.CVInt		9
+nim	CVBool	iniplus/objects.html#CVBool	ConfigValueKind.CVBool		9
+nim	CVString	iniplus/objects.html#CVString	ConfigValueKind.CVString		9
+nim	CVSequence	iniplus/objects.html#CVSequence	ConfigValueKind.CVSequence		9
+nim	ConfigValueKind	iniplus/objects.html#ConfigValueKind	enum ConfigValueKind		9
+nim	ConfigValue	iniplus/objects.html#ConfigValue	object ConfigValue		13
+nim	CondensedConfigValue	iniplus/objects.html#CondensedConfigValue	object CondensedConfigValue		22
+nim	ConfigTable	iniplus/objects.html#ConfigTable	type ConfigTable		27
+nim	trimString	iniplus/objects.html#trimString,string	proc trimString(raw: string): string		38
+nim	convertValue	iniplus/objects.html#convertValue,string	proc convertValue(raw: string): ConfigValue		84

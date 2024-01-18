@@ -1,0 +1,3 @@
+nimTitle	reader	iniplus/reader.html	module src/iniplus/reader		0
+nim	parseString	iniplus/reader.html#parseString,string	proc parseString(input: string): ConfigTable		15
+nim	parseFile	iniplus/reader.html#parseFile,string	proc parseFile(filename: string): ConfigTable		99
