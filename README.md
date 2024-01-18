@@ -64,5 +64,5 @@ assert table.getStringOrDefault("config","thing","..") == ".."
 
 ## Copyright 
 
-Copyright (c) penguinite 2023 <penguinite@proton.me>
+Copyright (c) penguinite 2023 <penguinite@tuta.io>
 Licensed under the BSD 3-Clause license.
