@@ -1,5 +1,12 @@
 # Copyright (c) penguinite 2023 <penguinite@proton.me>
 # Licensed under the BSD-3-Clause license
+## This module contains the parser for the extended INI configuration format.
+## It provides only two procedures, `parseFile` which takes a string as a filename.
+runnableExamples "--run:off":
+  discard parseFile("app.ini")
+## and `parseString` which expects configuration data in its string input.
+runnableExamples:
+  discard parseString("key=\"value\"")
 
 import objects, strutils, tables
 export objects

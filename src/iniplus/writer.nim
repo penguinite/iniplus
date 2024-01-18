@@ -2,6 +2,7 @@
 # Licensed under the BSD-3-Clause license
 ## This module contains functions for writing config files or converting config
 ## tables to string representations that are human-readable, loadable or both.
+## It also provides the ability to set multiple keys with one procedure.
 import objects
 import std/strutils
 export objects

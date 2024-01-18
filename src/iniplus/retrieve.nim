@@ -1,5 +1,16 @@
 # Copyright (c) penguinite 2023 <penguinite@proton.me>
 # Licensed under the BSD-3-Clause license
+## This module provides the most commonly-used features and procedures.
+## Namely the ability to retrieve data from already-parsed config tables.
+## Iniplus only supports 4 types:
+## 1. Strings contain simple single-line strings.
+## 2. Integers contain simple single-line integers.
+## 3. Booleans contain simple single-line boolean.
+## 4. Arrays contain a multi-line or single-line array that can consist of any combination of the above three types.
+##
+## Arrays, due to their flexibility, get retrieved as `seq[ConfigValue]`, which may be difficult to process.
+## Thankfully, iniplus also provides a couple of procedures to get arrays that consist of only one value type. (`getStringArray`, `getIntArray`, `getBoolArray`)
+## These procedures will throw out anything that doesn't fit the type.
 import objects
 import std/[tables, times, strutils]
 export tables, times
@@ -22,8 +33,7 @@ proc exists*(table: ConfigTable, section, key: string): bool =
   return false
 
 proc getValue*(table: ConfigTable, section, key: string): ConfigValue =
-  ## Returns a pure ConfigValue object, typically this is only used for custom
-  ## data types or for some other reason.
+  ## Returns a pure ConfigValue object, typically this is only used for low-level retrieval.
   runnableExamples:
     import iniplus
     let config = parseString("name = \"John Doe\"")
@@ -56,12 +66,12 @@ proc getStringOrDefault*(table: ConfigTable, section, key, default: string): str
     import iniplus
     let config = parseString("""
     [dialog]
-    info_text = "Insert some informational text here."
+    info = "Informational text"
     """)
     # Since the first example is in the config file, it gets returned.
-    assert config.getStringOrDefault("dialog","info_text","") == "Insert some informational text here."
+    assert config.getStringOrDefault("dialog","info","") == "Informational text"
     # This is not in the config file, so the procedure returns the `default` parameter.
-    assert config.getStringOrDefault("dialog","help_text","Insert some helpful text here.") == "Insert some helpful text here."
+    assert config.getStringOrDefault("dialog","help","Helpful text") == "Helpful text"
 
   if not table.exists(section, key):
     return default
