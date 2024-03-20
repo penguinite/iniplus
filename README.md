@@ -2,7 +2,7 @@
 
 An INI parser written in Nim with support for arrays. It's intended to be as performant as std/parsecfg but with a couple of nice-to-have features.
 
-Documentation can be found [here](https://penguinite.github.io/iniplus/), yo ucan also build it locally by running `nim doc --project src/iniplus.nim`
+Documentation can be found [here](https://penguinite.github.io/iniplus/), you can also build it locally by running `nim doc --project src/iniplus.nim`
 
 ## Features
 
