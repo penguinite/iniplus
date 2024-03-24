@@ -270,6 +270,8 @@ proc setBulkKeys*(table: var ConfigTable, vals: varargs[CondensedConfigValue]) =
     table.setKey(val.section, val.key, val.value)
 
 proc c*[T](section, key: string, value: T): CondensedConfigValue =
+  ## Creates a condensed config value, a condensed config value is a configuration value with both the section and key present in it.
+  ## It's used in setBulkKeys (among other places) to set multiple keys in a nice fashion.
   result.section = section
   result.key = key
   result.value = newValue(value)
