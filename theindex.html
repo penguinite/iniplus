@@ -22,27 +22,11 @@
     <div class="container">
       <h1 class="title">Index</h1>
       Modules: <a href="iniplus.html">iniplus</a>, <a href="iniplus/objects.html">iniplus/objects</a>, <a href="iniplus/reader.html">iniplus/reader</a>, <a href="iniplus/retrieve.html">iniplus/retrieve</a>, <a href="iniplus/writer.html">iniplus/writer</a>.<br/><p /><h2>API symbols</h2>
-<dl><dt><a name="%60%25%60" href="#%60%25%60"><span>`%`:</span></a></dt><dd><ul class="simple">
+<dl><dt><a name="c" href="#c"><span>c:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="writer: proc `%`(value: bool): ConfigValue" href="iniplus/writer.html#%25%2Cbool">writer: proc `%`(value: bool): ConfigValue</a></li>
+          data-doc-search-tag="writer: proc c[T](section, key: string; value: T): CondensedConfigValue" href="iniplus/writer.html#c%2Cstring%2Cstring%2CT">writer: proc c[T](section, key: string; value: T): CondensedConfigValue</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="writer: proc `%`(value: int): ConfigValue" href="iniplus/writer.html#%25%2Cint">writer: proc `%`(value: int): ConfigValue</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="writer: proc `%`(value: seq[ConfigValue]): ConfigValue" href="iniplus/writer.html#%25%2Cseq%5BConfigValue%5D">writer: proc `%`(value: seq[ConfigValue]): ConfigValue</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="writer: proc `%`(value: string): ConfigValue" href="iniplus/writer.html#%25%2Cstring">writer: proc `%`(value: string): ConfigValue</a></li>
-          </ul></dd>
-<dt><a name="c" href="#c"><span>c:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="writer: proc c(section, key: string; value: bool): CondensedConfigValue" href="iniplus/writer.html#c%2Cstring%2Cstring%2Cbool">writer: proc c(section, key: string; value: bool): CondensedConfigValue</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="writer: proc c(section, key: string; value: int): CondensedConfigValue" href="iniplus/writer.html#c%2Cstring%2Cstring%2Cint">writer: proc c(section, key: string; value: int): CondensedConfigValue</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="writer: proc c(section, key: string; value: seq[ConfigValue]): CondensedConfigValue" href="iniplus/writer.html#c%2Cstring%2Cstring%2Cseq%5BConfigValue%5D">writer: proc c(section, key: string; value: seq[ConfigValue]): CondensedConfigValue</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="writer: proc c(section, key: string; value: string): CondensedConfigValue" href="iniplus/writer.html#c%2Cstring%2Cstring%2Cstring">writer: proc c(section, key: string; value: string): CondensedConfigValue</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="writer: proc c(section, key: string; value: varargs[ConfigValue]): CondensedConfigValue" href="iniplus/writer.html#c%2Cstring%2Cstring%2Cvarargs%5BConfigValue%5D">writer: proc c(section, key: string; value: varargs[ConfigValue]): CondensedConfigValue</a></li>
+          data-doc-search-tag="writer: proc c(section, key: string; value: varargs[ConfigValue, newValue]): CondensedConfigValue" href="iniplus/writer.html#c%2Cstring%2Cstring%2Cvarargs%5BConfigValue%2CnewValue%5D">writer: proc c(section, key: string; value: varargs[ConfigValue, newValue]): CondensedConfigValue</a></li>
           </ul></dd>
 <dt><a name="CondensedConfigValue" href="#CondensedConfigValue"><span>CondensedConfigValue:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -140,6 +124,8 @@
           <li><a class="reference external"
           data-doc-search-tag="writer: proc newValue(value: seq[ConfigValue]): ConfigValue" href="iniplus/writer.html#newValue%2Cseq%5BConfigValue%5D">writer: proc newValue(value: seq[ConfigValue]): ConfigValue</a></li>
           <li><a class="reference external"
+          data-doc-search-tag="writer: proc newValue[T](val: seq[T]): ConfigValue" href="iniplus/writer.html#newValue%2Cseq%5BT%5D">writer: proc newValue[T](val: seq[T]): ConfigValue</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="writer: proc newValue(value: string): ConfigValue" href="iniplus/writer.html#newValue%2Cstring">writer: proc newValue(value: string): ConfigValue</a></li>
           <li><a class="reference external"
           data-doc-search-tag="writer: proc newValue(value: varargs[ConfigValue]): ConfigValue" href="iniplus/writer.html#newValue%2Cvarargs%5BConfigValue%5D">writer: proc newValue(value: varargs[ConfigValue]): ConfigValue</a></li>
@@ -186,7 +172,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-03-20 08:17:56 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-03-24 13:59:13 UTC</small>
       </div>
     </div>
   </div>
