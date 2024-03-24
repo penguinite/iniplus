@@ -135,7 +135,7 @@ table = ConfigTable()
 table.setBulkKeys(
   c("hello","world","!"), # Strings
   c("goodbye","world","!"), # Strings^2
-  c("favorite","people", %("John"), %("Katie"), %(true)), # Sequences
+  c("favorite","people", "John", "Katie", true), # Sequences
   c("favorite","number", 9001), # Numbers
   c("favorite","boolean",true) # Booleans
 )
@@ -189,12 +189,30 @@ echo toString(config)
 value = newValue("John")
 assert toString(value) == "\"John\""
 
-var condensedValue = c("favorite","people", @[%"John", %"Katie"])
+var condensedValue = c("favorite","people", @["John", "Katie"])
 assert condensedValue.section == "favorite"
 assert condensedValue.key == "people"
 assert condensedValue.value.kind == CVSequence
 
-condensedValue = c("favorite","people", %"John", %"Katie")
+condensedValue = c("favorite","people", "John", "Katie")
 assert condensedValue.section == "favorite"
 assert condensedValue.key == "people"
 assert condensedValue.value.kind == CVSequence
+
+table = ConfigTable()
+
+table.setBulkKeys(
+  c("hello","world","!"), # Strings
+  c("goodbye","world","!"), # Strings^2
+  c("favorite","people", "John", "Katie", true), # Sequences
+  c("favorite","number", 9001), # Numbers
+  c("favorite","boolean",true) # Booleans
+)
+
+assert table.getString("hello","world") == "!"
+assert table.getString("goodbye","world") == "!"
+assert table.getArray("favorite","people")[0].stringVal == "John"
+assert table.getArray("favorite","people")[1].stringVal == "Katie"
+assert table.getArray("favorite","people")[2].boolVal == true
+assert table.getInt("favorite", "number") == 9001
+assert table.getBool("favorite", "boolean") == true

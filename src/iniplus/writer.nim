@@ -131,17 +131,16 @@ proc newValue*(value: varargs[ConfigValue]): ConfigValue =
     assert config.getValue("","my_favorite_people").sequenceVal[1].stringVal == value.sequenceVal[1].stringVal
     assert config.getValue("","my_favorite_people").sequenceVal[2].boolVal == value.sequenceVal[2].boolVal
   result = ConfigValue(kind: CVSequence)
-  var i: seq[ConfigValue] = @[]
   for x in value:
-    i.add(x)
-  result.sequenceVal = i
+    result.sequenceVal.add(x)
+  return result
 
 proc newValue*(value: seq[ConfigValue]): ConfigValue =
   ## Creates a ConfigValue object of the `Sequence` kind. This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects.
   runnableExamples:
     import iniplus
     let
-      config = parseString("my_favorite_people=[\"John\", \"Katie\", true]")
+      config = parseString("my_favorite_people=[\"John\", \"Katie\",true]")
       value = newValue(@[
           newValue("John"),
           newValue("Katie"),
@@ -155,6 +154,30 @@ proc newValue*(value: seq[ConfigValue]): ConfigValue =
     assert config.getValue("","my_favorite_people").sequenceVal[2].boolVal == value.sequenceVal[2].boolVal
   result = ConfigValue(kind: CVSequence)
   result.sequenceVal = value
+  return result
+
+proc newValue*[T](val: seq[T]): ConfigValue =
+  ## Creates a ConfigValue object of the `Sequence` kind. This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects.
+  ## It's not possible to mix and match different data types with this procedure. Please use the one where you explicitly convert every value instead.
+  runnableExamples:
+    import iniplus
+    let
+      config = parseString("my_favorite_people=[\"John\", \"Katie\", \"Mark\"]")
+      value = newValue(@[
+          "John",
+          "Katie",
+          "Mark"
+        ]
+      )
+
+    # Yes, this is a mess. Just use the regular getArray() procedure if you want an easier time dealing with arrays.
+    assert config.getValue("","my_favorite_people").sequenceVal[0].stringVal == value.sequenceVal[0].stringVal
+    assert config.getValue("","my_favorite_people").sequenceVal[1].stringVal == value.sequenceVal[1].stringVal
+    assert config.getValue("","my_favorite_people").sequenceVal[2].stringVal == value.sequenceVal[2].stringVal
+  result = ConfigValue(kind: CVSequence)
+  for i in val:
+    result.sequenceVal.add(newValue(i))
+  return result
 
 proc newConfigTable*(): ConfigTable =
   ## Simply returns a new, empty, ConfigTable object.
@@ -221,11 +244,6 @@ proc setKeyMultiVal*(table: var ConfigTable, section, key: string, value: string
 
   table[section & '|' & key] = convertValue(value)
 
-template semiCondense(section, key: string, value: untyped): untyped {.dirty.} = 
-  result.section = section
-  result.key = key
-  result.value = newValue(value)
-
 proc setBulkKeys*(table: var ConfigTable, vals: varargs[CondensedConfigValue]) =
   ## Allows you to set multiple keys, similar to how std/json's % macro does.
   ## But with procedures instead! Since I don't know meta-programming
@@ -236,7 +254,7 @@ proc setBulkKeys*(table: var ConfigTable, vals: varargs[CondensedConfigValue]) =
     table.setBulkKeys(
       c("hello","world","!"), # Strings
       c("goodbye","world","!"), # Strings^2
-      c("favorite","people", %("John"), %("Katie"), %(true)), # Sequences
+      c("favorite","people", "John", "Katie", true), # Sequences
       c("favorite","number", 9001), # Numbers
       c("favorite","boolean",true), # Booleans
     )
@@ -251,42 +269,24 @@ proc setBulkKeys*(table: var ConfigTable, vals: varargs[CondensedConfigValue]) =
   for val in vals:
     table.setKey(val.section, val.key, val.value)
 
-proc c*(section,key: string, value: bool): CondensedConfigValue =
-  ## Creates a condensed config value with the "Boolean" type.
-  semiCondense(section, key, value)
-proc c*(section,key: string, value: string): CondensedConfigValue =
-  ## Creates a condensed config value with the "String" type.
-  semiCondense(section, key, value)
-proc c*(section,key: string, value: int): CondensedConfigValue =
-  ## Creates a condensed config value with the "Integer" type.
-  semiCondense(section, key, value)
-proc c*(section,key: string, value: seq[ConfigValue]): CondensedConfigValue =
-  ## Creates a condensed config value with the "Sequence" type.
+proc c*[T](section, key: string, value: T): CondensedConfigValue =
+  result.section = section
+  result.key = key
+  result.value = newValue(value)
+  return result
+
+proc c*(section,key: string, value: varargs[ConfigValue,newValue]): CondensedConfigValue =
+  ## Creates a condensed config value, a condensed config value is a configuration value with both the section and key present in it.
+  ## It's used in setBulkKeys (among other places) to set multiple keys in a nice fashion.
   runnableExamples:
     import iniplus
-    let condensedValue = c("favorite","people", @[%"John", %"Katie"])
+    let condensedValue = c("favorite","people", "John", "Katie")
     assert condensedValue.section == "favorite"
     assert condensedValue.key == "people"
     assert condensedValue.value.kind == CVSequence
-  semiCondense(section, key, value)
-proc c*(section,key: string, value: varargs[ConfigValue]): CondensedConfigValue =
-  ## Creates a condensed config value with the "Sequence" type.
-  runnableExamples:
-    import iniplus
-    let condensedValue = c("favorite","people", %"John", %"Katie")
-    assert condensedValue.section == "favorite"
-    assert condensedValue.key == "people"
-    assert condensedValue.value.kind == CVSequence
-  semiCondense(section, key, value)
-proc `%`*(value: string): ConfigValue =
-  ## Shorthand for newValue(value), useful for when you have to use setBulkKeys
-  newValue(value)
-proc `%`*(value: seq[ConfigValue]): ConfigValue =
-  ## Shorthand for newValue(value), useful for when you have to use setBulkKeys
-  newValue(value)
-proc `%`*(value: int): ConfigValue =
-  ## Shorthand for newValue(value), useful for when you have to use setBulkKeys
-  newValue(value)
-proc `%`*(value: bool): ConfigValue =
-  ## Shorthand for newValue(value), useful for when you have to use setBulkKeys
-  newValue(value)
+  result.section = section
+  result.key = key
+  result.value = ConfigValue(kind: CVSequence)
+  for i in value:
+    result.value.sequenceVal.add(i)
+  return result
