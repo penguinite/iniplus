@@ -14,7 +14,7 @@ nim	setKeySingleVal	iniplus/writer.html#setKeySingleVal,ConfigTable,string,strin
 nim	setKeyMultiVal	iniplus/writer.html#setKeyMultiVal,ConfigTable,string,string,string	proc setKeyMultiVal(table: var ConfigTable; section, key: string; value: string)		234
 nim	setBulkKeys	iniplus/writer.html#setBulkKeys,ConfigTable,varargs[CondensedConfigValue]	proc setBulkKeys(table: var ConfigTable; vals: varargs[CondensedConfigValue])		247
 nim	c	iniplus/writer.html#c,string,string,T	proc c[T](section, key: string; value: T): CondensedConfigValue		272
-nim	c	iniplus/writer.html#c,string,string,varargs[ConfigValue,newValue]	proc c(section, key: string; value: varargs[ConfigValue, newValue]): CondensedConfigValue		278
+nim	c	iniplus/writer.html#c,string,string,varargs[ConfigValue,newValue]	proc c(section, key: string; value: varargs[ConfigValue, newValue]): CondensedConfigValue		280
 nimgrp	newvalue	iniplus/writer.html#newValue-procs-all	proc		81
 nimgrp	c	iniplus/writer.html#c-procs-all	proc		272
 nimgrp	tostring	iniplus/writer.html#toString-procs-all	proc		29
