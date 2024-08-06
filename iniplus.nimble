@@ -1,8 +1,8 @@
 # Package
 
-version       = "0.2.2"
+version       = "0.3.0"
 author        = "penguinite"
-description   = "An INI parser written in Nim with support for arrays. It's intended to be as performant as std/parsecfg but with a couple of nice-to-have features."
+description   = "An INI parser written in Nim. It's main goal is to support more datatypes than std/parsecfg whilst still being just as performant as it."
 license       = "BSD-3-Clause"
 srcDir        = "src"
 
