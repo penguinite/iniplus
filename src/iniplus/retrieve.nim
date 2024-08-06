@@ -28,7 +28,7 @@ proc exists*(table: ConfigTable, section, key: string): bool =
     
     # This isn't in the config file, so it's false.
     assert config.exists("","age") == false
-  if table.hasKey(section & '|' & key):
+  if table.hasKey((section, key)):
     return true
   return false
 
@@ -43,7 +43,7 @@ proc getValue*(table: ConfigTable, section, key: string): ConfigValue =
   if not table.exists(section, key):
     raiseIndexDefect(section, key)
 
-  return table[section & '|' & key]
+  return table[(section, key)]
 
 proc getString*(table: ConfigTable, section, key: string): string =
   ## Returns a string from a table with the specified section and key.
@@ -118,9 +118,9 @@ proc getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] =
     assert employees[1].stringVal == "Katie"
     assert employees[2].intVal == 1000
   let val = table.getValue(section, key)
-  if val.kind != CVSequence:
+  if val.kind != CVArray:
     raiseValueError(val.kind, section, key)
-  return val.sequenceVal
+  return val.arrayVal
 
 proc getStringArray*(table: ConfigTable, section, key: string): seq[string] =
   ## This procedure retrieves a string-only array from a table. It also throws out any non-string items
@@ -135,9 +135,9 @@ proc getStringArray*(table: ConfigTable, section, key: string): seq[string] =
     assert len(employees) == 2
     
   let val = table.getValue(section, key)
-  if val.kind != CVSequence:
+  if val.kind != CVArray:
     raiseValueError(val.kind, section, key)
-  for item in val.sequenceVal:
+  for item in val.arrayVal:
     if item.kind == CVString: result.add(item.stringVal)
   return result
 
@@ -154,9 +154,9 @@ proc getIntArray*(table: ConfigTable, section, key: string): seq[int] =
     assert len(number) == 2
 
   let val = table.getValue(section, key)
-  if val.kind != CVSequence:
+  if val.kind != CVArray:
     raiseValueError(val.kind, section, key)
-  for item in val.sequenceVal:
+  for item in val.arrayVal:
     if item.kind == CVInt: result.add(item.intVal)
   return result
 
@@ -172,13 +172,69 @@ proc getBoolArray*(table: ConfigTable, section, key: string): seq[bool] =
     assert myFavoriteBooleans[1] == false
     assert len(myFavoriteBooleans) == 2
   let val = table.getValue(section, key)
-  if val.kind != CVSequence:
+  if val.kind != CVArray:
     raiseValueError(val.kind, section, key)
-  for item in val.sequenceVal:
+  for item in val.arrayVal:
     if item.kind == CVBool: result.add(item.boolVal)
   return result
 
 # No... I am not gonna make a getArrayArray()
+
+proc getTable*(table: ConfigTable, section, key: string): OrderedTable[string, ConfigValue] =
+  ## Returns a table from a configuration table with the specified section and key.
+  runnableExamples:
+    import iniplus
+    let config = parseString("names_and_age = {\"John\": 21, \"Kate\": 22}")
+    assert config.getTable("","names_and_age").len() == 2
+  let val = table.getValue(section, key)
+  if val.kind != CVTable:
+    raiseValueError(val.kind, section, key)
+  return val.tableVal
+
+proc getStringTable*(table: ConfigTable, section, key: string): OrderedTable[string, string] =
+  ## Returns a string-only table from a configuration table with the specified section and key.
+  runnableExamples:
+    import iniplus
+    let config = parseString("names_and_likes = {\"John\": \"Dogs\", \"Kate\": \"Cats\"}")
+    assert config.getTable("","names_and_likes").len() == 2
+  let val = table.getValue(section, key)
+  if val.kind != CVTable:
+    raiseValueError(val.kind, section, key)
+  
+  for key,val2 in val.tableVal.pairs:
+    if val2.kind == CVString:
+      result[key] = val2.stringVal
+  return result
+
+proc getBoolTable*(table: ConfigTable, section, key: string): OrderedTable[string, bool] =
+  ## Returns a boolean-only table from a configuration table with the specified section and key.
+  runnableExamples:
+    import iniplus
+    let config = parseString("names_and_adopted = {\"John\": true, \"Kate\": false}")
+    assert config.getTable("","names_and_adopted").len() == 2
+  let val = table.getValue(section, key)
+  if val.kind != CVTable:
+    raiseValueError(val.kind, section, key)
+  
+  for key,val2 in val.tableVal.pairs:
+    if val2.kind == CVBool:
+      result[key] = val2.boolVal
+  return result
+
+proc getIntTable*(table: ConfigTable, section, key: string): OrderedTable[string, int] =
+  ## Returns a integer-only table from a configuration table with the specified section and key.
+  runnableExamples:
+    import iniplus
+    let config = parseString("names_and_age = {\"John\": 21, \"Kate\": 22}")
+    assert config.getTable("","names_and_age").len() == 2
+  let val = table.getValue(section, key)
+  if val.kind != CVTable:
+    raiseValueError(val.kind, section, key)
+  
+  for key,val2 in val.tableVal.pairs:
+    if val2.kind == CVInt:
+      result[key] = val2.intVal
+  return result
 
 proc unroll*(table: Table[string, ConfigValue]): Table[string, string] =
   ## Unrolls a configuration table into a string-only table.
