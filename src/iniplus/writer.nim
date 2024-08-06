@@ -3,8 +3,7 @@
 ## This module contains functions for writing config files or converting config
 ## tables to string representations that are human-readable, loadable or both.
 ## It also provides the ability to set multiple keys with one procedure.
-import objects
-import std/strutils
+import objects, std/strutils
 export objects
 
 proc dump*(table: ConfigTable): string =
@@ -17,11 +16,10 @@ proc dump*(table: ConfigTable): string =
     echo dump(config)
 
   for key,val in table.pairs:
-    let list = key.split('|')
     result.add("\t")
-    if list[0] != "":
-      result.add("[" & list[0] & "] ") # Section
-    result.add("\"" & list[1] & "\": ") # Key
+    if key[0] != "":
+      result.add("[" & key[0] & "] ") # Section
+    result.add("\"" & key[1] & "\": ") # Key
     result.add($val & "\n") # Value
   result = result[0..^2] # Remove last newline char
   return "{\n" & result & "\n}" # Add curly brackets
@@ -37,13 +35,20 @@ proc toString*(val: ConfigValue): string =
   of CVString: result = "\"" & val.stringVal & "\""
   of CVInt: result = $(val.intVal)
   of CVBool: result = $(val.boolVal)
-  of CVSequence:
+  of CVArray:
     result = ""
-    if len(val.sequenceVal) > 0:
-      for item in val.sequenceVal:
+    if len(val.arrayVal) > 0:
+      for item in val.arrayVal:
         result.add("\t" & toString(item) & ",\n")
       result = "\n" & result[0..^2] & "\n"
     result = "[" & result & "]"
+  of CVTable:
+    result = ""
+    if len(val.tableVal) > 0:
+      for key,val in val.tableVal.pairs:
+        result.add("\t \"" & key & "\": " & toString(val) & ",\n")
+      result = "\n" & result[0..^2] & "\n"
+    result = "{" & result & "}"
   return result
 
 proc toString*(table: ConfigTable): string =
@@ -58,9 +63,8 @@ proc toString*(table: ConfigTable): string =
 
   for tmp,val in table.pairs:
     let
-      list = tmp.split('|')
-      section = list[0] 
-      key = list[1]
+      section = tmp[0]
+      key = tmp[1]
 
     # Add section if it doesnt exist.
     if not tmpTable.hasKey(section):
@@ -127,12 +131,12 @@ proc newValue*(value: varargs[ConfigValue]): ConfigValue =
       )
     
     # Yes, this is a mess. Just use the regular getArray() procedure if you want an easier time dealing with arrays.
-    assert config.getValue("","my_favorite_people").sequenceVal[0].stringVal == value.sequenceVal[0].stringVal
-    assert config.getValue("","my_favorite_people").sequenceVal[1].stringVal == value.sequenceVal[1].stringVal
-    assert config.getValue("","my_favorite_people").sequenceVal[2].boolVal == value.sequenceVal[2].boolVal
-  result = ConfigValue(kind: CVSequence)
+    assert config.getValue("","my_favorite_people").arrayVal[0].stringVal == value.arrayVal[0].stringVal
+    assert config.getValue("","my_favorite_people").arrayVal[1].stringVal == value.arrayVal[1].stringVal
+    assert config.getValue("","my_favorite_people").arrayVal[2].boolVal == value.arrayVal[2].boolVal
+  result = ConfigValue(kind: CVArray)
   for x in value:
-    result.sequenceVal.add(x)
+    result.arrayVal.add(x)
   return result
 
 proc newValue*(value: seq[ConfigValue]): ConfigValue =
@@ -149,11 +153,11 @@ proc newValue*(value: seq[ConfigValue]): ConfigValue =
       )
 
     # Yes, this is a mess. Just use the regular getArray() procedure if you want an easier time dealing with arrays.
-    assert config.getValue("","my_favorite_people").sequenceVal[0].stringVal == value.sequenceVal[0].stringVal
-    assert config.getValue("","my_favorite_people").sequenceVal[1].stringVal == value.sequenceVal[1].stringVal
-    assert config.getValue("","my_favorite_people").sequenceVal[2].boolVal == value.sequenceVal[2].boolVal
-  result = ConfigValue(kind: CVSequence)
-  result.sequenceVal = value
+    assert config.getValue("","my_favorite_people").arrayVal[0].stringVal == value.arrayVal[0].stringVal
+    assert config.getValue("","my_favorite_people").arrayVal[1].stringVal == value.arrayVal[1].stringVal
+    assert config.getValue("","my_favorite_people").arrayVal[2].boolVal == value.arrayVal[2].boolVal
+  result = ConfigValue(kind: CVArray)
+  result.arrayVal = value
   return result
 
 proc newValue*[T](val: seq[T]): ConfigValue =
@@ -171,12 +175,12 @@ proc newValue*[T](val: seq[T]): ConfigValue =
       )
 
     # Yes, this is a mess. Just use the regular getArray() procedure if you want an easier time dealing with arrays.
-    assert config.getValue("","my_favorite_people").sequenceVal[0].stringVal == value.sequenceVal[0].stringVal
-    assert config.getValue("","my_favorite_people").sequenceVal[1].stringVal == value.sequenceVal[1].stringVal
-    assert config.getValue("","my_favorite_people").sequenceVal[2].stringVal == value.sequenceVal[2].stringVal
-  result = ConfigValue(kind: CVSequence)
+    assert config.getValue("","my_favorite_people").arrayVal[0].stringVal == value.arrayVal[0].stringVal
+    assert config.getValue("","my_favorite_people").arrayVal[1].stringVal == value.arrayVal[1].stringVal
+    assert config.getValue("","my_favorite_people").arrayVal[2].stringVal == value.arrayVal[2].stringVal
+  result = ConfigValue(kind: CVArray)
   for i in val:
-    result.sequenceVal.add(newValue(i))
+    result.arrayVal.add(newValue(i))
   return result
 
 proc newConfigTable*(): ConfigTable =
@@ -190,8 +194,30 @@ proc newConfigTable*(): ConfigTable =
     assert tableA.len() == 0
   return result
 
+proc setKey*[T](table: var ConfigTable, section, key: string, value: T) =
+  ## Allows you to set a key of a section in a table to a specific value.
+  runnableExamples:
+    import iniplus
+    var table = newConfigTable()
+    ## Here we set key "person" inside section "favorite" to a single string "John"
+    table.setKey(
+      "favorite", # Section
+      "person", # Key
+      "John" # Value
+    )
+    assert table.getString("favorite","person") == "John"
+
+    ## Here we set key "boolean" inside section "favorite" to a single boolean true
+    table.setKey(
+      "favorite", # Section
+      "boolean", # Key
+      true # Value
+    )
+    assert table.getBool("favorite","boolean") == true
+
+  table[(section, key)] = newValue(value)
+
 proc setKey*(table: var ConfigTable, section, key: string, value: ConfigValue) =
-  ## Changes a key of a section inside of a table to a specific value
   runnableExamples:
     import iniplus
     var
@@ -213,45 +239,16 @@ proc setKey*(table: var ConfigTable, section, key: string, value: ConfigValue) =
     assert table.getArray("handmade", "list")[0].stringVal == "Hello World!"
     assert table.getArray("handmade", "list")[1].intVal == 1000
 
-  table[section & '|' & key] = value
+  table[(section, key)] = value
 
-proc setKeySingleVal*(table: var ConfigTable, section, key: string, value: string) =
-  ## Sets a value in a table to a single value (string, bool or int)
-  runnableExamples:
-    import iniplus
-    var table = newConfigTable()
-
-    table.setKeySingleVal("single","number","1000")
-    table.setKeySingleVal("single","quote","\"Hello World!\"")
-    table.setKeySingleVal("single","true_false","false")
-
-    assert table.getString("single","quote") == "Hello World!"
-    assert table.getInt("single","number") == 1000
-    assert table.getBool("single", "true_false") == false
-
-  table[section & '|' & key] = convertValue(value)
-
-proc setKeyMultiVal*(table: var ConfigTable, section, key: string, value: string) =
-  ## Sets a value in a table to a multi value (array)
-  runnableExamples:
-    import iniplus
-    var table = newConfigTable()
-
-    table.setKeyMultiVal("multi","list","[\"Hello World!\",1000]")
-
-    assert table.getArray("multi","list")[0].stringVal == "Hello World!"
-    assert table.getArray("multi","list")[1].intVal == 1000
-
-  table[section & '|' & key] = convertValue(value)
-
-proc setBulkKeys*(table: var ConfigTable, vals: varargs[CondensedConfigValue]) =
+proc setKeys*(table: var ConfigTable, vals: varargs[CondensedConfigValue]) =
   ## Allows you to set multiple keys, similar to how std/json's % macro does.
   ## But with procedures instead! Since I don't know meta-programming
   ## the `c` proc is neccessary, I tried also using the `%` for it but it didn't work for some reason.
   runnableExamples:
     import iniplus
     var table = ConfigTable()
-    table.setBulkKeys(
+    table.setKeys(
       c("hello","world","!"), # Strings
       c("goodbye","world","!"), # Strings^2
       c("favorite","people", "John", "Katie", true), # Sequences
@@ -271,7 +268,7 @@ proc setBulkKeys*(table: var ConfigTable, vals: varargs[CondensedConfigValue]) =
 
 proc c*[T](section, key: string, value: T): CondensedConfigValue =
   ## Creates a condensed config value, a condensed config value is a configuration value with both the section and key present in it.
-  ## It's used in setBulkKeys (among other places) to set multiple keys in a nice fashion.
+  ## It's used in setKeys (among other places) to set multiple keys in a nice fashion.
   result.section = section
   result.key = key
   result.value = newValue(value)
@@ -279,16 +276,16 @@ proc c*[T](section, key: string, value: T): CondensedConfigValue =
 
 proc c*(section,key: string, value: varargs[ConfigValue,newValue]): CondensedConfigValue =
   ## Creates a condensed config value, a condensed config value is a configuration value with both the section and key present in it.
-  ## It's used in setBulkKeys (among other places) to set multiple keys in a nice fashion.
+  ## It's used in setKeys (among other places) to set multiple keys in a nice fashion.
   runnableExamples:
     import iniplus
     let condensedValue = c("favorite","people", "John", "Katie")
     assert condensedValue.section == "favorite"
     assert condensedValue.key == "people"
-    assert condensedValue.value.kind == CVSequence
+    assert condensedValue.value.kind == CVArray
   result.section = section
   result.key = key
-  result.value = ConfigValue(kind: CVSequence)
+  result.value = ConfigValue(kind: CVArray)
   for i in value:
-    result.value.sequenceVal.add(i)
+    result.value.arrayVal.add(i)
   return result
