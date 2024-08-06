@@ -1,20 +1,20 @@
 nimTitle	writer	iniplus/writer.html	module src/iniplus/writer		0
-nim	dump	iniplus/writer.html#dump,ConfigTable	proc dump(table: ConfigTable): string		10
-nim	toString	iniplus/writer.html#toString,ConfigValue	proc toString(val: ConfigValue): string		29
-nim	toString	iniplus/writer.html#toString,ConfigTable	proc toString(table: ConfigTable): string		49
-nim	newValue	iniplus/writer.html#newValue,string	proc newValue(value: string): ConfigValue		81
-nim	newValue	iniplus/writer.html#newValue,int	proc newValue(value: int): ConfigValue		93
-nim	newValue	iniplus/writer.html#newValue,bool	proc newValue(value: bool): ConfigValue		105
-nim	newValue	iniplus/writer.html#newValue,varargs[ConfigValue]	proc newValue(value: varargs[ConfigValue]): ConfigValue		117
-nim	newValue	iniplus/writer.html#newValue,seq[ConfigValue]	proc newValue(value: seq[ConfigValue]): ConfigValue		138
-nim	newValue	iniplus/writer.html#newValue,seq[T]	proc newValue[T](val: seq[T]): ConfigValue		159
-nim	newConfigTable	iniplus/writer.html#newConfigTable	proc newConfigTable(): ConfigTable		182
-nim	setKey	iniplus/writer.html#setKey,ConfigTable,string,string,ConfigValue	proc setKey(table: var ConfigTable; section, key: string; value: ConfigValue)		193
-nim	setKeySingleVal	iniplus/writer.html#setKeySingleVal,ConfigTable,string,string,string	proc setKeySingleVal(table: var ConfigTable; section, key: string; value: string)		218
-nim	setKeyMultiVal	iniplus/writer.html#setKeyMultiVal,ConfigTable,string,string,string	proc setKeyMultiVal(table: var ConfigTable; section, key: string; value: string)		234
-nim	setBulkKeys	iniplus/writer.html#setBulkKeys,ConfigTable,varargs[CondensedConfigValue]	proc setBulkKeys(table: var ConfigTable; vals: varargs[CondensedConfigValue])		247
-nim	c	iniplus/writer.html#c,string,string,T	proc c[T](section, key: string; value: T): CondensedConfigValue		272
-nim	c	iniplus/writer.html#c,string,string,varargs[ConfigValue,newValue]	proc c(section, key: string; value: varargs[ConfigValue, newValue]): CondensedConfigValue		280
-nimgrp	newvalue	iniplus/writer.html#newValue-procs-all	proc		81
-nimgrp	c	iniplus/writer.html#c-procs-all	proc		272
-nimgrp	tostring	iniplus/writer.html#toString-procs-all	proc		29
+nim	dump	iniplus/writer.html#dump,ConfigTable	proc dump(table: ConfigTable): string		9
+nim	toString	iniplus/writer.html#toString,ConfigValue	proc toString(val: ConfigValue): string		27
+nim	toString	iniplus/writer.html#toString,ConfigTable	proc toString(table: ConfigTable): string		54
+nim	newValue	iniplus/writer.html#newValue,string	proc newValue(value: string): ConfigValue		85
+nim	newValue	iniplus/writer.html#newValue,int	proc newValue(value: int): ConfigValue		97
+nim	newValue	iniplus/writer.html#newValue,bool	proc newValue(value: bool): ConfigValue		109
+nim	newValue	iniplus/writer.html#newValue,varargs[ConfigValue]	proc newValue(value: varargs[ConfigValue]): ConfigValue		121
+nim	newValue	iniplus/writer.html#newValue,seq[ConfigValue]	proc newValue(value: seq[ConfigValue]): ConfigValue		142
+nim	newValue	iniplus/writer.html#newValue,seq[T]	proc newValue[T](val: seq[T]): ConfigValue		163
+nim	newConfigTable	iniplus/writer.html#newConfigTable	proc newConfigTable(): ConfigTable		186
+nim	setKey	iniplus/writer.html#setKey,ConfigTable,string,string,T	proc setKey[T](table: var ConfigTable; section, key: string; value: T)		197
+nim	setKey	iniplus/writer.html#setKey,ConfigTable,string,string,ConfigValue	proc setKey(table: var ConfigTable; section, key: string; value: ConfigValue)		220
+nim	setKeys	iniplus/writer.html#setKeys,ConfigTable,varargs[CondensedConfigValue]	proc setKeys(table: var ConfigTable; vals: varargs[CondensedConfigValue])		244
+nim	c	iniplus/writer.html#c,string,string,T	proc c[T](section, key: string; value: T): CondensedConfigValue		269
+nim	c	iniplus/writer.html#c,string,string,varargs[ConfigValue,newValue]	proc c(section, key: string; value: varargs[ConfigValue, newValue]): CondensedConfigValue		277
+nimgrp	setkey	iniplus/writer.html#setKey-procs-all	proc		197
+nimgrp	newvalue	iniplus/writer.html#newValue-procs-all	proc		85
+nimgrp	c	iniplus/writer.html#c-procs-all	proc		269
+nimgrp	tostring	iniplus/writer.html#toString-procs-all	proc		27

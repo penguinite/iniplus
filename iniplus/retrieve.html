@@ -12,10 +12,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="../nimdoc.out.css?v=2.0.2">
+<link rel="stylesheet" type="text/css" href="../nimdoc.out.css?v=2.0.8">
 
 <!-- JS -->
-<script type="text/javascript" src="../dochack.js?v=2.0.2"></script>
+<script type="text/javascript" src="../dochack.js?v=2.0.8"></script>
 </head>
 <body>
   <div class="document" id="documentId">
@@ -70,12 +70,22 @@
   <li><a class="reference" href="#getBoolArray%2CConfigTable%2Cstring%2Cstring" title="getBoolArray(table: ConfigTable; section, key: string): seq[bool]">getBoolArray(table: ConfigTable; section, key: string): seq[bool]</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">getBoolTable
+  <li><a class="reference" href="#getBoolTable%2CConfigTable%2Cstring%2Cstring" title="getBoolTable(table: ConfigTable; section, key: string): OrderedTable[string,
+    bool]">getBoolTable(table: ConfigTable; section, key: string): OrderedTable[string,
+    bool]</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">getInt
   <li><a class="reference" href="#getInt%2CConfigTable%2Cstring%2Cstring" title="getInt(table: ConfigTable; section, key: string): int">getInt(table: ConfigTable; section, key: string): int</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">getIntArray
   <li><a class="reference" href="#getIntArray%2CConfigTable%2Cstring%2Cstring" title="getIntArray(table: ConfigTable; section, key: string): seq[int]">getIntArray(table: ConfigTable; section, key: string): seq[int]</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">getIntTable
+  <li><a class="reference" href="#getIntTable%2CConfigTable%2Cstring%2Cstring" title="getIntTable(table: ConfigTable; section, key: string): OrderedTable[string, int]">getIntTable(table: ConfigTable; section, key: string): OrderedTable[string, int]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">getString
@@ -88,6 +98,18 @@
 </ul>
 <ul class="simple nested-toc-section">getStringOrDefault
   <li><a class="reference" href="#getStringOrDefault%2CConfigTable%2Cstring%2Cstring%2Cstring" title="getStringOrDefault(table: ConfigTable; section, key, default: string): string">getStringOrDefault(table: ConfigTable; section, key, default: string): string</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">getStringTable
+  <li><a class="reference" href="#getStringTable%2CConfigTable%2Cstring%2Cstring" title="getStringTable(table: ConfigTable; section, key: string): OrderedTable[string,
+    string]">getStringTable(table: ConfigTable; section, key: string): OrderedTable[string,
+    string]</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">getTable
+  <li><a class="reference" href="#getTable%2CConfigTable%2Cstring%2Cstring" title="getTable(table: ConfigTable; section, key: string): OrderedTable[string,
+    ConfigValue]">getTable(table: ConfigTable; section, key: string): OrderedTable[string,
+    ConfigValue]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">getValue
@@ -217,6 +239,24 @@
 </div>
 
 </div>
+<div id="getBoolTable-procs-all">
+  <div id="getBoolTable,ConfigTable,string,string">
+  <dt><pre><span class="Keyword">proc</span> <a href="#getBoolTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getBoolTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span>
+    <span class="Identifier">string</span><span class="Other">,</span> <span class="Identifier">bool</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Returns a boolean-only table from a configuration table with the specified section and key.
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;names_and_adopted = {</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: true, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Kate</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: false}&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;names_and_adopted&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L209" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L209" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
 <div id="getInt-procs-all">
   <div id="getInt,ConfigTable,string,string">
   <dt><pre><span class="Keyword">proc</span> <a href="#getInt%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getInt</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.
@@ -253,6 +293,24 @@
 <span class="Identifier">assert</span> <span class="Identifier">len</span><span class="Punctuation">(</span><span class="Identifier">number</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
     <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L144" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L144" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="getIntTable-procs-all">
+  <div id="getIntTable,ConfigTable,string,string">
+  <dt><pre><span class="Keyword">proc</span> <a href="#getIntTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getIntTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">,</span>
+    <span class="Identifier">int</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Returns a integer-only table from a configuration table with the specified section and key.
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;names_and_age = {</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: 21, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Kate</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: 22}&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;names_and_age&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L224" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L224" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -326,6 +384,42 @@
 </div>
 
 </div>
+<div id="getStringTable-procs-all">
+  <div id="getStringTable,ConfigTable,string,string">
+  <dt><pre><span class="Keyword">proc</span> <a href="#getStringTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getStringTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span>
+    <span class="Identifier">string</span><span class="Other">,</span> <span class="Identifier">string</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Returns a string-only table from a configuration table with the specified section and key.
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;names_and_likes = {</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Dogs</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Kate</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Cats</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">}&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;names_and_likes&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L194" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L194" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="getTable-procs-all">
+  <div id="getTable,ConfigTable,string,string">
+  <dt><pre><span class="Keyword">proc</span> <a href="#getTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">,</span>
+    <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Returns a table from a configuration table with the specified section and key.
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;names_and_age = {</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: 21, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Kate</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: 22}&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;names_and_age&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L183" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L183" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
 <div id="getValue-procs-all">
   <div id="getValue,ConfigTable,string,string">
   <dt><pre><span class="Keyword">proc</span> <a href="#getValue%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getValue</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.
@@ -352,8 +446,8 @@
   <dd>
     
     Unrolls a configuration table into a string-only table.
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L183" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L183" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L239" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L239" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -369,7 +463,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-03-25 09:09:09 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2024-08-06 13:19:24 UTC</small>
       </div>
     </div>
   </div>

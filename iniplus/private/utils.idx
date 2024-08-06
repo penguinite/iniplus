@@ -1,0 +1,24 @@
+nimTitle	utils	iniplus/private/utils.html	module src/iniplus/private/utils		0
+nim	SquareOpen	iniplus/private/utils.html#SquareOpen	TokenKind.SquareOpen		5
+nim	SquareClose	iniplus/private/utils.html#SquareClose	TokenKind.SquareClose		5
+nim	EqualSign	iniplus/private/utils.html#EqualSign	TokenKind.EqualSign		5
+nim	CurlyOpen	iniplus/private/utils.html#CurlyOpen	TokenKind.CurlyOpen		5
+nim	CurlyClose	iniplus/private/utils.html#CurlyClose	TokenKind.CurlyClose		5
+nim	Colon	iniplus/private/utils.html#Colon	TokenKind.Colon		5
+nim	Comma	iniplus/private/utils.html#Comma	TokenKind.Comma		5
+nim	Literal	iniplus/private/utils.html#Literal	TokenKind.Literal		5
+nim	Quoted	iniplus/private/utils.html#Quoted	TokenKind.Quoted		5
+nim	TokenKind	iniplus/private/utils.html#TokenKind	enum TokenKind		5
+nim	Token	iniplus/private/utils.html#Token	object Token		8
+nim	isBoolean	iniplus/private/utils.html#isBoolean,string	proc isBoolean(raw: string): bool		13
+nim	isOnlyDigits	iniplus/private/utils.html#isOnlyDigits,string	proc isOnlyDigits(raw: string): bool		17
+nim	trimString	iniplus/private/utils.html#trimString,string	proc trimString(raw: string): string		22
+nim	conv	iniplus/private/utils.html#conv,string	proc conv(v: string): ConfigValue		35
+nim	conv	iniplus/private/utils.html#conv,seq[string]	proc conv(v: seq[string]; table = false): ConfigValue		48
+nim	None	iniplus/private/utils.html#None	State.None		66
+nim	Section	iniplus/private/utils.html#Section	State.Section		66
+nim	Val	iniplus/private/utils.html#Val	State.Val		66
+nim	Array	iniplus/private/utils.html#Array	State.Array		66
+nim	CTable	iniplus/private/utils.html#CTable	State.CTable		66
+nim	State	iniplus/private/utils.html#State	enum State		66
+nimgrp	conv	iniplus/private/utils.html#conv-procs-all	proc		35

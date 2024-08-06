@@ -9,4 +9,8 @@ nim	getArray	iniplus/retrieve.html#getArray,ConfigTable,string,string	proc getAr
 nim	getStringArray	iniplus/retrieve.html#getStringArray,ConfigTable,string,string	proc getStringArray(table: ConfigTable; section, key: string): seq[string]		125
 nim	getIntArray	iniplus/retrieve.html#getIntArray,ConfigTable,string,string	proc getIntArray(table: ConfigTable; section, key: string): seq[int]		144
 nim	getBoolArray	iniplus/retrieve.html#getBoolArray,ConfigTable,string,string	proc getBoolArray(table: ConfigTable; section, key: string): seq[bool]		163
-nim	unroll	iniplus/retrieve.html#unroll,Table[string,ConfigValue]	proc unroll(table: Table[string, ConfigValue]): Table[string, string]		183
+nim	getTable	iniplus/retrieve.html#getTable,ConfigTable,string,string	proc getTable(table: ConfigTable; section, key: string): OrderedTable[string,\n    ConfigValue]		183
+nim	getStringTable	iniplus/retrieve.html#getStringTable,ConfigTable,string,string	proc getStringTable(table: ConfigTable; section, key: string): OrderedTable[string,\n    string]		194
+nim	getBoolTable	iniplus/retrieve.html#getBoolTable,ConfigTable,string,string	proc getBoolTable(table: ConfigTable; section, key: string): OrderedTable[string,\n    bool]		209
+nim	getIntTable	iniplus/retrieve.html#getIntTable,ConfigTable,string,string	proc getIntTable(table: ConfigTable; section, key: string): OrderedTable[string, int]		224
+nim	unroll	iniplus/retrieve.html#unroll,Table[string,ConfigValue]	proc unroll(table: Table[string, ConfigValue]): Table[string, string]		239
