@@ -65,19 +65,6 @@ table.setKey("handmade","list",valueArr)
 assert table.getArray("handmade", "list")[0].stringVal == "Hello World!"
 assert table.getArray("handmade", "list")[1].intVal == 1000
 
-table.setKeySingleVal("single","number","1000")
-table.setKeySingleVal("single","quote","\"Hello World!\"")
-table.setKeySingleVal("single","true_false","false")
-
-assert table.getString("single","quote") == "Hello World!"
-assert table.getInt("single","number") == 1000
-assert table.getBool("single", "true_false") == false
-
-table.setKeyMultiVal("multi","list","[\"Hello World!\",1000]")
-
-assert table.getArray("multi","list")[0].stringVal == "Hello World!"
-assert table.getArray("multi","list")[1].intVal == 1000
-
 table = parseString("employees = [\"John\",\"Katie\",1000]")
 var employees = table.getArray("","employees")
 
@@ -132,7 +119,7 @@ echo table.dump()
 
 table = ConfigTable()
 
-table.setBulkKeys(
+table.setKeys(
   c("hello","world","!"), # Strings
   c("goodbye","world","!"), # Strings^2
   c("favorite","people", "John", "Katie", true), # Sequences
@@ -167,9 +154,9 @@ value = newValue(@[
     newValue(true)
   ]
 )
-assert config.getValue("","my_favorite_people").sequenceVal[0].stringVal == value.sequenceVal[0].stringVal
-assert config.getValue("","my_favorite_people").sequenceVal[1].stringVal == value.sequenceVal[1].stringVal
-assert config.getValue("","my_favorite_people").sequenceVal[2].boolVal == value.sequenceVal[2].boolVal
+assert config.getValue("","my_favorite_people").arrayVal[0].stringVal == value.arrayVal[0].stringVal
+assert config.getValue("","my_favorite_people").arrayVal[1].stringVal == value.arrayVal[1].stringVal
+assert config.getValue("","my_favorite_people").arrayVal[2].boolVal == value.arrayVal[2].boolVal
 
 config = parseString("favorite_boolean=true")
 value = newValue(true)
@@ -192,16 +179,16 @@ assert toString(value) == "\"John\""
 var condensedValue = c("favorite","people", @["John", "Katie"])
 assert condensedValue.section == "favorite"
 assert condensedValue.key == "people"
-assert condensedValue.value.kind == CVSequence
+assert condensedValue.value.kind == CVArray
 
 condensedValue = c("favorite","people", "John", "Katie")
 assert condensedValue.section == "favorite"
 assert condensedValue.key == "people"
-assert condensedValue.value.kind == CVSequence
+assert condensedValue.value.kind == CVArray
 
 table = ConfigTable()
 
-table.setBulkKeys(
+table.setKeys(
   c("hello","world","!"), # Strings
   c("goodbye","world","!"), # Strings^2
   c("favorite","people", "John", "Katie", true), # Sequences
@@ -216,3 +203,20 @@ assert table.getArray("favorite","people")[1].stringVal == "Katie"
 assert table.getArray("favorite","people")[2].boolVal == true
 assert table.getInt("favorite", "number") == 9001
 assert table.getBool("favorite", "boolean") == true
+
+table = newConfigTable()
+## Here we set key "person" inside section "favorite" to a single string "John"
+table.setKey(
+  "favorite", # Section
+  "person", # Key
+  "John" # Value
+)
+assert table.getString("favorite","person") == "John"
+
+## Here we set key "boolean" inside section "favorite" to a single boolean true
+table.setKey(
+  "favorite", # Section
+  "boolean", # Key
+  true # Value
+)
+assert table.getBool("favorite","boolean") == true
