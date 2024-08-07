@@ -20,7 +20,7 @@ proc parseString*(input: string): ConfigTable =
     assert config.getString("","my_favorite_key") == "My Favorite Value"
 
   var
-    quoted, backSlash = false
+    quoted, backSlash, commented = false
     tokens: seq[Token] = @[]
     tmp = ""
 
@@ -38,7 +38,13 @@ proc parseString*(input: string): ConfigTable =
       tokens.add(Token(kind: k))
 
   for ch in input:
-    # Deal with quotes right off the bat
+    # Deal with comments right off the bat
+    if commented:
+      if ch == '\n':
+        commented = false
+      continue
+
+    # And then deal with quotes
     if quoted:
       case ch:
       of '\\':
@@ -83,6 +89,7 @@ proc parseString*(input: string): ConfigTable =
     of ':': add Colon
     of ',': add Comma
     of '\n': add Literal, tmp
+    of '#': commented = true
     else: tmp.add(ch)
 
   # One last check
@@ -101,7 +108,11 @@ proc parseString*(input: string): ConfigTable =
       # If we haven't yet seen an equal sign then
       # this is most likely a section.
       case state:
-      of None: state = Section 
+      of None:
+        state = Section
+        # Although, we do have to clear the section variable.
+        # Lest we royally mess up.
+        section = ""
       of Val: state = Array
       else: discard
 
