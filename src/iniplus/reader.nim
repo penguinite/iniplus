@@ -97,6 +97,15 @@ proc parseString*(input: string): ConfigTable =
   if quoted: add Quoted, tmp
   else: add Literal, tmp
 
+  when defined(iniplusDebug):
+    for token in tokens:
+      echo "K: ", token.kind
+      case token.kind:
+      of Literal, Quoted:
+        echo "I: \"", token.inner, "\""
+      else: discard
+      echo "---"
+
   var
     state = None
     section, key = ""
