@@ -3,7 +3,7 @@ import ../objects
 
 type
   TokenKind* = enum
-    SquareOpen, SquareClose, EqualSign, CurlyOpen, CurlyClose, Colon, Comma, Literal, Quoted
+    SquareOpen, SquareClose, EqualSign, CurlyOpen, CurlyClose, Colon, Comma, Literal, Quoted, Newline
 
   Token* = object
     case kind*: TokenKind
