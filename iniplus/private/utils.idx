@@ -8,6 +8,7 @@ nim	Colon	iniplus/private/utils.html#Colon	TokenKind.Colon		5
 nim	Comma	iniplus/private/utils.html#Comma	TokenKind.Comma		5
 nim	Literal	iniplus/private/utils.html#Literal	TokenKind.Literal		5
 nim	Quoted	iniplus/private/utils.html#Quoted	TokenKind.Quoted		5
+nim	Newline	iniplus/private/utils.html#Newline	TokenKind.Newline		5
 nim	TokenKind	iniplus/private/utils.html#TokenKind	enum TokenKind		5
 nim	Token	iniplus/private/utils.html#Token	object Token		8
 nim	isBoolean	iniplus/private/utils.html#isBoolean,string	proc isBoolean(raw: string): bool		13
