@@ -88,8 +88,8 @@ proc parseString*(input: string): ConfigTable =
     of '}': add CurlyClose
     of ':': add Colon
     of ',': add Comma
-    of '\n': add Literal, tmp
     of '#': commented = true
+    of '\n': add Newline
     else: tmp.add(ch)
 
   # One last check
@@ -155,6 +155,14 @@ proc parseString*(input: string): ConfigTable =
         state = None
         result[(section, key)] = conv(tmpSeq, true)
         tmpSeq = @[]
+
+    of Newline:
+      # If we're parsing a single-value key and we suddenly see a newline
+      # without seeing any literals or whatever, then we just leave that key alone
+      # and reset the state.
+      if state == Val:
+        state = None
+        key = ""
 
     of Literal, Quoted:
       # Do a range of stuff depending on our current state
