@@ -21,7 +21,8 @@ proc dump*(table: ConfigTable): string =
       result.add("[" & key[0] & "] ") # Section
     result.add("\"" & key[1] & "\": ") # Key
     result.add($val & "\n") # Value
-  result = result[0..^2] # Remove last newline char
+  if result.len() > 0:
+    result = result[0..^2] # Remove last newline char
   return "{\n" & result & "\n}" # Add curly brackets
 
 proc toString*(val: ConfigValue): string =
