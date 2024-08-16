@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.3.1"
+version       = "0.3.2"
 author        = "penguinite"
 description   = "An INI parser written in Nim. It's main goal is to support more datatypes than std/parsecfg whilst still being just as performant as it."
 license       = "BSD-3-Clause"
