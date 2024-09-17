@@ -13,4 +13,3 @@ nim	getTable	iniplus/retrieve.html#getTable,ConfigTable,string,string	proc getTa
 nim	getStringTable	iniplus/retrieve.html#getStringTable,ConfigTable,string,string	proc getStringTable(table: ConfigTable; section, key: string): OrderedTable[string,\n    string]		194
 nim	getBoolTable	iniplus/retrieve.html#getBoolTable,ConfigTable,string,string	proc getBoolTable(table: ConfigTable; section, key: string): OrderedTable[string,\n    bool]		209
 nim	getIntTable	iniplus/retrieve.html#getIntTable,ConfigTable,string,string	proc getIntTable(table: ConfigTable; section, key: string): OrderedTable[string, int]		224
-nim	unroll	iniplus/retrieve.html#unroll,Table[string,ConfigValue]	proc unroll(table: Table[string, ConfigValue]): Table[string, string]		239
