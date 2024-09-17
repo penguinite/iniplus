@@ -26,9 +26,13 @@ proc parseString*(input: string): ConfigTable =
 
   proc add(k: TokenKind, i = "") =
     case k:
-    of Literal, Quoted:
+    of Literal:
       if not tmp.isEmptyOrWhitespace():
         tokens.add(Token(kind: k, inner: strip(i)))
+      tmp = ""
+    of Quoted:
+      if not tmp.isEmptyOrWhitespace():
+        tokens.add(Token(kind: k, inner: i))
       tmp = ""
     else:
       if len(tmp) > 0:
