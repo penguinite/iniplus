@@ -235,10 +235,3 @@ proc getIntTable*(table: ConfigTable, section, key: string): OrderedTable[string
     if val2.kind == CVInt:
       result[key] = val2.intVal
   return result
-
-proc unroll*(table: Table[string, ConfigValue]): Table[string, string] =
-  ## Unrolls a configuration table into a string-only table.
-  for key,val in table:
-    if val.kind == CVString:
-      result[key] = val.stringVal
-    continue
