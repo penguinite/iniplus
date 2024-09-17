@@ -92,8 +92,13 @@ proc parseString*(input: string): ConfigTable =
     of '}': add CurlyClose
     of ':': add Colon
     of ',': add Comma
-    of '#': commented = true
-    of '\n': add Newline
+    of '#':
+      if tmp != "":
+        add Literal, tmp
+      commented = true
+    of '\n':
+      commented = false
+      add Newline
     else: tmp.add(ch)
 
   # One last check
