@@ -1,6 +1,6 @@
 import iniplus
 
-let conf = parseString("""
+let data = """
 # An example configuration file for Pothole
 # Use this as a base for your deployed configuration.
 
@@ -59,7 +59,6 @@ uri="localhost"
 # The default value is true.
 federated=true
 
-
 # This is the uri that outgoing ActivityPub JSON payloads will be disguised with.
 # If you set this, do not change it, otherwise you will break quite a load of stuff.
 # Assuming you set this up correctly, this feature will allow you to host a Pothole instance
@@ -103,8 +102,6 @@ logo=""
 languages=[
     "en"
 ]
-
-
 
 # If this is not present then upload_size_limit will be used.
 # This controls the maximum upload size for remote posts.
@@ -286,7 +283,9 @@ header_removal={}
 
 # TODO: Document undocumented config options
 # like template_obj_pool_size or whatever
-""")
+"""
+
+let conf = parseString(data)
 
 
 assert conf.exists("db", "host") == true
@@ -440,3 +439,168 @@ assert conf.exists("mrf.simple", "avatar_removal") == true
 assert conf.getTable("mrf.simple", "avatar_removal").len() == 0
 assert conf.exists("mrf.simple", "header_removal") == true
 assert conf.getTable("mrf.simple", "header_removal").len() == 0
+
+const comments = @[
+  (1, " An example configuration file for Pothole"),
+  (2, " Use this as a base for your deployed configuration."),
+  (4, " Note: If you have any double quotes (\") in your values then please escape them by backslashing them."),
+  (6, " Warning: Make sure to configure your postgres to have standard_conforming_strings DISABLED"),
+  (7, " Otherwise, you will be vulnerable to SQL injections. See https://github.com/nim-lang/db_connector/issues/19"),
+  (8, " Ultimately, its up to the nim-lang team to fix this, but I might submit a PR someday."),
+  (11, " This is the default value"),
+  (12, " Using a Unix socket is way faster but that"),
+  (13, " maybe requires configuring postgres."),
+  (14, " Just add the unix socket to the host key as-is"),
+  (15, " if you want to go that route."),
+  (16, ""),
+  (17, " Be aware that potholectl dev db and pothole db docker"),
+  (18, " were explicitly designed with TCP/IP in mind, so using unix sockets"),
+  (19, " might not be supported for those two commands."),
+  (22, " Database name"),
+  (25, " Database user login"),
+  (28, " Database user password"),
+  (29, " You should avoid passwords with double quotes."),
+  (32, "# Instance specific settings"),
+  (35, " The name of your instance."),
+  (36, " This can be anything (Fx. Church of Penguin)"),
+  (39, " Your instance's description. There are no specific requirements"),
+  (40, " But it is a wise idea to keep it short."),
+  (45, " This is the domain name that Pothole is running on."),
+  (46, " you should NEVER change it once it's set."),
+  (49, " This controls whether or not to enable \"federation\""),
+  (50, " Federation means to share posts with other servers that speak the same protocol (ActivityPub)"),
+  (51, " Disabling this means that posts will not automatically be shared with other servers,"),
+  (52, " and that other servers cannot share posts with you or your users."),
+  (53, ""),
+  (54, " It is highly recommended that you leave this enabled, unless you're using Pothole"),
+  (55, " to serve a private community (such as a forum)"),
+  (56, " The default value is true."),
+  (59, " This is the uri that outgoing ActivityPub JSON payloads will be disguised with."),
+  (60, " If you set this, do not change it, otherwise you will break quite a load of stuff."),
+  (61, " Assuming you set this up correctly, this feature will allow you to host a Pothole instance"),
+  (62, " on a subdomain, but somehow let you disguise your posts as coming from whatever other"),
+  (63, " subdomain you want."),
+  (64, " For example, you can set up your server on ph.example.com and make it so "),
+  (65, " your posts look like they come from @example.com"),
+  (66, " "),
+  (67, " This is still unused however."),
+  (71, " The instance's email address"),
+  (72, " If this is not set then it will just show up empty in MastoAPI"),
+  (73, " Note: This option does *not* give people admin privileges."),
+  (74, " It simply provides a way for people to contact you (DMCA, abuse reports and so on.)"),
+  (77, " The instance rules."),
+  (78, " You can add whatever you want here."),
+  (79, " If you leave this out then everything related to rules will show up empty"),
+  (85, "rules=[]"),
+  (87, " The logo for the instance."),
+  (88, " This can be left out, it is not required."),
+  (89, " Point it to a file in the static folder."),
+  (90, " So fx. if you have a logo stored as logo.webp then change this to"),
+  (91, " static/logo.webp"),
+  (94, " TODO: There is another bug with iniplus and parsing keys with empty strings.... Damn it..."),
+  (96, " Instance languages"),
+  (97, " By default this is [\"en\"] for English"),
+  (98, " But it can be replaced with nothing at all."),
+  (103, " If this is not present then upload_size_limit will be used."),
+  (104, " This controls the maximum upload size for remote posts."),
+  (105, " Anything higher will be dropped."),
+  (106, " The size is in megabytes"),
+  (110, " By default Pothole will show instance staff in its website."),
+  (111, " You can disable this to hide it."),
+  (114, " By default Pothole will show its version in its website."),
+  (115, " You can disable this to hide it."),
+  (118, " Specify which port the web server will"),
+  (119, " run on. This is optional and Pothole"),
+  (120, " will use 3500 by default"),
+  (123, " This controls where precisely the Pothole endpoint is."),
+  (124, " For example, if you have a webserver configured to serve https://example.com as a normal page"),
+  (125, " and https://example.com/ph/ to Pothole, then you can change this to \"/ph/\""),
+  (126, " So the API stuff isn't all messed up."),
+  (127, " By default, this is \"/\""),
+  (128, ""),
+  (129, " Oh and, if you don't understand what any of that was, then don't change it :P"),
+  (132, " This controls how many posts will be rendered per page for a user profile"),
+  (133, " 20 is a reasonable substitute and it's the default."),
+  (134, " You can set this to 0 to show all of a user's posts, but this isn't recommended since it will utterly destroy your database performance."),
+  (137, " Changes the login link to point to somewhere else."),
+  (138, " This is useful for when you have a custom frontend and you want your users to easily log in."),
+  (139, " Default: \"/auth/sign_in/\""),
+  (142, " Changes the sign up link to point to somewhere else"),
+  (143, " This is useful for when you have a custom frontend (that supports signing up) and you want users to easily log in."),
+  (144, " Default: \"/auth/sign_up/\""),
+  (147, " Changes the log out link to point to somewhere else"),
+  (148, " This is useful for when you have a custom frontend (that supports signing up) and you want users to easily log in."),
+  (149, " Default: \"/auth/logout/\""),
+  (154, " The static folder is used to store static files."),
+  (155, " Do not store user-generated content here."),
+  (157, " Templates is used to store Pothole's templates."),
+  (160, " Unused config options"),
+  (162, " Pothole supports 2 different storage mechanisms."),
+  (163, " Flat storage: Uploads are handled by Pothole's web server, and copied to the folder configured in storage:upload_folder. Set this to \"flat\" to enable this."),
+  (164, " Remote proxy: Uploads are magically sent to whatever S3-compatible server you configure. (Incomplete) Set this to \"remote\" and configure the server to enable this feature."),
+  (165, " Which one is better? Well if it's a server only for you then consider setting up Flat storage *SECURELY*"),
+  (166, " If it's for a large server or you wanna join a \"media proxy collection\" then set up Remote proxy."),
+  (169, " The user uploads directory. Any files uploaded by users will be available here."),
+  (170, " Provided that the storage type is set to flat"),
+  (173, " If you have implemented a system such as the one described here: https://webb.spiderden.org/2023/05/26/pleroma-mitigation/"),
+  (174, " then you can set this url to the \"media server\" you have. "),
+  (175, " Pothole will simply append the media it seeks to the end of whatever URL to add here, so:"),
+  (176, " https://media.example.com/pothole/ turns into https://media.example.com/pothole/user_id/media_filename/"),
+  (177, " If this is not set, then under a default config, Pothole will use the instance:uri option + /media/ like so:"),
+  (178, " https://ph.example.com/media/user_id/media_filename/"),
+  (181, "type=\"remote\""),
+  (182, "upload_server=\"uh, idk s3?\""),
+  (183, " TODO: Finish the S3 stuff."),
+  (185, " This will be appended on top of upload_uri (or instance:uri + \"/media/\")"),
+  (186, " By default it is default_avatar.webp"),
+  (189, " Controls the size limit for user uploads"),
+  (190, " Anything higher than this size will be rejected with an error message."),
+  (191, " The size is in megabytes."),
+  (192, " Videos: "),
+  (196, " This option controls whether to enable or disable new user registrations"),
+  (197, " This is on by default"),
+  (200, " This option controls whether to require administrator approval for new"),
+  (201, " user registrations."),
+  (202, " This is off by default."),
+  (205, "# The following feature is not completely implemented yet."),
+  (206, "# I am just establishing a blueprint of what it will look like."),
+  (208, " Maximum number of media attachments for a post"),
+  (209, " The default number is 8, this can be left out."),
+  (212, " How many characters are users allowed to write in a post."),
+  (213, " It is highly recommended to set this number to something above or equal to 2000."),
+  (214, " Note: Posts over this limit will not be federated."),
+  (215, " You can set it to 0 to disable. (Not recommended)"),
+  (218, " Controls the maximum amount of choices that a user can have in a poll."),
+  (219, " The default is 20."),
+  (222, " Controls the maximum amount of featured tags a user can insert in their profile"),
+  (223, " The default is 10"),
+  (226, " Controls how many posts a user can pin to the top of their profiles"),
+  (227, " The default is 20"),
+  (231, " Built-in MRF policies to enable (Array of strings)"),
+  (232, " Please read the documentation if you are confused at what each"),
+  (233, " policy does."),
+  (235, " noop is a simple \"dummy\" policy that does no rewriting whatsoever."),
+  (241, " If you have a large MRF policy set then it might make more sense"),
+  (242, " to put it in a separate file. So that Pothole does not allocate"),
+  (243, " too much memory for MRF policies on every web server thread."),
+  (247, " Accept *only* from these instances."),
+  (248, " Aka. whitelisting/allowlisting."),
+  (249, " Note: If something comes from a server that *isn't* on this list then it will be rejected."),
+  (252, " Reject everything from these instances."),
+  (255, " Reject only posts if they originate from these instances"),
+  (258, " Reject only users if they originate from these instances"),
+  (261, " Reject only activities (such as Likes, Boosts and so on) if they originate from these instances"),
+  (264, " Hide posts away from the federated timeline if they originate from these instances"),
+  (267, " Mark media NSFW if it originates from these instances."),
+  (270, " Remove all media originating from these instances"),
+  (273, " Remove avatars from users originating from these instances"),
+  (276, " Remove headers from users originating from these instances"),
+  (281, " TODO: Document undocumented config options"),
+  (282, " like template_obj_pool_size or whatever")
+]
+
+let commentsParsed = parseComments(data)
+
+for i in 0..high(comments):
+    if comments[i] != commentsParsed[i]:
+        echo("Mismatch... Please investigate")
