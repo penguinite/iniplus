@@ -65,6 +65,12 @@ runnableExamples:
 ## 2. objects contains the object definitions that are the foundation of this library
 ## 3. reader contains the configuration file parser
 ## 4. writer contains the above-mentioned advanced features.
-import iniplus/[retrieve, objects, reader, writer]
-import std/[tables]
-export objects, reader, writer, tables, retrieve
+
+when defined(iniplusCheckmap):
+  import iniplus/private/checkmap, iniplus/[objects, writer]
+  import std/tables
+  export tables, checkmap, objects, writer
+else:
+  import iniplus/[retrieve, objects, reader, writer]
+  import std/[tables]
+  export objects, reader, writer, tables, retrieve
