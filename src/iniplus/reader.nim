@@ -198,3 +198,50 @@ proc parseFile*(filename: string): ConfigTable =
   runnableExamples "--run:off":
     let config = parseFile("app.ini")
   return parseString(filename.readFile())
+
+proc parseComments*(input: string): seq[(int, string)] =
+  ## Parses only the comments from an INI file, returns exact line and 
+  var
+    comment = ""
+    backslash, quoted, commented = false
+    line = 0
+
+  for ch in input:
+    if ch == '\n': inc line
+
+    if commented:
+      case ch:
+      of '\n':
+        commented = false
+        result.add((line, comment))
+        comment = ""
+      else:
+        comment.add(ch)
+      continue
+    
+    if quoted:
+      case ch:
+      of '\\':
+        # Pretty basic backslash handling.
+        # If there are 2 backslashes in a row, then just insert a backslash into tmp.
+        # Otherwise, flip the backslash boolean to true.
+        if backslash:
+          backslash = false
+        else:
+          backslash = true
+      of '"':
+        # If there has been a backslash, then add a double quote into tmp
+        # And disable backslash
+        if backSlash:
+          backSlash = false
+        else:
+          quoted = false
+      else: discard
+      continue
+
+    case ch:
+    of '"': quoted = true
+    of '#': commented = true
+    else: discard
+  
+  return result
