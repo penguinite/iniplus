@@ -33,7 +33,9 @@ proc escapeQuote(i: string): string =
   return result
 
 proc dumpCommentsNim*(comments: seq[(int, string)]): string =
-  ## Dumps an INI file comment sequence into loadable Nim code.
+  ## Converts a comment sequence into loadable Nim code. Useful for writing tests and whatnot.
+  ## 
+  ## Note: If you want to *load* a file with only comments, then use the parseComments() procedure from reader.nim
   result = "@[\n"
   for comment in comments:
     result.add("  (" & $(comment[0]) & ", \"" & escapeQuote(comment[1]) & "\"),\n")
