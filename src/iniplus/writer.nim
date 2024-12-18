@@ -25,6 +25,21 @@ proc dump*(table: ConfigTable): string =
     result = result[0..^2] # Remove last newline char
   return "{\n" & result & "\n}" # Add curly brackets
 
+proc escapeQuote(i: string): string =
+  for ch in i:
+    case ch:
+    of '"': result.add("\\\"")
+    else: result.add(ch)
+  return result
+
+proc dumpCommentsNim*(comments: seq[(int, string)]): string =
+  ## Dumps an INI file comment sequence into loadable Nim code.
+  result = "@[\n"
+  for comment in comments:
+    result.add("  (" & $(comment[0]) & ", \"" & escapeQuote(comment[1]) & "\"),\n")
+  result = result[0..^3]
+  result.add("\n]")
+
 proc toString*(val: ConfigValue): string =
   ## Converts a single, individual configuration value into a loadable, human-readable string.
   runnableExamples:
