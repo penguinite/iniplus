@@ -144,7 +144,6 @@ proc parseString*(input: string, required: seq[Checkmap], optional: seq[Checkmap
 template exists*(table: ConfigTable, section, key: string): bool = return true
 template getValue*(table: ConfigTable, section, key: string): ConfigValue = return table[(section, key)]
 template getString*(table: ConfigTable, section, key: string): string = return table[(section, key)].stringVal
-template getStringOrDefault*(table: ConfigTable, section, key, default: string): string = return table[(section, key)].stringVal
 template getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] = return table[(section, key)].arrayVal
 template getTable*(table: ConfigTable, section, key: string): OrderedTable[string, ConfigValue] = return table[(section, key)].tableVal
 
@@ -188,3 +187,21 @@ proc getIntTable*(table: ConfigTable, section, key: string): OrderedTable[string
   for key,val in table[(section, key)].tableVal.pairs:
     result[key] = val.intVal
   return result
+
+# "*OrDefault" procs are not a neccessary thing when using checkmaps.
+# let's warn the client then by using deprecations.
+template getStringOrDefault*(config: ConfigTable, section, key, default: string): string =
+  {.deprecated: "getStringOrDefault is not neccessary when using a checkmap. Just supply a default value to the optional list.".}
+  return config[(section, key)].stringVal
+
+proc getBoolOrDefault*(config: ConfigTable, section, key: string, default: bool): bool =
+  {.deprecated: "getBoolOrDefault is not neccessary when using a checkmap. Just supply a default value to the optional list.".}
+  return config[(section, key)].boolVal
+
+proc getIntOrDefault*(config: ConfigTable, section, key: string, default: int): int =
+  {.deprecated: "getIntOrDefault is not neccessary when using a checkmap. Just supply a default value to the optional list.".}
+  return config[(section, key)].intVal
+
+proc getStringArrayOrDefault*(config: ConfigTable, section, key: string, default: seq[string]): seq[string] =
+  {.deprecated: "getStringArrayOrDefault is not neccessary when using a checkmap. Just supply a default value to the optional list.".}
+  return config.getStringArray(section, key)
