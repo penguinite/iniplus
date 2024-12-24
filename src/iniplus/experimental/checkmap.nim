@@ -17,12 +17,12 @@ runnableExamples "-r:off":
   # Parsing a config file
   let config = parseString(
     config_file,
-    required = @[
+    required = `@`[
       # required(SectionName, KeyName, ConfigValueKind)
       # For tables/arrays: # required(SectionName, KeyName, ConfigValueKind, child_kind = ChildrenKind)
       required("company", "name", CVString)
     ],
-    optional = @[
+    optional = `@`[
 
     ]
 
@@ -50,33 +50,80 @@ runnableExamples "-r:off":
 
 import ../[objects, reader, writer], std/strutils
 
+proc `@`*(value: string): ConfigValue = return ConfigValue(kind: CVString, stringVal: value)
+proc `@`*(value: int): ConfigValue = return ConfigValue(kind: CVInt, intVal: value)
+proc `@`*(value: bool): ConfigValue = return ConfigValue(kind: CVBool, boolVal: value)
+proc `@`*(value: seq[ConfigValue]): ConfigValue = return ConfigValue(kind: CVArray, arrayVal: value)
+
+proc `@`*(value: varargs[ConfigValue]): ConfigValue =
+  result = ConfigValue(kind: CVArray)
+  for x in value:
+    result.arrayVal.add(x)
+  return result
+
+proc `@`*[T](val: seq[T]): ConfigValue =
+  result = ConfigValue(kind: CVArray)
+  for i in val:
+    result.arrayVal.add(`@`(i))
+  return result
+
+
+## NEW SYNTAX, optional arguments are like so:
+runnableExamples:
+  var optional = {
+    # SECTION: {
+    #   KEY: @ DEFAULT_VALUE
+    # }
+    "instance": {
+      "name": @ "Hello",
+      "federated": @ true
+    }
+  }
+
 type
-  Checkmap* = object
-    section*: string
-    key*: string
-    default*: ConfigValue
+  ReqObj = object
     case kind*: ConfigValueKind
-    of CVArray, CVTable:
-      child_kind*: ConfigValueKind
+    of CVArray, CVTable: child_kind*: ConfigValueKind
     else: discard
+  
+  RequiredList* = openArray[(string, seq[(string, ReqObj)])]
+  OptionalList* = openArray[(string, seq[(string, ConfigValue)])]
 
-proc required*(section, key: string, kind: ConfigValueKind, child_kind = CVNone): Checkmap =
-  result = Checkmap(kind: kind)
-  result.section = section
-  result.key = key
-  case kind:
-  of CVArray: result.child_kind = child_kind
+proc detectChildKind*(c: ConfigValue): ConfigValueKind =
+  var ctable: CountTable[ConfigValueKind]
+  case c.kind:
+  of CVArray:
+    for i in c.arrayVal:
+      ctable.inc(i.kind)
+  of CVTable:
+    for i in c.tableVal.values:
+      ctable.inc(i.kind)
   else: discard
+  return ctable.largest[0]
 
-proc optional*[T](section, key: string, kind: ConfigValueKind, default: T, child_kind = CVNone): Checkmap =
-  result = Checkmap(kind: kind)
-  result.section = section
-  result.key = key
-  result.default = newValue(T)
-  case kind:
-  of CVArray: result.child_kind = child_kind
+proc `@!`*(t: ConfigValueKind, t2: ConfigValueKind = CVNone): ReqObj =
+  result =  ReqObj(kind: t)
+  case t:
+  of CVArray, CVTable: result.child_kind = t2
   else: discard
+  return result
 
+proc `@!`*(t: (ConfigValueKind, ConfigValueKind)): ReqObj =
+  result =  ReqObj(kind: t[0])
+  case t[0]:
+  of CVArray, CVTable: result.child_kind = t[1]
+  else: discard
+  return result
+
+## NEW SYNTAX, required arguments are like so:
+runnableExamples:
+  var required = {
+    "instance": @[
+      ("name", @! CVString),
+      ("users", @! (CVArray, CVString)),
+      ("rights", @! (CVTable, CVString))
+    ]
+  }
 
 func `$`(k: ConfigValueKind): string =
   case k:
@@ -87,65 +134,81 @@ func `$`(k: ConfigValueKind): string =
   of CVNone: return "none"
   of CVBool: return "boolean"
 
+template raiseTableValueError(actual_kind, expected_kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" is a table and the nested items have the wrong type (Should be a " & $expected_kind & " but it's actually a " & $actual_kind & ")")
+template raiseArrayValueError(actual_kind, expected_kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" is an array and the nested items have the wrong type (Should be a " & $expected_kind & " but it's actually a " & $actual_kind & ")")
+template raiseValueError(actual_kind, expected_kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" has wrong type (Should be a " & $expected_kind & " but it's actually a " & $actual_kind & ")")
+template raiseIndexDefect(section, key: string) = raise (ref IndexDefect)(msg: "key \"" & key & "\" in section \"" & section & "\" does not exist")
 
-proc raiseTableValueError(actual_kind, expected_kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" is a table and the nested items have the wrong type (Should be a " & $expected_kind & " but it's actually a " & $actual_kind & ")")
-proc raiseArrayValueError(actual_kind, expected_kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" is an array and the nested items have the wrong type (Should be a " & $expected_kind & " but it's actually a " & $actual_kind & ")")
-proc raiseValueError(actual_kind, expected_kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" has wrong type (Should be a " & $expected_kind & " but it's actually a " & $actual_kind & ")")
-proc raiseIndexDefect(section, key: string) = raise (ref IndexDefect)(msg: "key \"" & key & "\" in section \"" & section & "\" does not exist")
-
-proc parseString*(input: string, required: seq[Checkmap], optional: seq[Checkmap] = @[]): ConfigTable =
+proc parseString*(input: string, required: RequiredList = @[], optional: OptionalList = @[]): ConfigTable =
   result = reader.parseString(input)
 
-  for item in required:
-    # Check if key exists, throw an error if not.
-    if not result.hasKey((item.section, item.key)):
-      raiseIndexDefect(item.section, item.key)
-    
-    # Check if key matches given value, throw an error if not.
-    if result[(item.section, item.key)].kind != item.kind:
-      raiseValueError(result[(item.section, item.key)].kind, item.kind, item.section, item.key)
+  # Check required options first
+  for section, list in required.items:
+    for key, opt in list.items:
 
-    if result[(item.section, item.key)].kind == CVArray:
-      # Additionally, check if an array's elements are all the same type
-      for i in result[(item.section, item.key)].arrayVal:
-        if i.kind != item.child_kind:
-          raiseArrayValueError(i.kind, item.child_kind, item.section, item.key)
-    
-    if result[(item.section, item.key)].kind == CVTable:
-      for val in result[(item.section, item.key)].tableVal.values:
-        if val.kind != item.child_kind:
-          raiseTableValueError(val.kind, item.child_kind, item.section, item.key)
-  
-  for item in optional:
-    # Check if key exists, use the default value if it doesn't.
-    if not result.hasKey((item.section, item.key)):
-      result[(item.section, item.key)] = item.default
-      continue # We can just skip on to the rest.
-    
-    # Check if key matches given value, throw an error if not.
-    if result[(item.section, item.key)].kind != item.kind:
-      raiseValueError(result[(item.section, item.key)].kind, item.kind, item.section, item.key)
+      # Check if the key exists, throw an error if not
+      if result.hasKey((section, key)):
+        raiseIndexDefect(section, key)
+      
+      let config = result[(section, key)]
 
-    if result[(item.section, item.key)].kind == CVArray:
-      # Additionally, check if an array's elements are all the same type
-      for i in result[(item.section, item.key)].arrayVal:
-        if i.kind != item.child_kind:
-          raiseArrayValueError(i.kind, item.child_kind, item.section, item.key)
-    
-    if result[(item.section, item.key)].kind == CVTable:
-      for val in result[(item.section, item.key)].tableVal.values:
-        if val.kind != item.child_kind:
-          raiseTableValueError(val.kind, item.child_kind, item.section, item.key)
+      # Check if the key matches the type/kind, throw an error if not.
+      if config.kind != opt.kind:
+        raiseValueError(config.kind, opt.kind, section, key)
+      
+      case config.kind:
+      of CVArray:
+        # For arrays, check if the inner children match the specified child type
+        # Throw an error if it doesn't.
+        for i in config.arrayVal:
+          if i.kind != opt.child_kind:
+            raiseArrayValueError(i.kind, opt.child_kind, section, key)
+      of CVTable:
+        # Same with tables
+        for i  in config.tableVal.values:
+          if i.kind != opt.child_kind:
+            raiseTableValueError(i.kind, opt.child_kind, section, key)
+      else: discard
   
+  # Then check the optional stuff
+  for section, list in optional.items:
+    for key, val in list.items:
+
+      # Check if the key exists, then skip it and use default
+      if result.hasKey((section, key)):
+        result[(section, key)] = val
+        continue 
+      
+      let config = result[(section, key)]
+
+      # Check if the key matches the type/kind, throw an error if not.
+      if config.kind != val.kind:
+        raiseValueError(config.kind, val.kind, section, key)
+      
+      case config.kind:
+      of CVArray:
+        # For arrays, check if the inner children match the specified child type
+        # Throw an error if it doesn't.
+        let childKind = detectChildKind(val)
+        for i in config.arrayVal:
+          if i.kind != childKind:
+            raiseArrayValueError(i.kind, childKind, section, key)
+      of CVTable:
+        # Same with tables
+        let childKind = detectChildKind(val)
+        for i  in config.tableVal.values:
+          if i.kind != childKind:
+            raiseTableValueError(i.kind, childKind, section, key)
+      else: discard
   return result
 
 ## Retrieve procs that work better/faster with the new checkmap'd config tables.
 
-template exists*(table: ConfigTable, section, key: string): bool = return true
-template getValue*(table: ConfigTable, section, key: string): ConfigValue = return table[(section, key)]
-template getString*(table: ConfigTable, section, key: string): string = return table[(section, key)].stringVal
-template getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] = return table[(section, key)].arrayVal
-template getTable*(table: ConfigTable, section, key: string): OrderedTable[string, ConfigValue] = return table[(section, key)].tableVal
+proc exists*(table: ConfigTable, section, key: string): bool = return true
+proc getValue*(table: ConfigTable, section, key: string): ConfigValue = return table[(section, key)]
+proc getString*(table: ConfigTable, section, key: string): string = return table[(section, key)].stringVal
+proc getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] = return table[(section, key)].arrayVal
+proc getTable*(table: ConfigTable, section, key: string): OrderedTable[string, ConfigValue] = return table[(section, key)].tableVal
 
 proc getBool*(table: ConfigTable, section, key: string): bool =
   let v = table[(section, key)]
@@ -162,46 +225,61 @@ proc getInt*(table: ConfigTable, section, key: string): int =
   else: discard
 
 proc getStringArray*(table: ConfigTable, section, key: string): seq[string] =
-  for i in table[(section, key)].arrayVal: result.add(i.stringVal)
+  for i in table[(section, key)].arrayVal:
+    case i.kind:
+    of CVString: result.add(i.stringVal)
+    else: discard
   return result
 
 proc getIntArray*(table: ConfigTable, section, key: string): seq[int] =
-  for i in table[(section, key)].arrayVal: result.add(i.intVal)
+  for i in table[(section, key)].arrayVal:
+    case i.kind:
+    of CVInt: result.add(i.intVal)
+    else: discard
   return result
 
 proc getBoolArray*(table: ConfigTable, section, key: string): seq[bool] =
-  for i in table[(section, key)].arrayVal: result.add(i.boolVal)
+  for i in table[(section, key)].arrayVal:
+    case i.kind:
+    of CVInt: result.add(i.boolVal)
+    else: discard
   return result
 
 proc getStringTable*(table: ConfigTable, section, key: string): OrderedTable[string, string] =
   for key,val in table[(section, key)].tableVal.pairs:
-    result[key] = val.stringVal
+    case val.kind:
+    of CVString: result[key] = val.stringVal
+    else: discard
   return result
 
 proc getBoolTable*(table: ConfigTable, section, key: string): OrderedTable[string, bool] =
   for key,val in table[(section, key)].tableVal.pairs:
-    result[key] = val.boolVal
+    case val.kind:
+    of CVBool: result[key] = val.boolVal
+    else: discard
   return result
 
 proc getIntTable*(table: ConfigTable, section, key: string): OrderedTable[string, int] =
   for key,val in table[(section, key)].tableVal.pairs:
-    result[key] = val.intVal
+    case val.kind:
+    of CVInt: result[key] = val.intVal
+    else: discard
   return result
 
 # "*OrDefault" procs are not a neccessary thing when using checkmaps.
 # let's warn the client then by using deprecations.
-template getStringOrDefault*(config: ConfigTable, section, key, default: string): string =
-  {.deprecated: "getStringOrDefault is not neccessary when using a checkmap. Just supply a default value to the optional list.".}
+proc getStringOrDefault*(config: ConfigTable, section, key, default: string): string =
+  #{.deprecated: "getStringOrDefault is not neccessary when using a checkmap. Just supply a default value to the optional list.".}
   return config[(section, key)].stringVal
 
 proc getBoolOrDefault*(config: ConfigTable, section, key: string, default: bool): bool =
-  {.deprecated: "getBoolOrDefault is not neccessary when using a checkmap. Just supply a default value to the optional list.".}
+  #{.deprecated: "getBoolOrDefault is not neccessary when using a checkmap. Just supply a default value to the optional list.".}
   return config[(section, key)].boolVal
 
 proc getIntOrDefault*(config: ConfigTable, section, key: string, default: int): int =
-  {.deprecated: "getIntOrDefault is not neccessary when using a checkmap. Just supply a default value to the optional list.".}
+  #{.deprecated: "getIntOrDefault is not neccessary when using a checkmap. Just supply a default value to the optional list.".}
   return config[(section, key)].intVal
 
 proc getStringArrayOrDefault*(config: ConfigTable, section, key: string, default: seq[string]): seq[string] =
-  {.deprecated: "getStringArrayOrDefault is not neccessary when using a checkmap. Just supply a default value to the optional list.".}
+  #{.deprecated: "getStringArrayOrDefault is not neccessary when using a checkmap. Just supply a default value to the optional list.".}
   return config.getStringArray(section, key)

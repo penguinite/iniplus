@@ -10,7 +10,7 @@ type
     CVNone, CVInt, CVBool, CVString, CVArray, CVTable
 
   ## This object is the actual configuration value. It's best to use the built-in functions when handling these, if you must implement your own logic at the low-level then always remember to check the `kind` field first.
-  ConfigValue* = object of RootObj
+  ConfigValue* = object
     case kind*: ConfigValueKind
     of CVNone: nil
     of CVInt: intVal*: int
@@ -20,7 +20,7 @@ type
     of CVTable: tableVal*: OrderedTable[string, ConfigValue]
   
   ## A "Condensed" configuration value is simply an configuration value with the actual section and key embedded into it. This is used to implement the `setBulkKeys` procedure in the writer module.
-  CondensedConfigValue* = object of RootObj
+  CondensedConfigValue* = object
     section*, key*: string
     value*: ConfigValue
   

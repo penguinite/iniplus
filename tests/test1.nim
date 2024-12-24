@@ -5,6 +5,7 @@
 #
 # To run these tests, simply execute `nimble test`.
 
+{.define: iniplusCheckmap.}
 import iniplus
 
 const file = """
