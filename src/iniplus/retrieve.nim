@@ -89,6 +89,20 @@ proc getBool*(table: ConfigTable, section, key: string): bool =
   of CVBool: result = val.boolVal
   else: raiseValueError(val.kind, section, key)
 
+proc getBoolOrDefault*(config: ConfigTable, section, key: string, default: bool): bool =
+  ## Either returns the provided boolean in a table or a default value.
+  runnableExamples:
+    let table = parseString("enabled = false")
+    assert table.getBoolOrDefault("", "enabled", false) == false
+    assert table.getBoolOrDefault("", "enabled", true) == false
+
+    let table2 = parseString("")
+    assert table2.getBoolOrDefault("", "enabled", false) == false
+    assert table2.getBoolOrDefault("", "enabled", true) == true
+  if config.exists(section, key):
+    return config.getBool(section, key)
+  return default
+
 proc getInt*(table: ConfigTable, section, key: string): int =
   ## Returns an integer from a table with the specified section and key.
   runnableExamples:
@@ -101,6 +115,20 @@ proc getInt*(table: ConfigTable, section, key: string): int =
   of CVString: result = parseInt(val.stringVal)
   of CVInt: result = val.intVal
   else: raiseValueError(val.kind, section, key)
+
+proc getIntOrDefault*(config: ConfigTable, section, key: string, default: int): int =
+  ## Either returns the provided integer in a table or a default value.
+  runnableExamples:
+    let table = parseString("port = 1000")
+    assert table.getIntOrDefault("", "port", 1000) == 1000
+    assert table.getIntOrDefault("", "port", 1010) == 1000
+
+    let table2 = parseString("")
+    assert table2.getIntOrDefault("", "port", 1000) == 1000
+    assert table2.getIntOrDefault("", "port", 1010) == 1010
+  if config.exists(section, key):
+    return config.getInt(section, key)
+  return default
 
 proc getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] =
   ## Returns an array containing a set of ConfigValue objects from a table with the specified section and key.
@@ -140,6 +168,20 @@ proc getStringArray*(table: ConfigTable, section, key: string): seq[string] =
   for item in val.arrayVal:
     if item.kind == CVString: result.add(item.stringVal)
   return result
+
+proc getStringArrayOrDefault*(config: ConfigTable, section, key: string, default: seq[string]): seq[string] =
+  ## Either returns the provided string array in a table or a default value.
+  runnableExamples:
+    let table = parseString("users = [\"Kate\", \"John\", \"Alex\"]")
+    assert table.getStringArrayOrDefault("", "users", @["Kate", "John", "Alex"]) == @["Kate", "John", "Alex"]
+    assert table.getStringArrayOrDefault("", "users", @[]) == @["Kate", "John", "Alex"]
+
+    let table2 = parseString("")
+    assert table2.getStringArrayOrDefault("", "users", @["John"]) == @["John"]
+    assert table2.getStringArrayOrDefault("", "users", @[]) == @[]
+  if config.exists(section, key):
+    return config.getStringArray(section, key)
+  return default
 
 proc getIntArray*(table: ConfigTable, section, key: string): seq[int] =
   ## This procedure retrieves a integer-only array from a table. It also throws out any non-integer items
