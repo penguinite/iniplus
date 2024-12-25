@@ -92,6 +92,7 @@ proc getBool*(table: ConfigTable, section, key: string): bool =
 proc getBoolOrDefault*(config: ConfigTable, section, key: string, default: bool): bool =
   ## Either returns the provided boolean in a table or a default value.
   runnableExamples:
+    import iniplus
     let table = parseString("enabled = false")
     assert table.getBoolOrDefault("", "enabled", false) == false
     assert table.getBoolOrDefault("", "enabled", true) == false
@@ -119,6 +120,7 @@ proc getInt*(table: ConfigTable, section, key: string): int =
 proc getIntOrDefault*(config: ConfigTable, section, key: string, default: int): int =
   ## Either returns the provided integer in a table or a default value.
   runnableExamples:
+    import iniplus
     let table = parseString("port = 1000")
     assert table.getIntOrDefault("", "port", 1000) == 1000
     assert table.getIntOrDefault("", "port", 1010) == 1000
@@ -172,6 +174,7 @@ proc getStringArray*(table: ConfigTable, section, key: string): seq[string] =
 proc getStringArrayOrDefault*(config: ConfigTable, section, key: string, default: seq[string]): seq[string] =
   ## Either returns the provided string array in a table or a default value.
   runnableExamples:
+    import iniplus
     let table = parseString("users = [\"Kate\", \"John\", \"Alex\"]")
     assert table.getStringArrayOrDefault("", "users", @["Kate", "John", "Alex"]) == @["Kate", "John", "Alex"]
     assert table.getStringArrayOrDefault("", "users", @[]) == @["Kate", "John", "Alex"]
