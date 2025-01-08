@@ -7,9 +7,9 @@ import objects, std/strutils
 export objects
 
 proc dump*(table: ConfigTable): string =
-  ## Converts a config table into a human-readable format similar to JSON.
-  ## This should only ever be used for debugging, if you want to convert a config
-  ## table to a string you can load again then use the `toString()` procedure.
+  ## Converts a config table into a human-readable format.
+  ## This should only ever be used for debugging, the output cannot be loaded or passed onto parseString()
+  ## If you want a re-loadable string then use the `toString()` procedure or the dollar sign (`$`)
   runnableExamples:
     import iniplus
     let config = parseString("test_key=\"String\"")
@@ -69,13 +69,23 @@ proc toString*(val: ConfigValue): string =
     result = "{" & result & "}"
   return result
 
+proc `$`*(value: ConfigValue): string =
+  ## Shorthand for `toString(value)`
+  runnableExamples:
+    import iniplus
+    let value = newCStr("John")
+
+    echo toString(value)
+  return toString(value)
+
 proc toString*(table: ConfigTable): string =
-  ## Converts a whole configuration table into a loadable, human-readable string.
+  ## Converts a whole configuration table into a string that can be loaded again through iniplus/reader's parseString().
   runnableExamples:
     import iniplus
     let config = parseString("test_key=\"Hello\"")
 
     echo toString(config)
+
   var
     tmpTable: Table[string, string]
 
@@ -99,6 +109,76 @@ proc toString*(table: ConfigTable): string =
     result.add(val)
 
   return result
+
+proc `$`*(table: ConfigTable): string =
+  ## Shorthand for `toString(table)`
+  runnableExamples:
+    import iniplus
+    let config = parseString("test_key=\"Hello\"")
+
+    echo toString(config)
+
+  return toString(table)
+
+proc newConfigTable*(): ConfigTable =
+  ## Simply returns a new, empty, ConfigTable object.
+  runnableExamples:
+    import iniplus
+    let
+      tableA = newConfigTable()
+      tableB = parseString("")
+    
+    assert tableA.len() == tableB.len()
+    assert tableA.len() == 0
+    assert tableB.len() == 0
+  return result
+
+proc setKey*[T](table: var ConfigTable, section, key: string, value: T) =
+  ## Allows you to set a key of a section in a table to a specific value.
+  runnableExamples:
+    import iniplus
+    var table = newConfigTable()
+    ## Here we set key "person" inside section "favorite" to a single string "John"
+    table.setKey(
+      "favorite", # Section
+      "person", # Key
+      "John" # Value
+    )
+    assert table.getString("favorite","person") == "John"
+
+    ## Here we set key "boolean" inside section "favorite" to a single boolean true
+    table.setKey(
+      "favorite", # Section
+      "boolean", # Key
+      true # Value
+    )
+    assert table.getBool("favorite","boolean") == true
+
+  table[(section, key)] = newCValue(value)
+
+proc setKey*(table: var ConfigTable, section, key: string, value: ConfigValue) =
+  runnableExamples:
+    import iniplus
+    var
+      table = newConfigTable()
+      # Creates a String ConfigValue object
+      valueStr = newCValue("Hello World!")
+      # Creates a Sequence ConfigValue object
+      valueArr = newCValue(
+        newCValue("Hello World!"),
+        newCValue(1000)
+      )
+
+    # Inserting a handmade string into a table
+    table.setKey("handmade","quote",valueStr)
+    assert table.getString("handmade","quote") == "Hello World!"
+
+    # Inserting a handmade array into a table
+    table.setKey("handmade","list",valueArr)
+    assert table.getArray("handmade", "list")[0].stringVal == "Hello World!"
+    assert table.getArray("handmade", "list")[1].intVal == 1000
+
+  table[(section, key)] = value
 
 #! All of the stuff below is deprecated and will be removed soon.
 
