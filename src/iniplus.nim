@@ -66,10 +66,6 @@ runnableExamples:
 ## 3. reader contains the configuration file parser
 ## 4. writer contains the above-mentioned advanced features.
 
-when defined(iniplusExpComp):
-  import iniplus/experimental/comp
-  export comp
-
 when defined(iniplusCheckmaps):
   import iniplus/experimental/checkmaps, iniplus/[objects, writer]
   import std/tables
