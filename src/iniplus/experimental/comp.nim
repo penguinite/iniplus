@@ -1,127 +1,135 @@
-## Please turn around while you can.
+from ../objects import ConfigValue, ConfigValueKind
 
-proc `==`*(a: ConfigValue, b: string): bool =
+func `==`*(a: ConfigValue, b: string): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.stringVal == b
   
-proc `==`*(a: string, b: ConfigValue): bool =
+func `==`*(a: string, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a == b.stringVal
   
-proc `==`*(a: ConfigValue, b: int): bool =
+func `==`*(a: ConfigValue, b: int): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.intVal == b
   
-proc `==`*(a: int, b: ConfigValue): bool =
+func `==`*(a: int, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a == b.intVal
   
-proc `==`*(a: ConfigValue, b: bool): bool =
+func `==`*(a: ConfigValue, b: bool): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.boolVal == b
   
-proc `==`*(a: bool, b: ConfigValue): bool =
+func `==`*(a: bool, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a == b.boolVal
   
-proc `==`*[T](a: openArray[T], b: ConfigValue): bool =
+func `==`*[T](a: openArray[T], b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a == b.arrayVal
 
-proc `==`*[T](a: ConfigValue, b: openArray[T]): bool =
+func `==`*[T](a: ConfigValue, b: openArray[T]): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.arrayVal == b
 
-proc `>`*(a: int, b: ConfigValue): bool =
+func `>`*(a: int, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a > b.intVal
 
-proc `<`*(a: int, b: ConfigValue): bool =
+func `<`*(a: int, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a < b.intVal
 
-proc `>=`*(a: int, b: ConfigValue): bool =
+func `>=`*(a: int, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a >= b.intVal
 
-proc `<=`*(a: int, b: ConfigValue): bool =
+func `<=`*(a: int, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a <= b.intVal
   
-proc `>`*(a: ConfigValue, b: int): bool =
+func `>`*(a: ConfigValue, b: int): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.intVal > b
 
-proc `<`*(a: ConfigValue, b: int): bool =
+func `<`*(a: ConfigValue, b: int): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.intVal < b
 
-proc `>=`*(a: ConfigValue, b: int): bool =
+func `>=`*(a: ConfigValue, b: int): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.intVal >= b
 
-proc `<=`*(a: ConfigValue, b: int): bool =
+func `<=`*(a: ConfigValue, b: int): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.intVal <= b
-  proc `>`*(a: SomeInteger, b: ConfigValue): bool =
+
+func `>`*(a: SomeInteger, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a > b.intVal
-proc `<`*(a: SomeInteger, b: ConfigValue): bool =
+
+func `<`*(a: SomeInteger, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a < b.intVal
-proc `>=`*(a: SomeInteger, b: ConfigValue): bool =
+
+func `>=`*(a: SomeInteger, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a >= b.intVal
-proc `<=`*(a: SomeInteger, b: ConfigValue): bool =
+
+func `<=`*(a: SomeInteger, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a <= b.intVal
 
-proc `>`*(a: ConfigValue, b: SomeInteger): bool =
+func `>`*(a: ConfigValue, b: SomeInteger): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.intVal > b
-proc `<`*(a: ConfigValue, b: SomeInteger): bool =
+
+func `<`*(a: ConfigValue, b: SomeInteger): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.intVal < b
-proc `>=`*(a: ConfigValue, b: SomeInteger): bool =
+
+func `>=`*(a: ConfigValue, b: SomeInteger): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.intVal >= b
-proc `<=`*(a: ConfigValue, b: SomeInteger): bool =
+
+func `<=`*(a: ConfigValue, b: SomeInteger): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.intVal <= b
 
-proc `!=`*(a: ConfigValue, b: string): bool =
+func `!=`*(a: ConfigValue, b: string): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.stringVal != b
 
-proc `!=`*(a: string, b: ConfigValue): bool =
+func `!=`*(a: string, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a != b.stringVal
 
-proc `!=`*(a: ConfigValue, b: int): bool =
+func `!=`*(a: ConfigValue, b: int): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.intVal != b
 
-proc `!=`*(a: int, b: ConfigValue): bool =
+func `!=`*(a: int, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a != b.intVal
 
-proc `!=`*(a: ConfigValue, b: bool): bool =
+func `!=`*(a: ConfigValue, b: bool): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.boolVal != b
 
-proc `!=`*(a: bool, b: ConfigValue): bool =
+func `!=`*(a: bool, b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a != b.boolVal
 
-proc `!=`*[T](a: openArray[T], b: ConfigValue): bool =
+func `!=`*[T](a: openArray[T], b: ConfigValue): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a != b.arrayVal
 
-proc `!=`*[T](a: ConfigValue, b: openArray[T]): bool =
+func `!=`*[T](a: ConfigValue, b: openArray[T]): bool =
   ## Disable this comparison operator with -d:iniplusNSComp
   return a.arrayVal != b
 
-proc `==`(a,b: ConfigValue): bool =
+func `==`*(a,b: ConfigValue): bool =
+  ## Disable this comparison operator with -d:iniplusNSComp
   if a.kind != b.kind: return false
   # Both have the same kind now.
   case a.kind:
@@ -131,8 +139,10 @@ proc `==`(a,b: ConfigValue): bool =
   of CVString: return a.stringVal == b.stringVal
   of CVArray: return a.arrayVal == b.arrayVal
   of CVTable: return a.tableVal == b.tableVal
+  of CVType: return a.t == b.t and a.child_t == b.child_t
 
-proc `!=`(a,b: ConfigValue): bool =
+func `!=`*(a,b: ConfigValue): bool =
+  ## Disable this comparison operator with -d:iniplusNSComp
   if a.kind == b.kind: return false
   # Both have the same kind now.
   case a.kind:
@@ -142,6 +152,4 @@ proc `!=`(a,b: ConfigValue): bool =
   of CVString: return a.stringVal != b.stringVal
   of CVArray: return a.arrayVal != b.arrayVal
   of CVTable: return a.tableVal != b.tableVal
-
-
-# We all *shut* down...
+  of CVType: return a.t != b.t and a.child_t != b.child_t
