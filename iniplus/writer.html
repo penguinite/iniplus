@@ -58,9 +58,9 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">c
-  <li><a class="reference" href="#c%2Cstring%2Cstring%2Cvarargs%5BConfigValue%2CnewValue%5D" title="c(section, key: string; value: varargs[ConfigValue, newValue]): CondensedConfigValue">c(section, key: string; value: varargs[ConfigValue, newValue]): CondensedConfigValue</a></li>
-<li><a class="reference" href="#c%2Cstring%2Cstring%2CT" title="c[T](section, key: string; value: T): CondensedConfigValue">c[T](section, key: string; value: T): CondensedConfigValue</a></li>
+      <ul class="simple nested-toc-section">$
+  <li><a class="reference" href="#%24%2CConfigTable" title="`$`(table: ConfigTable): string">`$`(table: ConfigTable): string</a></li>
+<li><a class="reference" href="#%24%2CConfigValue" title="`$`(value: ConfigValue): string">`$`(value: ConfigValue): string</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">dump
@@ -87,10 +87,6 @@
 <ul class="simple nested-toc-section">setKey
   <li><a class="reference" href="#setKey%2CConfigTable%2Cstring%2Cstring%2CConfigValue" title="setKey(table: var ConfigTable; section, key: string; value: ConfigValue)">setKey(table: var ConfigTable; section, key: string; value: ConfigValue)</a></li>
 <li><a class="reference" href="#setKey%2CConfigTable%2Cstring%2Cstring%2CT" title="setKey[T](table: var ConfigTable; section, key: string; value: T)">setKey[T](table: var ConfigTable; section, key: string; value: T)</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">setKeys
-  <li><a class="reference" href="#setKeys%2CConfigTable%2Cvarargs%5BCondensedConfigValue%5D" title="setKeys(table: var ConfigTable; vals: varargs[CondensedConfigValue])">setKeys(table: var ConfigTable; vals: varargs[CondensedConfigValue])</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">toString
@@ -122,31 +118,35 @@
 <div class="section" id="12">
   <h1><a class="toc-backref" href="#12">Procs</a></h1>
   <dl class="item">
-    <div id="c-procs-all">
-  <div id="c,string,string,varargs[ConfigValue,newValue]">
-  <dt><pre><span class="Keyword">proc</span> <a href="#c%2Cstring%2Cstring%2Cvarargs%5BConfigValue%2CnewValue%5D"><span class="Identifier">c</span></a><span class="Other">(</span><span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">,</span> <span class="Identifier">newValue</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#CondensedConfigValue"><span class="Identifier">CondensedConfigValue</span></a> {.
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+    <div id="$-procs-all">
+  <div id="$,ConfigTable">
+  <dt><pre><span class="Keyword">proc</span> <a href="#%24%2CConfigTable"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+                                       <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    Creates a condensed config value, a condensed config value is a configuration value with both the section and key present in it. It's used in setKeys (among other places) to set multiple keys in a nice fashion.
+    Shorthand for <tt class="docutils literal"><span class="pre"><span class="Identifier">toString</span><span class="Punctuation">(</span><span class="Identifier">table</span><span class="Punctuation">)</span></span></tt>
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
-<span class="Keyword">let</span> <span class="Identifier">condensedValue</span> <span class="Operator">=</span> <span class="Identifier">c</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorite&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;people&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;John&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;Katie&quot;</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">condensedValue</span><span class="Operator">.</span><span class="Identifier">section</span> <span class="Operator">==</span> <span class="StringLit">&quot;favorite&quot;</span>
-<span class="Identifier">assert</span> <span class="Identifier">condensedValue</span><span class="Operator">.</span><span class="Identifier">key</span> <span class="Operator">==</span> <span class="StringLit">&quot;people&quot;</span>
-<span class="Identifier">assert</span> <span class="Identifier">condensedValue</span><span class="Operator">.</span><span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">kind</span> <span class="Operator">==</span> <span class="Identifier">CVArray</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L295" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L295" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+<span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;test_key=</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Hello</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">&quot;</span><span class="Punctuation">)</span>
+
+<span class="Identifier">echo</span> <span class="Identifier">toString</span><span class="Punctuation">(</span><span class="Identifier">config</span><span class="Punctuation">)</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L113" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L113" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
-<div id="c,string,string,T">
-  <dt><pre><span class="Keyword">proc</span> <a href="#c%2Cstring%2Cstring%2CT"><span class="Identifier">c</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#CondensedConfigValue"><span class="Identifier">CondensedConfigValue</span></a></pre></dt>
+<div id="$,ConfigValue">
+  <dt><pre><span class="Keyword">proc</span> <a href="#%24%2CConfigValue"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    Creates a condensed config value, a condensed config value is a configuration value with both the section and key present in it. It's used in setKeys (among other places) to set multiple keys in a nice fashion.
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L287" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L287" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    Shorthand for <tt class="docutils literal"><span class="pre"><span class="Identifier">toString</span><span class="Punctuation">(</span><span class="Identifier">value</span><span class="Punctuation">)</span></span></tt>
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span> <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">)</span>
+
+<span class="Identifier">echo</span> <span class="Identifier">toString</span><span class="Punctuation">(</span><span class="Identifier">value</span><span class="Punctuation">)</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L72" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L72" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -158,7 +158,7 @@
                                         <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    Converts a config table into a human-readable format similar to JSON. This should only ever be used for debugging, if you want to convert a config table to a string you can load again then use the <tt class="docutils literal"><span class="pre"><span class="Identifier">toString</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> procedure.
+    Converts a config table into a human-readable format. This should only ever be used for debugging, the output cannot be loaded or passed onto parseString() If you want a re-loadable string then use the <tt class="docutils literal"><span class="pre"><span class="Identifier">toString</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> procedure or the dollar sign (<tt class="docutils literal"><span class="pre"><span class="Operator">$</span></span></tt>)
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;test_key=</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">String</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">&quot;</span><span class="Punctuation">)</span>
@@ -193,14 +193,16 @@
     
     Simply returns a new, empty, ConfigTable object.
 <p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Keyword">let</span>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span>
   <span class="Identifier">tableA</span> <span class="Operator">=</span> <span class="Identifier">newConfigTable</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
-  <span class="Identifier">tableB</span> <span class="Operator">=</span> <span class="Identifier">ConfigTable</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
+  <span class="Identifier">tableB</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span>
 
 <span class="Identifier">assert</span> <span class="Identifier">tableA</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">tableB</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">tableA</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">0</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L204" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L204" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+<span class="Identifier">assert</span> <span class="Identifier">tableA</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">0</span>
+<span class="Identifier">assert</span> <span class="Identifier">tableB</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">0</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L123" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L123" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -208,9 +210,14 @@
 </div>
 <div id="newValue-procs-all">
   <div id="newValue,bool">
-  <dt><pre><span class="Keyword">proc</span> <a href="#newValue%2Cbool"><span class="Identifier">newValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#newValue%2Cbool"><span class="Identifier">newValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">deprecated</span><span class="Other">:</span> <span class="StringLit">&quot;Use newCValue from iniplus/objects&quot;</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
-    
+    <div class="deprecation-message">
+  <b>Deprecated:</b> Use newCValue from iniplus/objects
+</div>
+
     Creates a ConfigValue object of the <tt class="docutils literal"><span class="pre"><span class="Identifier">Boolean</span></span></tt> kind. 
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
@@ -219,15 +226,20 @@
   <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">newValue</span><span class="Punctuation">(</span><span class="Identifier">true</span><span class="Punctuation">)</span>
 
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;favorite_boolean&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">boolVal</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">boolVal</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L127" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L127" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L209" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L209" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="newValue,int">
-  <dt><pre><span class="Keyword">proc</span> <a href="#newValue%2Cint"><span class="Identifier">newValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#newValue%2Cint"><span class="Identifier">newValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">deprecated</span><span class="Other">:</span> <span class="StringLit">&quot;Use newCValue from iniplus/objects&quot;</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
-    
+    <div class="deprecation-message">
+  <b>Deprecated:</b> Use newCValue from iniplus/objects
+</div>
+
     Creates a ConfigValue object of the <tt class="docutils literal"><span class="pre"><span class="Identifier">Int</span></span></tt> kind
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
@@ -236,16 +248,20 @@
   <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">newValue</span><span class="Punctuation">(</span><span class="DecNumber">9001</span><span class="Punctuation">)</span>
 
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;favorite_number&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">intVal</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">intVal</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L115" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L115" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L197" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L197" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="newValue,seq[ConfigValue]">
-  <dt><pre><span class="Keyword">proc</span> <a href="#newValue%2Cseq%5BConfigValue%5D"><span class="Identifier">newValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#newValue%2Cseq%5BConfigValue%5D"><span class="Identifier">newValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">deprecated</span><span class="Other">:</span> <span class="StringLit">&quot;Use newCValue from iniplus/objects&quot;</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
-    
+    <div class="deprecation-message">
+  <b>Deprecated:</b> Use newCValue from iniplus/objects
+</div>
+
     Creates a ConfigValue object of the <tt class="docutils literal"><span class="pre"><span class="Identifier">Sequence</span></span></tt> kind. This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects.
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
@@ -262,15 +278,20 @@
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;my_favorite_people&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;my_favorite_people&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;my_favorite_people&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">boolVal</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">boolVal</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L160" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L160" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L243" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L243" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="newValue,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#newValue%2Cstring"><span class="Identifier">newValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#newValue%2Cstring"><span class="Identifier">newValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">deprecated</span><span class="Other">:</span> <span class="StringLit">&quot;Use newCValue from iniplus/objects&quot;</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
-    
+    <div class="deprecation-message">
+  <b>Deprecated:</b> Use newCValue from iniplus/objects
+</div>
+
     Creates a ConfigValue object of the <tt class="docutils literal"><span class="pre"><span class="Identifier">String</span></span></tt> kind
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
@@ -279,16 +300,20 @@
   <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">newValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">)</span>
 
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;favorite_person_number_one&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">stringVal</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L103" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L103" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L185" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L185" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="newValue,varargs[ConfigValue]">
-  <dt><pre><span class="Keyword">proc</span> <a href="#newValue%2Cvarargs%5BConfigValue%5D"><span class="Identifier">newValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">proc</span> <a href="#newValue%2Cvarargs%5BConfigValue%5D"><span class="Identifier">newValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">deprecated</span><span class="Other">:</span> <span class="StringLit">&quot;Use newCValue from iniplus/objects&quot;</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
-    
+    <div class="deprecation-message">
+  <b>Deprecated:</b> Use newCValue from iniplus/objects
+</div>
+
     Creates a ConfigValue object of the <tt class="docutils literal"><span class="pre"><span class="Identifier">Sequence</span></span></tt> kind.
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
@@ -304,15 +329,19 @@
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;my_favorite_people&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;my_favorite_people&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;my_favorite_people&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">boolVal</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">boolVal</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L139" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L139" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L221" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L221" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="newValue,seq[T]">
-  <dt><pre><span class="Keyword">proc</span> <a href="#newValue%2Cseq%5BT%5D"><span class="Identifier">newValue</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a></pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#newValue%2Cseq%5BT%5D"><span class="Identifier">newValue</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">deprecated</span><span class="Other">:</span> <span class="StringLit">&quot;Use newCValue from iniplus/objects&quot;</span></span>.}</pre></dt>
   <dd>
-    
+    <div class="deprecation-message">
+  <b>Deprecated:</b> Use newCValue from iniplus/objects
+</div>
+
     Creates a ConfigValue object of the <tt class="docutils literal"><span class="pre"><span class="Identifier">Sequence</span></span></tt> kind. This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects. It's not possible to mix and match different data types with this procedure. Please use the one where you explicitly convert every value instead.
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
@@ -329,8 +358,8 @@
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;my_favorite_people&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;my_favorite_people&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;my_favorite_people&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L181" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L181" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L263" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L263" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -348,11 +377,11 @@
 <span class="Keyword">var</span>
   <span class="Identifier">table</span> <span class="Operator">=</span> <span class="Identifier">newConfigTable</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
   <span class="Comment"># Creates a String ConfigValue object</span>
-  <span class="Identifier">valueStr</span> <span class="Operator">=</span> <span class="Identifier">newValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;Hello World!&quot;</span><span class="Punctuation">)</span>
+  <span class="Identifier">valueStr</span> <span class="Operator">=</span> <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;Hello World!&quot;</span><span class="Punctuation">)</span>
   <span class="Comment"># Creates a Sequence ConfigValue object</span>
-  <span class="Identifier">valueArr</span> <span class="Operator">=</span> <span class="Identifier">newValue</span><span class="Punctuation">(</span>
-    <span class="Identifier">newValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;Hello World!&quot;</span><span class="Punctuation">)</span><span class="Punctuation">,</span>
-    <span class="Identifier">newValue</span><span class="Punctuation">(</span><span class="DecNumber">1000</span><span class="Punctuation">)</span>
+  <span class="Identifier">valueArr</span> <span class="Operator">=</span> <span class="Identifier">newCValue</span><span class="Punctuation">(</span>
+    <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;Hello World!&quot;</span><span class="Punctuation">)</span><span class="Punctuation">,</span>
+    <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="DecNumber">1000</span><span class="Punctuation">)</span>
   <span class="Punctuation">)</span>
 
 <span class="Comment"># Inserting a handmade string into a table</span>
@@ -363,8 +392,8 @@
 <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">setKey</span><span class="Punctuation">(</span><span class="StringLit">&quot;handmade&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;list&quot;</span><span class="Punctuation">,</span><span class="Identifier">valueArr</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;handmade&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;list&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="StringLit">&quot;Hello World!&quot;</span>
 <span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;handmade&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;list&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">intVal</span> <span class="Operator">==</span> <span class="DecNumber">1000</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L238" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L238" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L159" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L159" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -391,40 +420,8 @@
   <span class="Identifier">true</span> <span class="Comment"># Value</span>
 <span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getBool</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorite&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;boolean&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">true</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L215" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L215" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="setKeys-procs-all">
-  <div id="setKeys,ConfigTable,varargs[CondensedConfigValue]">
-  <dt><pre><span class="Keyword">proc</span> <a href="#setKeys%2CConfigTable%2Cvarargs%5BCondensedConfigValue%5D"><span class="Identifier">setKeys</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">vals</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><a href="objects.html#CondensedConfigValue"><span class="Identifier">CondensedConfigValue</span></a><span class="Other">]</span><span class="Other">)</span> {.
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    Allows you to set multiple keys, similar to how std/json's % macro does. But with procedures instead! Since I don't know meta-programming the <tt class="docutils literal"><span class="pre"><span class="Identifier">c</span></span></tt> proc is neccessary, I tried also using the <tt class="docutils literal"><span class="pre"><span class="Operator">%</span></span></tt> for it but it didn't work for some reason.
-<p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
-<span class="Keyword">var</span> <span class="Identifier">table</span> <span class="Operator">=</span> <span class="Identifier">ConfigTable</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
-<span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">setKeys</span><span class="Punctuation">(</span>
-  <span class="Identifier">c</span><span class="Punctuation">(</span><span class="StringLit">&quot;hello&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;world&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;!&quot;</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Comment"># Strings</span>
-  <span class="Identifier">c</span><span class="Punctuation">(</span><span class="StringLit">&quot;goodbye&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;world&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;!&quot;</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Comment"># Strings^2</span>
-  <span class="Identifier">c</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorite&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;people&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;John&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;Katie&quot;</span><span class="Punctuation">,</span> <span class="Identifier">true</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Comment"># Sequences</span>
-  <span class="Identifier">c</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorite&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;number&quot;</span><span class="Punctuation">,</span> <span class="DecNumber">9001</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Comment"># Numbers</span>
-  <span class="Identifier">c</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorite&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;boolean&quot;</span><span class="Punctuation">,</span><span class="Identifier">true</span><span class="Punctuation">)</span><span class="Punctuation">,</span> <span class="Comment"># Booleans</span>
-<span class="Punctuation">)</span>
-
-<span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getString</span><span class="Punctuation">(</span><span class="StringLit">&quot;hello&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;world&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;!&quot;</span>
-<span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getString</span><span class="Punctuation">(</span><span class="StringLit">&quot;goodbye&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;world&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;!&quot;</span>
-<span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorite&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;people&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="StringLit">&quot;John&quot;</span>
-<span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorite&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;people&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="StringLit">&quot;Katie&quot;</span>
-<span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorite&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;people&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">boolVal</span> <span class="Operator">==</span> <span class="Identifier">true</span>
-<span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getInt</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorite&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;number&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">9001</span>
-<span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getBool</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorite&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;boolean&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">true</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L262" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L262" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L136" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L136" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -436,14 +433,14 @@
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    Converts a whole configuration table into a loadable, human-readable string.
+    Converts a whole configuration table into a string that can be loaded again through iniplus/reader's parseString().
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;test_key=</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Hello</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">&quot;</span><span class="Punctuation">)</span>
 
 <span class="Identifier">echo</span> <span class="Identifier">toString</span><span class="Punctuation">(</span><span class="Identifier">config</span><span class="Punctuation">)</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L72" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L72" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L81" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L81" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -473,7 +470,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-12-25 15:42:01 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-08 22:41:52 UTC</small>
       </div>
     </div>
   </div>

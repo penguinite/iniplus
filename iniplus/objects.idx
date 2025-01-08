@@ -1,11 +1,18 @@
 nimTitle	objects	iniplus/objects.html	module src/iniplus/objects		0
-nim	CVNone	iniplus/objects.html#CVNone	ConfigValueKind.CVNone		9
-nim	CVInt	iniplus/objects.html#CVInt	ConfigValueKind.CVInt		9
-nim	CVBool	iniplus/objects.html#CVBool	ConfigValueKind.CVBool		9
-nim	CVString	iniplus/objects.html#CVString	ConfigValueKind.CVString		9
-nim	CVArray	iniplus/objects.html#CVArray	ConfigValueKind.CVArray		9
-nim	CVTable	iniplus/objects.html#CVTable	ConfigValueKind.CVTable		9
-nim	ConfigValueKind	iniplus/objects.html#ConfigValueKind	enum ConfigValueKind		9
-nim	ConfigValue	iniplus/objects.html#ConfigValue	object ConfigValue		13
-nim	CondensedConfigValue	iniplus/objects.html#CondensedConfigValue	object CondensedConfigValue		23
-nim	ConfigTable	iniplus/objects.html#ConfigTable	type ConfigTable		28
+nim	CVNone	iniplus/objects.html#CVNone	ConfigValueKind.CVNone		14
+nim	CVInt	iniplus/objects.html#CVInt	ConfigValueKind.CVInt		14
+nim	CVBool	iniplus/objects.html#CVBool	ConfigValueKind.CVBool		14
+nim	CVString	iniplus/objects.html#CVString	ConfigValueKind.CVString		14
+nim	CVArray	iniplus/objects.html#CVArray	ConfigValueKind.CVArray		14
+nim	CVTable	iniplus/objects.html#CVTable	ConfigValueKind.CVTable		14
+nim	CVType	iniplus/objects.html#CVType	ConfigValueKind.CVType		14
+nim	ConfigValueKind	iniplus/objects.html#ConfigValueKind	enum ConfigValueKind		14
+nim	ConfigValue	iniplus/objects.html#ConfigValue	object ConfigValue		18
+nim	ConfigTable	iniplus/objects.html#ConfigTable	type ConfigTable		31
+nim	newCValue	iniplus/objects.html#newCValue,string	proc newCValue(value: string): ConfigValue		33
+nim	newCValue	iniplus/objects.html#newCValue,int	proc newCValue(value: int): ConfigValue		44
+nim	newCValue	iniplus/objects.html#newCValue,bool	proc newCValue(value: bool): ConfigValue		55
+nim	newCValue	iniplus/objects.html#newCValue,varargs[ConfigValue]	proc newCValue(value: varargs[ConfigValue]): ConfigValue		66
+nim	newCValue	iniplus/objects.html#newCValue,seq[ConfigValue]	proc newCValue(value: seq[ConfigValue]): ConfigValue		83
+nim	newCValue	iniplus/objects.html#newCValue,seq[T]	proc newCValue[T](val: seq[T]): ConfigValue		105
+nimgrp	newcvalue	iniplus/objects.html#newCValue-procs-all	proc		33

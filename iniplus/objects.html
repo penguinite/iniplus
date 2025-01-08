@@ -55,10 +55,7 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#CondensedConfigValue" title="CondensedConfigValue = object
-  section*, key*: string
-  value*: ConfigValue">CondensedConfigValue</a></li>
-<li><a class="reference" href="#ConfigTable" title="ConfigTable = OrderedTable[(string, string), ConfigValue]">ConfigTable</a></li>
+      <li><a class="reference" href="#ConfigTable" title="ConfigTable = OrderedTable[(string, string), ConfigValue]">ConfigTable</a></li>
 <li><a class="reference" href="#ConfigValue" title="ConfigValue = object
   case kind*: ConfigValueKind
   of CVNone:
@@ -72,9 +69,29 @@
   of CVArray:
     arrayVal*: seq[ConfigValue]
   of CVTable:
-    tableVal*: OrderedTable[string, ConfigValue]">ConfigValue</a></li>
+    tableVal*: OrderedTable[string, ConfigValue]
+  of CVType:
+    t*: ConfigValueKind
+    child_t*: ConfigValueKind">ConfigValue</a></li>
 <li><a class="reference" href="#ConfigValueKind" title="ConfigValueKind = enum
-  CVNone, CVInt, CVBool, CVString, CVArray, CVTable">ConfigValueKind</a></li>
+  CVNone, CVInt, CVBool, CVString, CVArray, CVTable, CVType">ConfigValueKind</a></li>
+
+    </ul>
+  </details>
+</li>
+<li>
+  <details open>
+    <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
+    <ul class="simple simple-toc-section">
+      <ul class="simple nested-toc-section">newCValue
+  <li><a class="reference" href="#newCValue%2Cbool" title="newCValue(value: bool): ConfigValue">newCValue(value: bool): ConfigValue</a></li>
+<li><a class="reference" href="#newCValue%2Cint" title="newCValue(value: int): ConfigValue">newCValue(value: int): ConfigValue</a></li>
+<li><a class="reference" href="#newCValue%2Cseq%5BConfigValue%5D" title="newCValue(value: seq[ConfigValue]): ConfigValue">newCValue(value: seq[ConfigValue]): ConfigValue</a></li>
+<li><a class="reference" href="#newCValue%2Cstring" title="newCValue(value: string): ConfigValue">newCValue(value: string): ConfigValue</a></li>
+<li><a class="reference" href="#newCValue%2Cvarargs%5BConfigValue%5D" title="newCValue(value: varargs[ConfigValue]): ConfigValue">newCValue(value: varargs[ConfigValue]): ConfigValue</a></li>
+<li><a class="reference" href="#newCValue%2Cseq%5BT%5D" title="newCValue[T](val: seq[T]): ConfigValue">newCValue[T](val: seq[T]): ConfigValue</a></li>
+
+</ul>
 
     </ul>
   </details>
@@ -89,29 +106,19 @@
 
     <div id="tocRoot"></div>
     
-    <p class="module-desc">This module provides the type definitions that are the foundation of this library.</p>
+    <p class="module-desc"><p>This module provides the type definitions that are the foundation of this library. And also some helper functions for constructing those types.</p>
+<p>You probably won't be using this unless you are writing something really low-level And also, good luck with that.</p>
+</p>
     <div class="section" id="7">
   <h1><a class="toc-backref" href="#7">Types</a></h1>
   <dl class="item">
-    <div id="CondensedConfigValue">
-  <dt><pre><a href="objects.html#CondensedConfigValue"><span class="Identifier">CondensedConfigValue</span></a> <span class="Other">=</span> <span class="Keyword">object</span>
-  <span class="Identifier">section</span><span class="Operator">*</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">string</span>
-  <span class="Identifier">value</span><span class="Operator">*</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a></pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L23" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L23" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-<div id="ConfigTable">
+    <div id="ConfigTable">
   <dt><pre><a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a> <span class="Other">=</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span><span class="Other">(</span><span class="Identifier">string</span><span class="Other">,</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">,</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L28" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L28" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -129,25 +136,168 @@
   <span class="Keyword">of</span> <span class="Identifier">CVArray</span><span class="Other">:</span>
     <span class="Identifier">arrayVal</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span>
   <span class="Keyword">of</span> <span class="Identifier">CVTable</span><span class="Other">:</span>
-    <span class="Identifier">tableVal</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">,</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span></pre></dt>
+    <span class="Identifier">tableVal</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">,</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span>
+  <span class="Keyword">of</span> <span class="Identifier">CVType</span><span class="Other">:</span>
+    <span class="Identifier">t</span><span class="Operator">*</span><span class="Other">:</span> <a href="objects.html#ConfigValueKind"><span class="Identifier">ConfigValueKind</span></a>
+    <span class="Identifier">child_t</span><span class="Operator">*</span><span class="Other">:</span> <a href="objects.html#ConfigValueKind"><span class="Identifier">ConfigValueKind</span></a></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L18" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L18" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="ConfigValueKind">
   <dt><pre><a href="objects.html#ConfigValueKind"><span class="Identifier">ConfigValueKind</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
-  <span class="Identifier">CVNone</span><span class="Other">,</span> <span class="Identifier">CVInt</span><span class="Other">,</span> <span class="Identifier">CVBool</span><span class="Other">,</span> <span class="Identifier">CVString</span><span class="Other">,</span> <span class="Identifier">CVArray</span><span class="Other">,</span> <span class="Identifier">CVTable</span></pre></dt>
+  <span class="Identifier">CVNone</span><span class="Other">,</span> <span class="Identifier">CVInt</span><span class="Other">,</span> <span class="Identifier">CVBool</span><span class="Other">,</span> <span class="Identifier">CVString</span><span class="Other">,</span> <span class="Identifier">CVArray</span><span class="Other">,</span> <span class="Identifier">CVTable</span><span class="Other">,</span> <span class="Identifier">CVType</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L9" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L9" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L14" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L14" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
+</div>
+
+  </dl>
+</div>
+<div class="section" id="12">
+  <h1><a class="toc-backref" href="#12">Procs</a></h1>
+  <dl class="item">
+    <div id="newCValue-procs-all">
+  <div id="newCValue,bool">
+  <dt><pre><span class="Keyword">proc</span> <a href="#newCValue%2Cbool"><span class="Identifier">newCValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Creates a ConfigValue object of the <tt class="docutils literal"><span class="pre"><span class="Identifier">Boolean</span></span></tt> kind. 
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span>
+  <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;fav_bool=true&quot;</span><span class="Punctuation">)</span>
+  <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="Identifier">true</span><span class="Punctuation">)</span>
+
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;fav_bool&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">value</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L55" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L55" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="newCValue,int">
+  <dt><pre><span class="Keyword">proc</span> <a href="#newCValue%2Cint"><span class="Identifier">newCValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Creates a ConfigValue object of the <tt class="docutils literal"><span class="pre"><span class="Identifier">Int</span></span></tt> kind
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span>
+  <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;fav_number=9001&quot;</span><span class="Punctuation">)</span>
+  <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="DecNumber">9001</span><span class="Punctuation">)</span>
+
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;fav_number&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">value</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L44" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L44" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="newCValue,seq[ConfigValue]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#newCValue%2Cseq%5BConfigValue%5D"><span class="Identifier">newCValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>Creates a ConfigValue object of the <tt class="docutils literal"><span class="pre"><span class="Identifier">Sequence</span></span></tt> kind.</p>
+<p>This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects as an argument</p>
+
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span>
+  <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorites=[</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Katie</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">, true]&quot;</span><span class="Punctuation">)</span>
+  <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">newCValue</span><span class="Punctuation">(</span>
+    <span class="Operator">@</span><span class="Punctuation">[</span>
+      <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">)</span><span class="Punctuation">,</span>
+      <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;Katie&quot;</span><span class="Punctuation">)</span><span class="Punctuation">,</span>
+      <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="Identifier">true</span><span class="Punctuation">)</span>
+    <span class="Punctuation">]</span>
+  <span class="Punctuation">)</span>
+
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;favorites&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span>
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;favorites&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span>
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;favorites&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L83" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L83" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="newCValue,string">
+  <dt><pre><span class="Keyword">proc</span> <a href="#newCValue%2Cstring"><span class="Identifier">newCValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Creates a ConfigValue object of the <tt class="docutils literal"><span class="pre"><span class="Identifier">String</span></span></tt> kind
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span>
+  <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;fav_person=</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">&quot;</span><span class="Punctuation">)</span>
+  <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">)</span>
+
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;fav_person&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">value</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L33" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L33" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="newCValue,varargs[ConfigValue]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#newCValue%2Cvarargs%5BConfigValue%5D"><span class="Identifier">newCValue</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Creates a ConfigValue object of the <tt class="docutils literal"><span class="pre"><span class="Identifier">Sequence</span></span></tt> kind.
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span>
+  <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorites=[</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Katie</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Isaac</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">]&quot;</span><span class="Punctuation">)</span>
+  <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">newCValue</span><span class="Punctuation">(</span>
+    <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">)</span><span class="Punctuation">,</span>
+    <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;Katie&quot;</span><span class="Punctuation">)</span><span class="Punctuation">,</span>
+    <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;Isaac&quot;</span><span class="Punctuation">)</span>
+  <span class="Punctuation">)</span>
+
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getStringArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;favorites&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span>
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getStringArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;favorites&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span>
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getStringArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;favorites&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L66" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L66" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="newCValue,seq[T]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#newCValue%2Cseq%5BT%5D"><span class="Identifier">newCValue</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a></pre></dt>
+  <dd>
+    
+    <p>Creates a ConfigValue object of the <tt class="docutils literal"><span class="pre"><span class="Identifier">Sequence</span></span></tt> kind.</p>
+<p>This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects.</p>
+<p>It's not possible to mix and match different data types with this procedure. If you want to mix different data types into your array, then you must convert each item one-by-one using either varargs or a sequence·</p>
+
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span>
+  <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;my_favorite_people=[</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Katie</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Mark</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">]&quot;</span><span class="Punctuation">)</span>
+  <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="Operator">@</span><span class="Punctuation">[</span>
+      <span class="StringLit">&quot;John&quot;</span><span class="Punctuation">,</span>
+      <span class="StringLit">&quot;Katie&quot;</span><span class="Punctuation">,</span>
+      <span class="StringLit">&quot;Mark&quot;</span>
+    <span class="Punctuation">]</span>
+  <span class="Punctuation">)</span>
+
+<span class="Comment"># Yes, this is a mess. Just use the regular getArray() procedure if you want an easier time dealing with arrays.</span>
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getStringArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;my_favorite_people&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span>
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getStringArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;my_favorite_people&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span>
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getStringArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;my_favorite_people&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">arrayVal</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/objects.nim#L105" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/objects.nim#L105" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
 </div>
 
   </dl>
@@ -159,7 +309,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2024-12-25 15:41:56 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-08 22:41:47 UTC</small>
       </div>
     </div>
   </div>
