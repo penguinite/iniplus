@@ -67,10 +67,10 @@ runnableExamples:
 ## 4. writer contains the above-mentioned advanced features.
 
 when defined(iniplusCheckmaps):
-  import iniplus/experimental/checkmaps, iniplus/[objects, writer]
+  import iniplus/experimental/[checkmaps, comp], iniplus/[objects, writer]
   import std/tables
-  export tables, checkmaps, objects, writer
+  export tables, checkmaps, objects, writer, comp
 else:
-  import iniplus/[retrieve, objects, reader, writer]
+  import iniplus/[retrieve, objects, reader, writer], iniplus/experimental/comp
   import std/[tables]
-  export objects, reader, writer, tables, retrieve
+  export objects, reader, writer, tables, retrieve, comp
