@@ -49,7 +49,7 @@ proc toString*(val: ConfigValue): string =
     let value = newValue("John")
     echo toString(value)
   case val.kind:
-  of CVNone: return ""
+  of CVNone, CVType: return "" # CVNone and CVType don't have string representation.
   of CVString: result = "\"" & val.stringVal & "\""
   of CVInt: result = $(val.intVal)
   of CVBool: result = $(val.boolVal)
