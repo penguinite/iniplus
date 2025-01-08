@@ -89,7 +89,7 @@ proc newCValue*(value: seq[ConfigValue]): ConfigValue =
     import iniplus
     let
       config = parseString("favorites=[\"John\", \"Katie\", true]")
-      value = newValue(
+      value = newCValue(
         @[
           newCValue("John"),
           newCValue("Katie"),
