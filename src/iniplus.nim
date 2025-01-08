@@ -70,10 +70,10 @@ when defined(iniplusExpComp):
   import iniplus/experimental/comp
   export comp
 
-when defined(iniplusCheckmap):
-  import iniplus/experimental/checkmap, iniplus/[objects, writer]
+when defined(iniplusCheckmaps):
+  import iniplus/experimental/checkmaps, iniplus/[objects, writer]
   import std/tables
-  export tables, checkmap, objects, writer
+  export tables, checkmaps, objects, writer
 else:
   import iniplus/[retrieve, objects, reader, writer]
   import std/[tables]
