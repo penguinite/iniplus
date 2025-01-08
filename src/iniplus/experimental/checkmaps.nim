@@ -17,6 +17,8 @@ proc `@=`*[T](val: T): ConfigValue =
 
 ## The syntax for required config items looks like this:
 runnableExamples:
+  {.define: iniplusCheckmaps.}
+  import iniplus
   var required = {
     # Section
     "instance": {
@@ -31,6 +33,8 @@ runnableExamples:
 
 ## The syntax for optional config items looks like this:
 runnableExamples:
+  {.define: iniplusCheckmaps.}
+  import iniplus
   var optional = {
     # Section
     "instance": {

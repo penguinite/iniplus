@@ -12,3 +12,6 @@ requires "nim >= 2.0.0"
 
 task docs, "Doc generation command":
   exec "nimble doc --index:on --project --git.commit=main --git.devel=main --git.url=\"https://github.com/penguinite/iniplus\" src/iniplus.nim"
+
+task docsExp, "Doc generation command (Generates experimental API docs)":
+  exec "nimble doc --define:iniplusCheckmaps --index:on --project --git.commit=main --git.devel=main --git.url=\"https://github.com/penguinite/iniplus\" src/iniplus.nim"
