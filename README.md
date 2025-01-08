@@ -4,7 +4,7 @@ An INI parser written in Nim with support for extra datatypes such as arrays and
 
 Documentation can be found [here](https://penguinite.github.io/iniplus/), you can also build the documentation locally by running `nimble docs` if you clone this repository
 
-A simple `requires "iniplus ^= VERSION"` in your `.nimble` file and a `nimble ` (To download dependencies) is enough to import the project.
+A simple `requires "iniplus ^= VERSION"` in your `.nimble` file is enough to import the project.
 
 ## Features/Drawbacks
 

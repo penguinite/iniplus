@@ -2,7 +2,7 @@
 
 version       = "0.3.3"
 author        = "penguinite"
-description   = "An INI parser written in Nim. It's main goal is to support more datatypes than std/parsecfg whilst still being just as performant as it."
+description   = "An INI parser written in Nim. Has more features and datatypes than std/parsecfg while still being just as fast!"
 license       = "BSD-3-Clause"
 srcDir        = "src"
 
