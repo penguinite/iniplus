@@ -100,7 +100,10 @@ proc toString*(table: ConfigTable): string =
 
   return result
 
-proc newValue*(value: string): ConfigValue =
+#! All of the stuff below is deprecated and will be removed soon.
+
+proc newValue*(value: string): ConfigValue
+  {.deprecated: "Use newCValue from iniplus/objects".} =
   ## Creates a ConfigValue object of the `String` kind
   runnableExamples:
     import iniplus
@@ -109,10 +112,10 @@ proc newValue*(value: string): ConfigValue =
       value = newValue("John")
     
     assert config.getValue("","favorite_person_number_one").stringVal == value.stringVal
-  result = ConfigValue(kind: CVString)
-  result.stringVal = value
+  return ConfigValue(kind: CVString, stringVal: value)
 
-proc newValue*(value: int): ConfigValue =
+proc newValue*(value: int): ConfigValue
+  {.deprecated: "Use newCValue from iniplus/objects".} =
   ## Creates a ConfigValue object of the `Int` kind
   runnableExamples:
     import iniplus
@@ -121,10 +124,10 @@ proc newValue*(value: int): ConfigValue =
       value = newValue(9001)
     
     assert config.getValue("","favorite_number").intVal == value.intVal
-  result = ConfigValue(kind: CVInt)
-  result.intVal = value
+  return ConfigValue(kind: CVInt, intVal: value)
 
-proc newValue*(value: bool): ConfigValue =
+proc newValue*(value: bool): ConfigValue
+  {.deprecated: "Use newCValue from iniplus/objects".} =
   ## Creates a ConfigValue object of the `Boolean` kind. 
   runnableExamples:
     import iniplus
@@ -133,10 +136,10 @@ proc newValue*(value: bool): ConfigValue =
       value = newValue(true)
 
     assert config.getValue("","favorite_boolean").boolVal == value.boolVal
-  result = ConfigValue(kind: CVBool)
-  result.boolVal = value
+  return ConfigValue(kind: CVBool, boolVal: value)
 
-proc newValue*(value: varargs[ConfigValue]): ConfigValue =
+proc newValue*(value: varargs[ConfigValue]): ConfigValue
+  {.deprecated: "Use newCValue from iniplus/objects".} =
   ## Creates a ConfigValue object of the `Sequence` kind.
   runnableExamples:
     import iniplus
@@ -157,7 +160,8 @@ proc newValue*(value: varargs[ConfigValue]): ConfigValue =
     result.arrayVal.add(x)
   return result
 
-proc newValue*(value: seq[ConfigValue]): ConfigValue =
+proc newValue*(value: seq[ConfigValue]): ConfigValue
+  {.deprecated: "Use newCValue from iniplus/objects".} =
   ## Creates a ConfigValue object of the `Sequence` kind. This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects.
   runnableExamples:
     import iniplus
@@ -174,11 +178,10 @@ proc newValue*(value: seq[ConfigValue]): ConfigValue =
     assert config.getValue("","my_favorite_people").arrayVal[0].stringVal == value.arrayVal[0].stringVal
     assert config.getValue("","my_favorite_people").arrayVal[1].stringVal == value.arrayVal[1].stringVal
     assert config.getValue("","my_favorite_people").arrayVal[2].boolVal == value.arrayVal[2].boolVal
-  result = ConfigValue(kind: CVArray)
-  result.arrayVal = value
-  return result
+  return ConfigValue(kind: CVArray, arrayVal: value)
 
-proc newValue*[T](val: seq[T]): ConfigValue =
+proc newValue*[T](val: seq[T]): ConfigValue
+  {.deprecated: "Use newCValue from iniplus/objects".} =
   ## Creates a ConfigValue object of the `Sequence` kind. This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects.
   ## It's not possible to mix and match different data types with this procedure. Please use the one where you explicitly convert every value instead.
   runnableExamples:
