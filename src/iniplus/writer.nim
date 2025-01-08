@@ -73,7 +73,7 @@ proc `$`*(value: ConfigValue): string =
   ## Shorthand for `toString(value)`
   runnableExamples:
     import iniplus
-    let value = newCStr("John")
+    let value = newCValue("John")
 
     echo toString(value)
   return toString(value)
