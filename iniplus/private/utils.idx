@@ -11,15 +11,15 @@ nim	Quoted	iniplus/private/utils.html#Quoted	TokenKind.Quoted		5
 nim	Newline	iniplus/private/utils.html#Newline	TokenKind.Newline		5
 nim	TokenKind	iniplus/private/utils.html#TokenKind	enum TokenKind		5
 nim	Token	iniplus/private/utils.html#Token	object Token		8
-nim	isBoolean	iniplus/private/utils.html#isBoolean,string	proc isBoolean(raw: string): bool		13
-nim	isOnlyDigits	iniplus/private/utils.html#isOnlyDigits,string	proc isOnlyDigits(raw: string): bool		17
-nim	trimString	iniplus/private/utils.html#trimString,string	proc trimString(raw: string): string		22
-nim	conv	iniplus/private/utils.html#conv,string	proc conv(v: string): ConfigValue		35
-nim	conv	iniplus/private/utils.html#conv,seq[string]	proc conv(v: seq[string]; table = false): ConfigValue		48
-nim	None	iniplus/private/utils.html#None	State.None		66
-nim	Section	iniplus/private/utils.html#Section	State.Section		66
-nim	Val	iniplus/private/utils.html#Val	State.Val		66
-nim	Array	iniplus/private/utils.html#Array	State.Array		66
-nim	CTable	iniplus/private/utils.html#CTable	State.CTable		66
-nim	State	iniplus/private/utils.html#State	enum State		66
-nimgrp	conv	iniplus/private/utils.html#conv-procs-all	proc		35
+nim	isBoolean	iniplus/private/utils.html#isBoolean,string	proc isBoolean(raw: string): bool		21
+nim	isOnlyDigits	iniplus/private/utils.html#isOnlyDigits,string	proc isOnlyDigits(raw: string): bool		26
+nim	trimString	iniplus/private/utils.html#trimString,string	proc trimString(raw: string): string		33
+nim	conv	iniplus/private/utils.html#conv,string	proc conv(v: string): ConfigValue		50
+nim	conv	iniplus/private/utils.html#conv,seq[string]	proc conv(v: seq[string]; table = false): ConfigValue		63
+nim	None	iniplus/private/utils.html#None	State.None		81
+nim	Section	iniplus/private/utils.html#Section	State.Section		81
+nim	Val	iniplus/private/utils.html#Val	State.Val		81
+nim	Array	iniplus/private/utils.html#Array	State.Array		81
+nim	CTable	iniplus/private/utils.html#CTable	State.CTable		81
+nim	State	iniplus/private/utils.html#State	enum State		81
+nimgrp	conv	iniplus/private/utils.html#conv-procs-all	proc		50
