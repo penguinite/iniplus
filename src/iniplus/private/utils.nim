@@ -10,21 +10,36 @@ type
     of Literal, Quoted: inner*: string
     else: discard
 
+func tl(s: string): string =
+  for ch in s:
+    case ch:
+    of 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z':
+      result.add(char(uint8(ch) xor 0b0010_0000'u8))
+    else:
+      result.add(ch)
+
 proc isBoolean*(raw: string): bool =
-  if raw.toLower() == "true" or raw.toLower() == "false": return true
+  case raw.tl():
+  of "true", "false": return true
   else: return false
 
 proc isOnlyDigits*(raw: string): bool =
   for ch in raw:
-    if ch notin {'1','2','3','4','5','6','7','8','9','0','-'}: return false
+    case ch:
+    of '1','2','3','4','5','6','7','8','9','0','-': continue
+    else: return false
   return true
 
 proc trimString*(raw: string): string =
   ## Trims any double and single quotes from a string.
-  if raw == "" or raw == "\"": return ""
-  result = raw
-  if raw.startsWith('"') or raw.startsWith('\''): result = result[1..^1]
-  if raw.endsWith('"') or raw.endsWith('\''): result = result[0..^2]
+  case raw:
+  of "", " ", "\"": return ""
+  else:
+    result = raw
+    if raw.startsWith('"'):
+      result = result[1..^1]
+    if raw.endsWith('"'):
+      result = result[0..^2]
   return result
 
 proc getKind(raw: string): ConfigValueKind =
