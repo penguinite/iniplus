@@ -1,222 +1,181 @@
-# This is just an example to get you started. You may wish to put all of your
-# tests into a single file, or separate them into multiple `test1`, `test2`
-# etc. files (better names are recommended, just make sure the name starts with
-# the letter 't').
-#
-# To run these tests, simply execute `nimble test`.
-
-import iniplus
-
-const file = """
-name ="Acme Gadgets LLC"
-founder: "Jane Doe"
-
-[products]
-fromCountry="US"
-shippingTo = [
-    "US", "UK", "EU"
-]
-
-[products]
-sort: "alphabetically"
-
-[products.1]
-id: 1
-name: "Ultra Product #1"
-price: 75
-inStock: false
-isDeprecated: true
-newProductId: 2
-; iniplus does not support timestamps.
-; as a workaround, you can format your time to an ISO-compatible date
-; and format it when you read it again
-releaseDate: "2020-10-29T16:17:07Z"
-
-[products.2]
-id = 2
-name = "Ultra Product #2"
-price = 150 
-inStock = true
-isDeprecated = false
-# iniplus does not support timestamps.
-# as a workaround, you can format your time to an ISO-compatible date
-# and format it when you read it again
-releaseDate = "2023-10-29T16:17:07Z"
-"""
+import iniplus, std/unittest
 
 var
   table = newConfigTable()
-  # Creates a String ConfigValue object
-  valueStr = newCValue("Hello World!")
-  # Creates a Sequence ConfigValue object
-  valueArr = newCValue(
-    newCValue("Hello World!"),
-    newCValue(1000)
-  )
   value: ConfigValue
   config: ConfigTable
+
+suite "Basic tests":
+  test "Inserting custom values into table":
+    table.setKey("mamas_homemade_organic", "str", newCValue("Hi!"))
+    assert table.getString("mamas_homemade_organic","str") == "Hi!"
+
+  test "Inserting custom integer into table":
+    table.setKey("mamas_homemade_organic", "int", newCValue(1000))
+    assert table.getInt("mamas_homemade_organic","int") == 1000
+
+  test "Inserting custom boolean into table":
+    table.setKey("mamas_homemade_organic", "bool", newCValue(true))
+    assert table.getBool("mamas_homemade_organic","bool") == true
+
+  test "Inserting a custom array into a table":
+    table.setKey("mamas_homemade_organic","array", newCValue(
+      newCValue("Hello World!"),
+      newCValue(1000),
+      newCValue(true)
+    ))
+    assert table.getArray("mamas_homemade_organic", "array")[0].stringVal == "Hello World!"
+    assert table.getArray("mamas_homemade_organic", "array")[1].intVal == 1000
+    assert table.getArray("mamas_homemade_organic", "array")[2].boolVal == true
+
+  test "getStringArray with array of single type":
+    table = parseString("employees = [\"John\",\"Katie\",\"Anne\"]")
+    assert table.getStringArray("", "employees") == @["John", "Katie", "Anne"]
+    assert table.getStringArray("", "employees").len() == 3
+
+  test "getStringArray with array of multiple types":
+    table = parseString("employees = [\"John\",\"Katie\",1000]")
+    var employees = table.getStringArray("","employees")
+    assert employees[0] == "John"
+    assert employees[1] == "Katie"
+    assert len(employees) == 2
+
+  test "getIntArray with array of single type":
+    table = parseString("numbers = [1000, 2000, 3000]")
+    var number = table.getIntArray("","numbers")
+
+    assert number[0] == 1000
+    assert number[1] == 2000
+    assert number[2] == 3000
+    assert len(number) == 3
+
+  test "getIntArray with array of multiple types":
+    table = parseString("numbers = [1000, 2000, \"Michael\"]")
+    var number = table.getIntArray("","numbers")
+
+    assert number[0] == 1000
+    assert number[1] == 2000
+    assert len(number) == 2
   
-# Inserting a handmade string into a table
-table.setKey("handmade","quote",valueStr)
-assert table.getString("handmade","quote") == "Hello World!"
+  test "getBoolArray with arrays of single type":
+    table = parseString("[my_favorite]\nbooleans=[true, false]")
+    var myFavoriteBooleans = table.getBoolArray("my_favorite","booleans")
+        
+    assert myFavoriteBooleans[0] == true
+    assert myFavoriteBooleans[1] == false
+    assert len(myFavoriteBooleans) == 2
 
-# Inserting a handmade array into a table
-table.setKey("handmade","list",valueArr)
-assert table.getArray("handmade", "list")[0].stringVal == "Hello World!"
-assert table.getArray("handmade", "list")[1].intVal == 1000
+  test "getBoolArray with arrays of multiple types":
+    table = parseString("[my_favorite]\nbooleans=[true, \"Jimmy\", false]")
+    var myFavoriteBooleans = table.getBoolArray("my_favorite","booleans")
+        
+    assert myFavoriteBooleans[0] == true
+    assert myFavoriteBooleans[1] == false
+    assert len(myFavoriteBooleans) == 2
+  
+  test "Parsing arrays of single type":
+    table = parseString("employees = [\"John\",\"Katie\",\"Anne\"]")
 
-table = parseString("employees = [\"John\",\"Katie\",1000]")
-var employees = table.getArray("","employees")
+    var employees = table.getArray("","employees")
 
-assert employees[0].kind == CVString
-assert employees[1].kind == CVString
-assert employees[2].kind == CVInt
+    assert employees[0].kind == CVString
+    assert employees[1].kind == CVString
+    assert employees[2].kind == CVString
 
-assert employees[0].stringVal == "John"
-assert employees[1].stringVal == "Katie"
-assert employees[2].intVal == 1000
+  test "Parsing arrays of multiple types":
+    table = parseString("my_favorite_things = [1000, \"Katie\", true]")
+    assert table.exists("", "my_favorite_things") == true
 
-table = parseString("employees = [\"John\",\"Katie\",1000]")
-var employees2 = table.getStringArray("","employees")
-    
-assert employees2[0] == "John"
-assert employees2[1] == "Katie"
-assert len(employees2) == 2
+    var number = table.getArray("","my_favorite_things")
+    assert number[0].intVal == 1000
+    assert number[1].stringVal == "Katie"
+    assert number[2].boolVal == true
+    assert len(number) == 3
+  
+  test "Parsing strings":
+    table = parseString("name = \"John Doe\"")
+    assert   table.exists("","name") == true
+    assert table.getValue("","name").kind == CVString
+    assert table.getValue("","name").stringVal == "John Doe"
+  
+  test "Parsing integers":
+    table = parseString("port = 1984")
+    assert   table.exists("","port") == true
+    assert table.getValue("","port").kind == CVInt
+    assert table.getValue("","port").intVal == 1984
 
-table = parseString("numbers = [1000, 2000, \"Michael\"]")
-var number = table.getIntArray("","numbers")
+  test "Parsing booleans":
+    table = parseString("enable_feature = false")
+    assert   table.exists("","enable_feature") == true
+    assert table.getValue("","enable_feature").kind == CVBool
+    assert table.getValue("","enable_feature").boolVal == false
 
-assert number[0] == 1000
-assert number[1] == 2000
-assert len(number) == 2
-
-table = parseString("[my_favorite]\nbooleans=[true, \"Jimmy\", false]")
-var myFavoriteBooleans = table.getBoolArray("my_favorite","booleans")
-    
-assert myFavoriteBooleans[0] == true
-assert myFavoriteBooleans[1] == false
-assert len(myFavoriteBooleans) == 2
-
-table = parseString("name = \"John Doe\"")
-assert table.getValue("","name").kind == CVString
-assert table.getValue("","name").stringVal == "John Doe"
-
-table = parseString("""
+  test "getStringOrDefault":
+    table = parseString("""
 [dialog]
 info_text = "Insert some informational text here."
-""")
-assert table.getString("dialog","info_text") == "Insert some informational text here."
-assert table.getStringOrDefault("dialog","help_text","Insert some helpful text here.") == "Insert some helpful text here."
+    """)
+    assert table.getString("dialog","info_text") == "Insert some informational text here."
+    assert table.getStringOrDefault("dialog","help_text","Insert some helpful text here.") == "Insert some helpful text here."
+  
+  test "newConfigTable":
+    assert newConfigTable() == ConfigTable()
+    assert newConfigTable() == parseString("")
+    assert ConfigTable() == parseString("")
+  
+  test "Creating custom arrays":
+    config = parseString("my_favorite_people=[\"John\", \"Katie\", true]")
 
-table = parseString("enable_feature = true")
-assert table.getBool("","enable_feature") == true
+    assert config.getArray("","my_favorite_people")[0].stringVal == "John"
+    assert config.getArray("","my_favorite_people")[1].stringVal == "Katie"
+    assert config.getArray("","my_favorite_people")[2].boolVal == true
 
-table = parseString("port = 8080")
-assert table.getInt("","port") == 8080
+    config = parseString("my_favorite_people=[\"John\", \"Katie\", true]")
+    value = newCValue(@[
+        newCValue("John"),
+        newCValue("Katie"),
+        newCValue(true)
+      ]
+    )
+    assert config.getValue("","my_favorite_people").arrayVal[0].stringVal == value.arrayVal[0].stringVal
+    assert config.getValue("","my_favorite_people").arrayVal[1].stringVal == value.arrayVal[1].stringVal
+    assert config.getValue("","my_favorite_people").arrayVal[2].boolVal == value.arrayVal[2].boolVal
 
-#table = parseString(file)
-#echo table.dump()
-#
-#table = ConfigTable()
-#
-#table.setKeys(
-#  c("hello","world","!"), # Strings
-#  c("goodbye","world","!"), # Strings^2
-#  c("favorite","people", "John", "Katie", true), # Sequences
-#  c("favorite","number", 9001), # Numbers
-#  c("favorite","boolean",true) # Booleans
-#)
-#
-#assert table.getString("hello","world") == "!"
-#assert table.getString("goodbye","world") == "!"
-#assert table.getArray("favorite","people")[0].stringVal == "John"
-#assert table.getArray("favorite","people")[1].stringVal == "Katie"
-#assert table.getArray("favorite","people")[2].boolVal == true
-#assert table.getInt("favorite", "number") == 9001
-#assert table.getBool("favorite", "boolean") == true
+  test "Creating custom booleans":
+    config = parseString("favorite_boolean=true")
+    value = newCValue(true)
+    assert config.getValue("","favorite_boolean").boolVal == value.boolVal
 
-let
-  tableA = newConfigTable()
-  tableB = ConfigTable()
-    
-assert tableA.len() == tableB.len()
+  test "Creating custom integers":
+    config = parseString("favorite_number=9001")
+    value = newCValue(9001)    
+    assert config.getValue("","favorite_number").intVal == value.intVal
 
-config = parseString("my_favorite_people=[\"John\", \"Katie\", true]")
+  test "Creating custom strings":
+    config = parseString("favorite_person_number_one=\"John\"")
+    value = newCValue("John")
+    assert config.getValue("","favorite_person_number_one").stringVal == value.stringVal
 
-assert config.getArray("","my_favorite_people")[0].stringVal == "John"
-assert config.getArray("","my_favorite_people")[1].stringVal == "Katie"
-assert config.getArray("","my_favorite_people")[2].boolVal == true
+  test "toString with config table.":
+    assert toString(parseString("test_key=\"Hello\"")) == "\ntest_key = \"Hello\"\n"
 
-config = parseString("my_favorite_people=[\"John\", \"Katie\", true]")
-value = newCValue(@[
-    newCValue("John"),
-    newCValue("Katie"),
-    newCValue(true)
-  ]
-)
-assert config.getValue("","my_favorite_people").arrayVal[0].stringVal == value.arrayVal[0].stringVal
-assert config.getValue("","my_favorite_people").arrayVal[1].stringVal == value.arrayVal[1].stringVal
-assert config.getValue("","my_favorite_people").arrayVal[2].boolVal == value.arrayVal[2].boolVal
+  test "toString with an individual value":
+    assert toString(newCValue("John")) == "\"John\""
 
-config = parseString("favorite_boolean=true")
-value = newCValue(true)
-assert config.getValue("","favorite_boolean").boolVal == value.boolVal
+  test "setKey":
+    table = newConfigTable()
+    table.setKey(
+      "favorite", # Section
+      "person", # Key
+      "John" # Value
+    )
+    assert table.getString("favorite","person") == "John"
 
-config = parseString("favorite_number=9001")
-value = newCValue(9001)    
-assert config.getValue("","favorite_number").intVal == value.intVal
-
-config = parseString("favorite_person_number_one=\"John\"")
-value = newCValue("John")
-assert config.getValue("","favorite_person_number_one").stringVal == value.stringVal
-
-config = parseString("test_key=\"Hello\"")
-echo toString(config)
-
-value = newCValue("John")
-assert toString(value) == "\"John\""
-
-#var condensedValue = c("favorite","people", @["John", "Katie"])
-#assert condensedValue.section == "favorite"
-#assert condensedValue.key == "people"
-#assert condensedValue.value.kind == CVArray
-#
-#condensedValue = c("favorite","people", "John", "Katie")
-#assert condensedValue.section == "favorite"
-#assert condensedValue.key == "people"
-#assert condensedValue.value.kind == CVArray
-#
-#table = ConfigTable()
-#
-#table.setKeys(
-#  c("hello","world","!"), # Strings
-#  c("goodbye","world","!"), # Strings^2
-#  c("favorite","people", "John", "Katie", true), # Sequences
-#  c("favorite","number", 9001), # Numbers
-#  c("favorite","boolean",true) # Booleans
-#)
-
-#assert table.getString("hello","world") == "!"
-#assert table.getString("goodbye","world") == "!"
-#assert table.getArray("favorite","people")[0].stringVal == "John"
-#assert table.getArray("favorite","people")[1].stringVal == "Katie"
-#assert table.getArray("favorite","people")[2].boolVal == true
-#assert table.getInt("favorite", "number") == 9001
-#assert table.getBool("favorite", "boolean") == true
-
-table = newConfigTable()
-## Here we set key "person" inside section "favorite" to a single string "John"
-table.setKey(
-  "favorite", # Section
-  "person", # Key
-  "John" # Value
-)
-assert table.getString("favorite","person") == "John"
-
-## Here we set key "boolean" inside section "favorite" to a single boolean true
-table.setKey(
-  "favorite", # Section
-  "boolean", # Key
-  true # Value
-)
-assert table.getBool("favorite","boolean") == true
+  test "setKey bool":
+    table = newConfigTable()
+    table.setKey(
+      "favorite", # Section
+      "boolean", # Key
+      true # Value
+    )
+    assert table.getBool("favorite","boolean") == true
