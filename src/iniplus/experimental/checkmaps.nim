@@ -6,15 +6,6 @@
 ## Performance will take a hit when loading a file, but retrieval will be way faster now.
 import ../[objects, reader, writer], std/strutils
 
-proc `@=`*(t: ConfigValueKind): ConfigValue =
-  return ConfigValue(kind: CVType, t: t, child_t: CVNone)
-
-proc `@=`*(t: (ConfigValueKind, ConfigValueKind)): ConfigValue =
-  return ConfigValue(kind: CVType, t: t[0], child_t: t[1])
-
-proc `@=`*[T](val: T): ConfigValue =
-  return newCValue(val)
-
 ## The syntax for required config items looks like this:
 runnableExamples:
   {.define: iniplusCheckmaps.}
