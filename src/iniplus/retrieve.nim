@@ -28,9 +28,7 @@ proc exists*(table: ConfigTable, section, key: string): bool =
     
     # This isn't in the config file, so it's false.
     assert config.exists("","age") == false
-  if table.hasKey((section, key)):
-    return true
-  return false
+  return table.hasKey((section, key))
 
 proc getValue*(table: ConfigTable, section, key: string): ConfigValue =
   ## Returns a pure ConfigValue object, typically this is only used for low-level retrieval.
@@ -40,9 +38,8 @@ proc getValue*(table: ConfigTable, section, key: string): ConfigValue =
     assert config.getValue("","name").kind == CVString
     assert config.getValue("","name").stringVal == "John Doe"
 
-  if not table.exists(section, key):
+  if not table.hasKey((section, key)):
     raiseIndexDefect(section, key)
-
   return table[(section, key)]
 
 proc getString*(table: ConfigTable, section, key: string): string =
@@ -54,7 +51,9 @@ proc getString*(table: ConfigTable, section, key: string): string =
     info_text = "Insert some informational text here."
     """)
     assert config.getString("dialog","info_text") == "Insert some informational text here."
-  let val = table.getValue(section, key)
+  if not table.hasKey((section, key)):
+    raiseIndexDefect(section, key)
+  let val = table[(section, key)]
   if val.kind != CVString:
     raiseValueError(val.kind, section, key)
   return val.stringVal
@@ -73,9 +72,12 @@ proc getStringOrDefault*(table: ConfigTable, section, key, default: string): str
     # This is not in the config file, so the procedure returns the `default` parameter.
     assert config.getStringOrDefault("dialog","help","Helpful text") == "Helpful text"
 
-  if not table.exists(section, key):
-    return default
-  return table.getString(section, key)
+  if table.hasKey((section, key)):
+    let val = table[(section, key)]
+    if val.kind != CVString:
+      raiseValueError(val.kind, section, key)
+    return val.stringVal
+  return default
 
 proc getBool*(table: ConfigTable, section, key: string): bool =
   ## Returns a boolean from a table with the specified section and key.
@@ -83,13 +85,15 @@ proc getBool*(table: ConfigTable, section, key: string): bool =
     import iniplus
     let config = parseString("enable_feature = true")
     assert config.getBool("","enable_feature") == true
-  let val = table.getValue(section, key)
+  if not table.hasKey((section, key)):
+    raiseIndexDefect(section, key)
+  let val = table[(section, key)]
   case val.kind:
   of CVString: result = parseBool(val.stringVal)
   of CVBool: result = val.boolVal
   else: raiseValueError(val.kind, section, key)
 
-proc getBoolOrDefault*(config: ConfigTable, section, key: string, default: bool): bool =
+proc getBoolOrDefault*(table: ConfigTable, section, key: string, default: bool): bool =
   ## Either returns the provided boolean in a table or a default value.
   runnableExamples:
     import iniplus
@@ -100,8 +104,13 @@ proc getBoolOrDefault*(config: ConfigTable, section, key: string, default: bool)
     let table2 = parseString("")
     assert table2.getBoolOrDefault("", "enabled", false) == false
     assert table2.getBoolOrDefault("", "enabled", true) == true
-  if config.exists(section, key):
-    return config.getBool(section, key)
+  
+  if table.hasKey((section, key)):
+    let val = table[(section, key)]
+    case val.kind:
+    of CVString: return parseBool(val.stringVal)
+    of CVBool: return val.boolVal
+    else: raiseValueError(val.kind, section, key)
   return default
 
 proc getInt*(table: ConfigTable, section, key: string): int =
@@ -111,13 +120,15 @@ proc getInt*(table: ConfigTable, section, key: string): int =
     let config = parseString("port = 8080")
     assert config.getInt("","port") == 8080
 
-  let val = table.getValue(section, key)
+  if not table.hasKey((section, key)):
+    raiseIndexDefect(section, key)
+  let val = table[(section, key)]
   case val.kind:
-  of CVString: result = parseInt(val.stringVal)
-  of CVInt: result = val.intVal
+  of CVString: return parseInt(val.stringVal)
+  of CVInt: return val.intVal
   else: raiseValueError(val.kind, section, key)
 
-proc getIntOrDefault*(config: ConfigTable, section, key: string, default: int): int =
+proc getIntOrDefault*(table: ConfigTable, section, key: string, default: int): int =
   ## Either returns the provided integer in a table or a default value.
   runnableExamples:
     import iniplus
@@ -128,8 +139,12 @@ proc getIntOrDefault*(config: ConfigTable, section, key: string, default: int): 
     let table2 = parseString("")
     assert table2.getIntOrDefault("", "port", 1000) == 1000
     assert table2.getIntOrDefault("", "port", 1010) == 1010
-  if config.exists(section, key):
-    return config.getInt(section, key)
+  if table.hasKey((section, key)):
+    let val = table[(section,key)]
+    case val.kind:
+    of CVString: return parseInt(val.stringVal)
+    of CVInt: return val.intVal
+    else: raiseValueError(val.kind, section, key)
   return default
 
 proc getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] =
@@ -147,7 +162,9 @@ proc getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] =
     assert employees[0].stringVal == "John"
     assert employees[1].stringVal == "Katie"
     assert employees[2].intVal == 1000
-  let val = table.getValue(section, key)
+  if not table.hasKey((section,key)):
+    raiseIndexDefect(section, key)
+  let val = table[(section, key)]
   if val.kind != CVArray:
     raiseValueError(val.kind, section, key)
   return val.arrayVal
@@ -163,15 +180,16 @@ proc getStringArray*(table: ConfigTable, section, key: string): seq[string] =
     assert employees[0] == "John"
     assert employees[1] == "Katie"
     assert len(employees) == 2
-    
-  let val = table.getValue(section, key)
+  if not table.hasKey((section,key)):
+    raiseIndexDefect(section, key)
+  let val = table[(section, key)]
   if val.kind != CVArray:
     raiseValueError(val.kind, section, key)
   for item in val.arrayVal:
     if item.kind == CVString: result.add(item.stringVal)
   return result
 
-proc getStringArrayOrDefault*(config: ConfigTable, section, key: string, default: seq[string]): seq[string] =
+proc getStringArrayOrDefault*(table: ConfigTable, section, key: string, default: seq[string]): seq[string] =
   ## Either returns the provided string array in a table or a default value.
   runnableExamples:
     import iniplus
@@ -182,9 +200,15 @@ proc getStringArrayOrDefault*(config: ConfigTable, section, key: string, default
     let table2 = parseString("")
     assert table2.getStringArrayOrDefault("", "users", @["John"]) == @["John"]
     assert table2.getStringArrayOrDefault("", "users", @[]) == @[]
-  if config.exists(section, key):
-    return config.getStringArray(section, key)
-  return default
+  if not table.hasKey((section,key)):
+    return default
+
+  let val = table[(section, key)]
+  if val.kind != CVArray:
+    raiseValueError(val.kind, section, key)
+  for item in val.arrayVal:
+    if item.kind == CVString: result.add(item.stringVal)
+  return result
 
 proc getIntArray*(table: ConfigTable, section, key: string): seq[int] =
   ## This procedure retrieves a integer-only array from a table. It also throws out any non-integer items
@@ -197,8 +221,30 @@ proc getIntArray*(table: ConfigTable, section, key: string): seq[int] =
     assert number[0] == 1000
     assert number[1] == 2000
     assert len(number) == 2
+  if not table.hasKey((section, key)):
+    raiseIndexDefect(section, key)
+  let val = table[(section, key)]
+  if val.kind != CVArray:
+    raiseValueError(val.kind, section, key)
+  for item in val.arrayVal:
+    if item.kind == CVInt: result.add(item.intVal)
+  return result
 
-  let val = table.getValue(section, key)
+proc getIntArrayOrDefault*(table: ConfigTable, section, key: string, default: seq[int]): seq[int] =
+  ## Either returns the provided int array in a table or a default value.
+  runnableExamples:
+    import iniplus
+    let table = parseString("users = [\"Kate\", \"John\", \"Alex\"]")
+    assert table.getStringArrayOrDefault("", "users", @["Kate", "John", "Alex"]) == @["Kate", "John", "Alex"]
+    assert table.getStringArrayOrDefault("", "users", @[]) == @["Kate", "John", "Alex"]
+
+    let table2 = parseString("")
+    assert table2.getStringArrayOrDefault("", "users", @["John"]) == @["John"]
+    assert table2.getStringArrayOrDefault("", "users", @[]) == @[]
+  if not table.hasKey((section,key)):
+    return default
+
+  let val = table[(section, key)]
   if val.kind != CVArray:
     raiseValueError(val.kind, section, key)
   for item in val.arrayVal:
@@ -216,14 +262,35 @@ proc getBoolArray*(table: ConfigTable, section, key: string): seq[bool] =
     assert myFavoriteBooleans[0] == true
     assert myFavoriteBooleans[1] == false
     assert len(myFavoriteBooleans) == 2
-  let val = table.getValue(section, key)
+  if not table.hasKey((section,key)):
+    raiseIndexDefect(section, key)
+  let val = table[(section, key)]
   if val.kind != CVArray:
     raiseValueError(val.kind, section, key)
   for item in val.arrayVal:
     if item.kind == CVBool: result.add(item.boolVal)
   return result
 
-# No... I am not gonna make a getArrayArray()
+proc getBoolArrayOrDefault*(table: ConfigTable, section, key: string, default: seq[bool]): seq[bool] =
+  ## Either returns the provided bool array in a table or a default value.
+  runnableExamples:
+    import iniplus
+    let table = parseString("users = [\"Kate\", \"John\", \"Alex\"]")
+    assert table.getStringArrayOrDefault("", "users", @["Kate", "John", "Alex"]) == @["Kate", "John", "Alex"]
+    assert table.getStringArrayOrDefault("", "users", @[]) == @["Kate", "John", "Alex"]
+
+    let table2 = parseString("")
+    assert table2.getStringArrayOrDefault("", "users", @["John"]) == @["John"]
+    assert table2.getStringArrayOrDefault("", "users", @[]) == @[]
+  if not table.hasKey((section,key)):
+    return default
+
+  let val = table[(section, key)]
+  if val.kind != CVArray:
+    raiseValueError(val.kind, section, key)
+  for item in val.arrayVal:
+    if item.kind == CVBool: result.add(item.boolVal)
+  return result
 
 proc getTable*(table: ConfigTable, section, key: string): OrderedTable[string, ConfigValue] =
   ## Returns a table from a configuration table with the specified section and key.
@@ -231,7 +298,9 @@ proc getTable*(table: ConfigTable, section, key: string): OrderedTable[string, C
     import iniplus
     let config = parseString("names_and_age = {\"John\": 21, \"Kate\": 22}")
     assert config.getTable("","names_and_age").len() == 2
-  let val = table.getValue(section, key)
+  if not table.hasKey((section, key)):
+    raiseIndexDefect(section, key)
+  let val = table[(section, key)]
   if val.kind != CVTable:
     raiseValueError(val.kind, section, key)
   return val.tableVal
@@ -242,7 +311,9 @@ proc getStringTable*(table: ConfigTable, section, key: string): OrderedTable[str
     import iniplus
     let config = parseString("names_and_likes = {\"John\": \"Dogs\", \"Kate\": \"Cats\"}")
     assert config.getTable("","names_and_likes").len() == 2
-  let val = table.getValue(section, key)
+  if not table.hasKey((section, key)):
+    raiseIndexDefect(section, key)
+  let val = table[(section, key)]
   if val.kind != CVTable:
     raiseValueError(val.kind, section, key)
   
