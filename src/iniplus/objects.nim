@@ -28,7 +28,7 @@ type
       child_t*: ConfigValueKind
   
   ## Simply a configuration table.
-  ConfigTable* = OrderedTable[(string, string), ConfigValue]
+  ConfigTable* = Table[(string, string), ConfigValue]
 
 proc newCValue*(value: string): ConfigValue =
   ## Creates a ConfigValue object of the `String` kind
@@ -130,3 +130,49 @@ proc newCValue*[T](val: seq[T]): ConfigValue =
   for i in val:
     result.arrayVal.add(newCValue(i))
   return result
+
+when defined(iniplusCheckmaps) or defined(docs):
+  proc `@=`*(t: ConfigValueKind): ConfigValue =
+    ## Used when creating "required" checkmaps.
+    runnableExamples:
+      import iniplus
+
+      # This can be passed onto parseString (with checkmaps enabled)
+      # And iniplus will verify that a section named "company"
+      # has a key named "founder" and that it is a string.
+      var required = {
+        # Section
+        "company": {
+          # Key: @= Type
+          "founder": @= CVString
+        }.toTable
+      }
+    return ConfigValue(kind: CVType, t: t, child_t: CVNone)
+
+  proc `@=`*(t: (ConfigValueKind, ConfigValueKind)): ConfigValue =
+    ## Used when creating "required" checkmaps for arrays and tables.
+    runnableExamples:
+      import iniplus
+
+      # This can be passed onto parseString (with checkmaps enabled)
+      # And iniplus will verify that a section named "company"
+      # has a key named "rules", that it is an array
+      # and all of its children consist of strings
+      var required = {
+        # Section
+        "company": {
+          # Key: @= (Type, Child_Type)
+          "rules": @= (CVArray, CVString)
+        }.toTable
+      }
+    return ConfigValue(kind: CVType, t: t[0], child_t: t[1])
+
+proc `@=`*[T](val: T): ConfigValue =
+  ## Used when creating "optional" checkmaps or when
+  ## bulk-setting values in a config table with setKeysBulk()
+  runnableExamples:
+    import iniplus
+
+    var values = {}
+
+  return newCValue(val)
