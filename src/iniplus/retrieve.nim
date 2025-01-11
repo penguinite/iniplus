@@ -12,7 +12,9 @@
 ## Thankfully, iniplus also provides a couple of procedures to get arrays that consist of only one value type. (`getStringArray`, `getIntArray`, `getBoolArray`)
 ## These procedures will throw out anything that doesn't fit the type.
 import objects
-import std/[tables, times, strutils]
+import std/[tables, times]
+when not defined(iniplusCheckmaps):
+  import std/strutils
 export tables, times
 
 func raiseValueError(kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" has wrong type (" & $kind & ")")
