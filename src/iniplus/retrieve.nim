@@ -262,13 +262,13 @@ func getIntArrayOrDefault*(table: ConfigTable, section, key: string, default: se
   ## Either returns the provided int array in a table or a default value.
   runnableExamples:
     import iniplus
-    let table = parseString("users = [\"Kate\", \"John\", \"Alex\"]")
-    assert table.getStringArrayOrDefault("", "users", @["Kate", "John", "Alex"]) == @["Kate", "John", "Alex"]
-    assert table.getStringArrayOrDefault("", "users", @[]) == @["Kate", "John", "Alex"]
+    let table = parseString("fav_numbers = [1,2,3]")
+    assert table.getIntArrayOrDefault("", "fav_numbers", @[1,2,4]) == @[1,2,3]
+    assert table.getIntArrayOrDefault("", "fav_numbers", @[]) == @[1,2,3]
 
     let table2 = parseString("")
-    assert table2.getStringArrayOrDefault("", "users", @["John"]) == @["John"]
-    assert table2.getStringArrayOrDefault("", "users", @[]) == @[]
+    assert table2.getIntArrayOrDefault("", "fav_numbers", @[1,2,4]) == @[1,2,4]
+    assert table2.getIntArrayOrDefault("", "fav_numbers", @[]) == @[]
   if not table.hasKey((section,key)):
     return default
 
@@ -307,11 +307,13 @@ func getBoolArrayOrDefault*(table: ConfigTable, section, key: string, default: s
   ## Either returns the provided bool array in a table or a default value.
   runnableExamples:
     import iniplus
-    let table = parseString("users = [\"Kate\", \"John\", \"Alex\"]")
-    assert table.getStringArrayOrDefault("", "users", @["Kate", "John", "Alex"]) == @["Kate", "John", "Alex"]
-    assert table.getStringArrayOrDefault("", "users", @[]) == @["Kate", "John", "Alex"]
+    let table = parseString("fav_bools = [true, false]")
+    assert table.getBoolArrayOrDefault("", "fav_bools", @[true, true]) == @[true, false]
+    assert table.getBoolArrayOrDefault("", "fav_bools", @[]) == @[true, false]
 
     let table2 = parseString("")
+    assert table2.getBoolArrayOrDefault("", "fav_bools", @[false, false]) == @[false, false]
+    assert table2.getBoolArrayOrDefault("", "fav_bools", @[]) == @[]
   when defined(iniplusCheckmaps):
     return table.getBoolArray(section, key)
   else:
@@ -333,11 +335,18 @@ func getTable*(table: ConfigTable, section, key: string): OrderedTable[string, C
       raiseValueError(val.kind, section, key)
     return val.tableVal
 
-proc getStringTable*(table: ConfigTable, section, key: string): OrderedTable[string, string] =
+func getStringTable*(table: ConfigTable, section, key: string): OrderedTable[string, string] =
   ## Returns a string-only table from a configuration table with the specified section and key.
+  ## 
+  ## Throws out any non-string items.
   runnableExamples:
     import iniplus
     let config = parseString("names_and_likes = {\"John\": \"Dogs\", \"Kate\": \"Cats\"}")
+    
+    let value = config.getStringTable("", "names_and_likes")
+    assert value.len() == 2
+    assert value["John"] == "Dogs"
+    assert value["Kate"] == "Cats"
   when defined(iniplusCheckmaps):
     for key,val in table[(section, key)].tableVal.pairs:
       case val.kind:
@@ -351,16 +360,18 @@ proc getStringTable*(table: ConfigTable, section, key: string): OrderedTable[str
       else: discard
     return result
 
-proc getBoolTable*(table: ConfigTable, section, key: string): OrderedTable[string, bool] =
+func getBoolTable*(table: ConfigTable, section, key: string): OrderedTable[string, bool] =
   ## Returns a boolean-only table from a configuration table with the specified section and key.
+  ## 
+  ## Throws out any non-boolean items.
   runnableExamples:
     import iniplus
     let config = parseString("names_and_adopted = {\"John\": true, \"Kate\": false}")
-    assert config.getTable("","names_and_adopted").len() == 2
-  let val = table.getValue(section, key)
-  if val.kind != CVTable:
-    raiseValueError(val.kind, section, key)
-  
+    
+    let value = config.getBoolTable("", "names_and_adopted")
+    assert value.len() == 2
+    assert value["John"] == true
+    assert value["Kate"] == false
   when defined(iniplusCheckmaps):
     for key,val in table[(section, key)].tableVal.pairs:
       case val.kind:
@@ -374,16 +385,18 @@ proc getBoolTable*(table: ConfigTable, section, key: string): OrderedTable[strin
       else: discard
     return result
 
-proc getIntTable*(table: ConfigTable, section, key: string): OrderedTable[string, int] =
+func getIntTable*(table: ConfigTable, section, key: string): OrderedTable[string, int] =
   ## Returns a integer-only table from a configuration table with the specified section and key.
+  ## 
+  ## Throws out any non-integer items.
   runnableExamples:
     import iniplus
     let config = parseString("names_and_age = {\"John\": 21, \"Kate\": 22}")
-    assert config.getTable("","names_and_age").len() == 2
-  let val = table.getValue(section, key)
-  if val.kind != CVTable:
-    raiseValueError(val.kind, section, key)
-  
+    
+    let value = config.getIntTable("", "names_and_age")
+    assert value.len() == 2
+    assert value["John"] == 21
+    assert value["Kate"] == 22
   when defined(iniplusCheckmaps):
     for key,val in table[(section, key)].tableVal.pairs:
       case val.kind:
