@@ -1,3 +1,9 @@
+## A bunch of functions for easily comparing different datatypes to and from configuration values.
+## 
+## You probably want to keep this enabled, but if you dislike it then use -d:iniplusNSCompare
+## 
+## There's no guarantee that iniplus will work without these however.
+
 when not defined(iniplusNSCompare):
   from ../objects import ConfigValue, ConfigValueKind
 
