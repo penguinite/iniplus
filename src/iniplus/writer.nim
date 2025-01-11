@@ -46,7 +46,7 @@ func toString*(val: ConfigValue): string =
   ## Converts a single, individual configuration value into a loadable, human-readable string.
   runnableExamples:
     import iniplus
-    let value = newValue("John")
+    let value = newCValue("John")
     echo toString(value)
   case val.kind:
   of CVNone, CVType: return "" # CVNone and CVType don't have string representation.
