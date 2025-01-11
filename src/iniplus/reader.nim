@@ -245,3 +245,73 @@ func parseComments*(input: string): seq[(int, string)] =
     else: discard
   
   return result
+
+
+when defined(iniplusCheckmaps):
+  template raiseTableValueError(actual_kind, expected_kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" is a table and the nested items have the wrong type (Should be a " & $expected_kind & " but it's actually a " & $actual_kind & ")")
+  template raiseArrayValueError(actual_kind, expected_kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" is an array and the nested items have the wrong type (Should be a " & $expected_kind & " but it's actually a " & $actual_kind & ")")
+  template raiseValueError(actual_kind, expected_kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" has wrong type (Should be a " & $expected_kind & " but it's actually a " & $actual_kind & ")")
+  template raiseIndexDefect(section, key: string) = raise (ref IndexDefect)(msg: "key \"" & key & "\" in section \"" & section & "\" does not exist")
+
+  func parseString*(input: string, required: Checkmap, optional: Checkmap = @[]): ConfigTable =
+    result = parseString(input)
+
+    # Check required options first
+    for section, list in required.items:
+      for key, item in list.pairs:
+
+        # Check if the key exists, throw an error if not
+        if not result.hasKey((section, key)):
+          raiseIndexDefect(section, key)
+
+        let config = result[(section, key)]
+
+        # Check if the key matches the type/kind, throw an error if not.
+        if config.kind != item.t:
+          raiseValueError(config.kind, item.t, section, key)
+
+        case config.kind:
+        of CVArray:
+          # For arrays, check if the inner children match the specified child type
+          # Throw an error if it doesn't.
+          for i in config.arrayVal:
+            if i.kind != item.child_t:
+              raiseArrayValueError(i.kind, item.child_t, section, key)
+        of CVTable:
+          # Same with tables
+          for i  in config.tableVal.values:
+            if i.kind != item.child_t:
+              raiseTableValueError(i.kind, item.child_t, section, key)
+        else: discard
+
+    # Then check the optional stuff
+    for section, list in optional.items:
+      for key, val in list.pairs:
+
+        # Check if the key exists, then skip it and use default
+        if not result.hasKey((section, key)):
+          result[(section, key)] = val
+          continue 
+        
+        let config = result[(section, key)]
+
+        # Check if the key matches the type/kind, throw an error if not.
+        if config.kind != val.t:
+          raiseValueError(config.kind, val.t, section, key)
+
+        case config.kind:
+        of CVArray:
+          # For arrays, check if the inner children match the specified child type
+          # Throw an error if it doesn't.
+          let childKind = detectChildKind(val)
+          for i in config.arrayVal:
+            if i.kind != childKind:
+              raiseArrayValueError(i.kind, childKind, section, key)
+        of CVTable:
+          # Same with tables
+          let childKind = detectChildKind(val)
+          for i  in config.tableVal.values:
+            if i.kind != childKind:
+              raiseTableValueError(i.kind, childKind, section, key)
+        else: discard
+    return result
