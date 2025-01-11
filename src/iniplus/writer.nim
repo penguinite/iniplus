@@ -180,106 +180,49 @@ func setKey*(table: var ConfigTable, section, key: string, value: ConfigValue) =
 
   table[(section, key)] = value
 
-#! All of the stuff below is deprecated and will be removed soon.
-
-proc newValue*(value: string): ConfigValue
-  {.deprecated: "Use newCValue from iniplus/objects".} =
-  ## Creates a ConfigValue object of the `String` kind
+func setKeys*(table: var ConfigTable, data: openArray[(string, Table[string, ConfigValue])]) =
+  ## The newer, better way to bulk set a bunch of keys in a config table.
+  ## 
+  ## If you want to return a table rather than mutate it then use the createTable func
+  ## which uses the exact same format.
   runnableExamples:
     import iniplus
-    let
-      config = parseString("favorite_person_number_one=\"John\"")
-      value = newValue("John")
-    
-    assert config.getValue("","favorite_person_number_one").stringVal == value.stringVal
-  return ConfigValue(kind: CVString, stringVal: value)
+    var table = newConfigTable()
+    var values = {
+      "company": {
+        "name": @= "Acme Products Ltd.",
+        "founding_year": @= 2020,
+        "defunct": @= false
+      }.toTable
+    }
 
-proc newValue*(value: int): ConfigValue
-  {.deprecated: "Use newCValue from iniplus/objects".} =
-  ## Creates a ConfigValue object of the `Int` kind
+    table.setKeys(values)
+
+    assert table.getString("company", "name") == "Acme Products Ltd."
+    assert table.getInt("company", "founding_year") == 2020
+    assert table.getBool("company", "defunct") == false
+  for section, list in data.items:
+    for key, item in list.pairs:
+      table[(section, key)] = item
+
+func createTable*(data: openArray[(string, Table[string, ConfigValue])]): ConfigTable =
+  ## Allows you to create a configuration table and set a bunch of its keys.
+  ## This uses the exact same syntax as setKeys()
   runnableExamples:
     import iniplus
-    let
-      config = parseString("favorite_number=9001")
-      value = newValue(9001)
-    
-    assert config.getValue("","favorite_number").intVal == value.intVal
-  return ConfigValue(kind: CVInt, intVal: value)
+    var table = createTable(
+      {
+        "company": {
+          "name": @= "Acme Products Ltd.",
+          "founding_year": @= 2020,
+          "defunct": @= false
+        }.toTable
+      }
+    )
 
-proc newValue*(value: bool): ConfigValue
-  {.deprecated: "Use newCValue from iniplus/objects".} =
-  ## Creates a ConfigValue object of the `Boolean` kind. 
-  runnableExamples:
-    import iniplus
-    let
-      config = parseString("favorite_boolean=true")
-      value = newValue(true)
-
-    assert config.getValue("","favorite_boolean").boolVal == value.boolVal
-  return ConfigValue(kind: CVBool, boolVal: value)
-
-proc newValue*(value: varargs[ConfigValue]): ConfigValue
-  {.deprecated: "Use newCValue from iniplus/objects".} =
-  ## Creates a ConfigValue object of the `Sequence` kind.
-  runnableExamples:
-    import iniplus
-    let
-      config = parseString("my_favorite_people=[\"John\", \"Katie\", true]")
-      value = newValue(
-        newValue("John"),
-        newValue("Katie"),
-        newValue(true)
-      )
-    
-    # Yes, this is a mess. Just use the regular getArray() procedure if you want an easier time dealing with arrays.
-    assert config.getValue("","my_favorite_people").arrayVal[0].stringVal == value.arrayVal[0].stringVal
-    assert config.getValue("","my_favorite_people").arrayVal[1].stringVal == value.arrayVal[1].stringVal
-    assert config.getValue("","my_favorite_people").arrayVal[2].boolVal == value.arrayVal[2].boolVal
-  result = ConfigValue(kind: CVArray)
-  for x in value:
-    result.arrayVal.add(x)
-  return result
-
-proc newValue*(value: seq[ConfigValue]): ConfigValue
-  {.deprecated: "Use newCValue from iniplus/objects".} =
-  ## Creates a ConfigValue object of the `Sequence` kind. This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects.
-  runnableExamples:
-    import iniplus
-    let
-      config = parseString("my_favorite_people=[\"John\", \"Katie\",true]")
-      value = newValue(@[
-          newValue("John"),
-          newValue("Katie"),
-          newValue(true)
-        ]
-      )
-
-    # Yes, this is a mess. Just use the regular getArray() procedure if you want an easier time dealing with arrays.
-    assert config.getValue("","my_favorite_people").arrayVal[0].stringVal == value.arrayVal[0].stringVal
-    assert config.getValue("","my_favorite_people").arrayVal[1].stringVal == value.arrayVal[1].stringVal
-    assert config.getValue("","my_favorite_people").arrayVal[2].boolVal == value.arrayVal[2].boolVal
-  return ConfigValue(kind: CVArray, arrayVal: value)
-
-proc newValue*[T](val: seq[T]): ConfigValue
-  {.deprecated: "Use newCValue from iniplus/objects".} =
-  ## Creates a ConfigValue object of the `Sequence` kind. This function is similar to the varargs-based function, except it takes a sequence of ConfigValue objects.
-  ## It's not possible to mix and match different data types with this procedure. Please use the one where you explicitly convert every value instead.
-  runnableExamples:
-    import iniplus
-    let
-      config = parseString("my_favorite_people=[\"John\", \"Katie\", \"Mark\"]")
-      value = newValue(@[
-          "John",
-          "Katie",
-          "Mark"
-        ]
-      )
-
-    # Yes, this is a mess. Just use the regular getArray() procedure if you want an easier time dealing with arrays.
-    assert config.getValue("","my_favorite_people").arrayVal[0].stringVal == value.arrayVal[0].stringVal
-    assert config.getValue("","my_favorite_people").arrayVal[1].stringVal == value.arrayVal[1].stringVal
-    assert config.getValue("","my_favorite_people").arrayVal[2].stringVal == value.arrayVal[2].stringVal
-  result = ConfigValue(kind: CVArray)
-  for i in val:
-    result.arrayVal.add(newValue(i))
-  return result
+    assert table.getString("company", "name") == "Acme Products Ltd."
+    assert table.getInt("company", "founding_year") == 2020
+    assert table.getBool("company", "defunct") == false
+  for section, list in data.items:
+    for key, item in list.pairs:
+      result[(section, key)] = item
