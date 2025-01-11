@@ -204,3 +204,14 @@ func `@=`*[T](val: T): ConfigValue =
       }.toTable
     }
   return newCValue(val)
+
+func `$`*(k: ConfigValueKind): string =
+  ## For convering config value types to strings.
+  case k:
+  of CVString: return "string"
+  of CVArray: return "array"
+  of CVTable: return "table"
+  of CVInt: return "integer"
+  of CVNone: return "none"
+  of CVBool: return "boolean"
+  of CVType: return "type"

@@ -10,6 +10,11 @@ type
     of Literal, Quoted: inner*: string
     else: discard
 
+  State* = enum
+    None, Section, Val, Array, CTable
+
+  Checkmap* = openArray[(string, Table[string, ConfigValue])]
+
 func tl(s: string): string =
   for ch in s:
     case ch:
@@ -77,6 +82,16 @@ func conv*(v: seq[string], table = false): ConfigValue =
     for item in v:
       result.arrayVal.add(conv(item))
 
-type
-  State* = enum
-    None, Section, Val, Array, CTable
+
+
+func detectChildKind*(c: ConfigValue): ConfigValueKind =
+  var ctable: CountTable[ConfigValueKind]
+  case c.kind:
+  of CVArray:
+    for i in c.arrayVal:
+      ctable.inc(i.kind)
+  of CVTable:
+    for i in c.tableVal.values:
+      ctable.inc(i.kind)
+  else: discard
+  return ctable.largest[0]
