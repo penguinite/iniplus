@@ -58,7 +58,8 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#State" title="State = enum
+      <li><a class="reference" href="#Checkmap" title="Checkmap = openArray[(string, Table[string, ConfigValue])]">Checkmap</a></li>
+<li><a class="reference" href="#State" title="State = enum
   None, Section, Val, Array, CTable">State</a></li>
 <li><a class="reference" href="#Token" title="Token = object
   case kind*: TokenKind
@@ -80,6 +81,10 @@
       <ul class="simple nested-toc-section">conv
   <li><a class="reference" href="#conv%2Cseq%5Bstring%5D" title="conv(v: seq[string]; table = false): ConfigValue">conv(v: seq[string]; table = false): ConfigValue</a></li>
 <li><a class="reference" href="#conv%2Cstring" title="conv(v: string): ConfigValue">conv(v: string): ConfigValue</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">detectChildKind
+  <li><a class="reference" href="#detectChildKind%2CConfigValue" title="detectChildKind(c: ConfigValue): ConfigValueKind">detectChildKind(c: ConfigValue): ConfigValueKind</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">isBoolean
@@ -118,14 +123,24 @@
 <div class="section" id="7">
   <h1><a class="toc-backref" href="#7">Types</a></h1>
   <dl class="item">
-    <div id="State">
+    <div id="Checkmap">
+  <dt><pre><a href="utils.html#Checkmap"><span class="Identifier">Checkmap</span></a> <span class="Other">=</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Other">(</span><span class="Identifier">string</span><span class="Other">,</span> <span class="Identifier">Table</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">,</span> <a href="../objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/private/utils.nim#L16" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/private/utils.nim#L16" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="State">
   <dt><pre><a href="utils.html#State"><span class="Identifier">State</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
   <span class="Identifier">None</span><span class="Other">,</span> <span class="Identifier">Section</span><span class="Other">,</span> <span class="Identifier">Val</span><span class="Other">,</span> <span class="Identifier">Array</span><span class="Other">,</span> <span class="Identifier">CTable</span></pre></dt>
   <dd>
     
     
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/private/utils.nim#L81" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/private/utils.nim#L81" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/private/utils.nim#L13" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/private/utils.nim#L13" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -164,23 +179,37 @@
   <dl class="item">
     <div id="conv-procs-all">
   <div id="conv,seq[string]">
-  <dt><pre><span class="Keyword">proc</span> <a href="#conv%2Cseq%5Bstring%5D"><span class="Identifier">conv</span></a><span class="Other">(</span><span class="Identifier">v</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">table</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <a href="../objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#conv%2Cseq%5Bstring%5D"><span class="Identifier">conv</span></a><span class="Other">(</span><span class="Identifier">v</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">table</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <a href="../objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/private/utils.nim#L63" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/private/utils.nim#L63" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/private/utils.nim#L68" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/private/utils.nim#L68" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 <div id="conv,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#conv%2Cstring"><span class="Identifier">conv</span></a><span class="Other">(</span><span class="Identifier">v</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="../objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#conv%2Cstring"><span class="Identifier">conv</span></a><span class="Other">(</span><span class="Identifier">v</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="../objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     Converts a raw string into a configuration value, this is primarily used by the parser.
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/private/utils.nim#L50" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/private/utils.nim#L50" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/private/utils.nim#L55" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/private/utils.nim#L55" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="detectChildKind-procs-all">
+  <div id="detectChildKind,ConfigValue">
+  <dt><pre><span class="Keyword">func</span> <a href="#detectChildKind%2CConfigValue"><span class="Identifier">detectChildKind</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="../objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">)</span><span class="Other">:</span> <a href="../objects.html#ConfigValueKind"><span class="Identifier">ConfigValueKind</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/private/utils.nim#L87" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/private/utils.nim#L87" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -188,20 +217,7 @@
 </div>
 <div id="isBoolean-procs-all">
   <div id="isBoolean,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#isBoolean%2Cstring"><span class="Identifier">isBoolean</span></a><span class="Other">(</span><span class="Identifier">raw</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/private/utils.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/private/utils.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="isOnlyDigits-procs-all">
-  <div id="isOnlyDigits,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#isOnlyDigits%2Cstring"><span class="Identifier">isOnlyDigits</span></a><span class="Other">(</span><span class="Identifier">raw</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#isBoolean%2Cstring"><span class="Identifier">isBoolean</span></a><span class="Other">(</span><span class="Identifier">raw</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -212,14 +228,27 @@
 </div>
 
 </div>
+<div id="isOnlyDigits-procs-all">
+  <div id="isOnlyDigits,string">
+  <dt><pre><span class="Keyword">func</span> <a href="#isOnlyDigits%2Cstring"><span class="Identifier">isOnlyDigits</span></a><span class="Other">(</span><span class="Identifier">raw</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/private/utils.nim#L31" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/private/utils.nim#L31" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
 <div id="trimString-procs-all">
   <div id="trimString,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#trimString%2Cstring"><span class="Identifier">trimString</span></a><span class="Other">(</span><span class="Identifier">raw</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">func</span> <a href="#trimString%2Cstring"><span class="Identifier">trimString</span></a><span class="Other">(</span><span class="Identifier">raw</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     Trims any double and single quotes from a string.
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/private/utils.nim#L33" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/private/utils.nim#L33" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/private/utils.nim#L38" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/private/utils.nim#L38" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -235,7 +264,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-09 19:26:20 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-11 02:59:28 UTC</small>
       </div>
     </div>
   </div>

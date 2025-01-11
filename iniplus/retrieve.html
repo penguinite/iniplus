@@ -74,8 +74,14 @@
   <li><a class="reference" href="#getBoolArray%2CConfigTable%2Cstring%2Cstring" title="getBoolArray(table: ConfigTable; section, key: string): seq[bool]">getBoolArray(table: ConfigTable; section, key: string): seq[bool]</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">getBoolArrayOrDefault
+  <li><a class="reference" href="#getBoolArrayOrDefault%2CConfigTable%2Cstring%2Cstring%2Cseq%5Bbool%5D" title="getBoolArrayOrDefault(table: ConfigTable; section, key: string;
+                      default: seq[bool]): seq[bool]">getBoolArrayOrDefault(table: ConfigTable; section, key: string;
+                      default: seq[bool]): seq[bool]</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">getBoolOrDefault
-  <li><a class="reference" href="#getBoolOrDefault%2CConfigTable%2Cstring%2Cstring%2Cbool" title="getBoolOrDefault(config: ConfigTable; section, key: string; default: bool): bool">getBoolOrDefault(config: ConfigTable; section, key: string; default: bool): bool</a></li>
+  <li><a class="reference" href="#getBoolOrDefault%2CConfigTable%2Cstring%2Cstring%2Cbool" title="getBoolOrDefault(table: ConfigTable; section, key: string; default: bool): bool">getBoolOrDefault(table: ConfigTable; section, key: string; default: bool): bool</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">getBoolTable
@@ -92,8 +98,14 @@
   <li><a class="reference" href="#getIntArray%2CConfigTable%2Cstring%2Cstring" title="getIntArray(table: ConfigTable; section, key: string): seq[int]">getIntArray(table: ConfigTable; section, key: string): seq[int]</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">getIntArrayOrDefault
+  <li><a class="reference" href="#getIntArrayOrDefault%2CConfigTable%2Cstring%2Cstring%2Cseq%5Bint%5D" title="getIntArrayOrDefault(table: ConfigTable; section, key: string; default: seq[int]): seq[
+    int]">getIntArrayOrDefault(table: ConfigTable; section, key: string; default: seq[int]): seq[
+    int]</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">getIntOrDefault
-  <li><a class="reference" href="#getIntOrDefault%2CConfigTable%2Cstring%2Cstring%2Cint" title="getIntOrDefault(config: ConfigTable; section, key: string; default: int): int">getIntOrDefault(config: ConfigTable; section, key: string; default: int): int</a></li>
+  <li><a class="reference" href="#getIntOrDefault%2CConfigTable%2Cstring%2Cstring%2Cint" title="getIntOrDefault(table: ConfigTable; section, key: string; default: int): int">getIntOrDefault(table: ConfigTable; section, key: string; default: int): int</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">getIntTable
@@ -109,8 +121,8 @@
 
 </ul>
 <ul class="simple nested-toc-section">getStringArrayOrDefault
-  <li><a class="reference" href="#getStringArrayOrDefault%2CConfigTable%2Cstring%2Cstring%2Cseq%5Bstring%5D" title="getStringArrayOrDefault(config: ConfigTable; section, key: string;
-                        default: seq[string]): seq[string]">getStringArrayOrDefault(config: ConfigTable; section, key: string;
+  <li><a class="reference" href="#getStringArrayOrDefault%2CConfigTable%2Cstring%2Cstring%2Cseq%5Bstring%5D" title="getStringArrayOrDefault(table: ConfigTable; section, key: string;
+                        default: seq[string]): seq[string]">getStringArrayOrDefault(table: ConfigTable; section, key: string;
                         default: seq[string]): seq[string]</a></li>
 
 </ul>
@@ -166,7 +178,7 @@
   <dl class="item">
     <div id="exists-procs-all">
   <div id="exists,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#exists%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">exists</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#exists%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">exists</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -178,8 +190,8 @@
 
 <span class="Comment"># This isn't in the config file, so it's false.</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">exists</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;age&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">false</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L21" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L21" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L23" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L23" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -187,7 +199,7 @@
 </div>
 <div id="getArray-procs-all">
   <div id="getArray,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getArray%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getArray</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span> {.
+  <dt><pre><span class="Keyword">func</span> <a href="#getArray%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getArray</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -205,8 +217,8 @@
 <span class="Identifier">assert</span> <span class="Identifier">employees</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="StringLit">&quot;John&quot;</span>
 <span class="Identifier">assert</span> <span class="Identifier">employees</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="StringLit">&quot;Katie&quot;</span>
 <span class="Identifier">assert</span> <span class="Identifier">employees</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">intVal</span> <span class="Operator">==</span> <span class="DecNumber">1000</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L135" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L135" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L169" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L169" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -214,7 +226,7 @@
 </div>
 <div id="getBool-procs-all">
   <div id="getBool,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getBool%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getBool</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
+  <dt><pre><span class="Keyword">func</span> <a href="#getBool%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getBool</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -223,8 +235,8 @@
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;enable_feature = true&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getBool</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;enable_feature&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">true</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L80" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L80" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L100" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L100" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -232,7 +244,7 @@
 </div>
 <div id="getBoolArray-procs-all">
   <div id="getBoolArray,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getBoolArray%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getBoolArray</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> {.
+  <dt><pre><span class="Keyword">func</span> <a href="#getBoolArray%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getBoolArray</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -246,8 +258,32 @@
 <span class="Identifier">assert</span> <span class="Identifier">myFavoriteBooleans</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">true</span>
 <span class="Identifier">assert</span> <span class="Identifier">myFavoriteBooleans</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">false</span>
 <span class="Identifier">assert</span> <span class="Identifier">len</span><span class="Punctuation">(</span><span class="Identifier">myFavoriteBooleans</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L208" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L208" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L282" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L282" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="getBoolArrayOrDefault-procs-all">
+  <div id="getBoolArrayOrDefault,ConfigTable,string,string,seq[bool]">
+  <dt><pre><span class="Keyword">func</span> <a href="#getBoolArrayOrDefault%2CConfigTable%2Cstring%2Cstring%2Cseq%5Bbool%5D"><span class="Identifier">getBoolArrayOrDefault</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span>
+                           <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Either returns the provided bool array in a table or a default value.
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span> <span class="Identifier">table</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;fav_bools = [true, false]&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getBoolArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fav_bools&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Identifier">true</span><span class="Punctuation">,</span> <span class="Identifier">true</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Identifier">true</span><span class="Punctuation">,</span> <span class="Identifier">false</span><span class="Punctuation">]</span>
+<span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getBoolArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fav_bools&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Identifier">true</span><span class="Punctuation">,</span> <span class="Identifier">false</span><span class="Punctuation">]</span>
+
+<span class="Keyword">let</span> <span class="Identifier">table2</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getBoolArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fav_bools&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Identifier">false</span><span class="Punctuation">,</span> <span class="Identifier">false</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Identifier">false</span><span class="Punctuation">,</span> <span class="Identifier">false</span><span class="Punctuation">]</span>
+<span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getBoolArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fav_bools&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L306" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L306" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -255,7 +291,7 @@
 </div>
 <div id="getBoolOrDefault-procs-all">
   <div id="getBoolOrDefault,ConfigTable,string,string,bool">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getBoolOrDefault%2CConfigTable%2Cstring%2Cstring%2Cbool"><span class="Identifier">getBoolOrDefault</span></a><span class="Other">(</span><span class="Identifier">config</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
+  <dt><pre><span class="Keyword">func</span> <a href="#getBoolOrDefault%2CConfigTable%2Cstring%2Cstring%2Cbool"><span class="Identifier">getBoolOrDefault</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -269,8 +305,8 @@
 <span class="Keyword">let</span> <span class="Identifier">table2</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getBoolOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;enabled&quot;</span><span class="Punctuation">,</span> <span class="Identifier">false</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">false</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getBoolOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;enabled&quot;</span><span class="Punctuation">,</span> <span class="Identifier">true</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">true</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L92" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L92" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L116" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L116" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -278,17 +314,23 @@
 </div>
 <div id="getBoolTable-procs-all">
   <div id="getBoolTable,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getBoolTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getBoolTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#getBoolTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getBoolTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span>
     <span class="Identifier">string</span><span class="Other">,</span> <span class="Identifier">bool</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    Returns a boolean-only table from a configuration table with the specified section and key.
+    <p>Returns a boolean-only table from a configuration table with the specified section and key.</p>
+<p>Throws out any non-boolean items.</p>
+
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;names_and_adopted = {</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: true, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Kate</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: false}&quot;</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;names_and_adopted&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L254" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L254" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+<span class="Keyword">let</span> <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getBoolTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;names_and_adopted&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span>
+<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Punctuation">[</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">true</span>
+<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Punctuation">[</span><span class="StringLit">&quot;Kate&quot;</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">false</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L363" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L363" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -296,7 +338,7 @@
 </div>
 <div id="getInt-procs-all">
   <div id="getInt,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getInt%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getInt</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.
+  <dt><pre><span class="Keyword">func</span> <a href="#getInt%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getInt</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -305,8 +347,8 @@
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;port = 8080&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getInt</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;port&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">8080</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L107" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L107" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L135" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L135" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -314,7 +356,7 @@
 </div>
 <div id="getIntArray-procs-all">
   <div id="getIntArray,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getIntArray%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getIntArray</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span> {.
+  <dt><pre><span class="Keyword">func</span> <a href="#getIntArray%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getIntArray</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -328,8 +370,32 @@
 <span class="Identifier">assert</span> <span class="Identifier">number</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">1000</span>
 <span class="Identifier">assert</span> <span class="Identifier">number</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">2000</span>
 <span class="Identifier">assert</span> <span class="Identifier">len</span><span class="Punctuation">(</span><span class="Identifier">number</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L189" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L189" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L237" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L237" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="getIntArrayOrDefault-procs-all">
+  <div id="getIntArrayOrDefault,ConfigTable,string,string,seq[int]">
+  <dt><pre><span class="Keyword">func</span> <a href="#getIntArrayOrDefault%2CConfigTable%2Cstring%2Cstring%2Cseq%5Bint%5D"><span class="Identifier">getIntArrayOrDefault</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span>
+                          <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Either returns the provided int array in a table or a default value.
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
+<span class="Keyword">let</span> <span class="Identifier">table</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;fav_numbers = [1,2,3]&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getIntArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fav_numbers&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">,</span><span class="DecNumber">2</span><span class="Punctuation">,</span><span class="DecNumber">4</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">,</span><span class="DecNumber">2</span><span class="Punctuation">,</span><span class="DecNumber">3</span><span class="Punctuation">]</span>
+<span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getIntArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fav_numbers&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">,</span><span class="DecNumber">2</span><span class="Punctuation">,</span><span class="DecNumber">3</span><span class="Punctuation">]</span>
+
+<span class="Keyword">let</span> <span class="Identifier">table2</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getIntArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fav_numbers&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">,</span><span class="DecNumber">2</span><span class="Punctuation">,</span><span class="DecNumber">4</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">,</span><span class="DecNumber">2</span><span class="Punctuation">,</span><span class="DecNumber">4</span><span class="Punctuation">]</span>
+<span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getIntArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fav_numbers&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L261" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L261" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -337,7 +403,7 @@
 </div>
 <div id="getIntOrDefault-procs-all">
   <div id="getIntOrDefault,ConfigTable,string,string,int">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getIntOrDefault%2CConfigTable%2Cstring%2Cstring%2Cint"><span class="Identifier">getIntOrDefault</span></a><span class="Other">(</span><span class="Identifier">config</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.
+  <dt><pre><span class="Keyword">func</span> <a href="#getIntOrDefault%2CConfigTable%2Cstring%2Cstring%2Cint"><span class="Identifier">getIntOrDefault</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -351,8 +417,8 @@
 <span class="Keyword">let</span> <span class="Identifier">table2</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getIntOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;port&quot;</span><span class="Punctuation">,</span> <span class="DecNumber">1000</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">1000</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getIntOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;port&quot;</span><span class="Punctuation">,</span> <span class="DecNumber">1010</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">1010</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L120" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L120" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L151" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L151" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -360,17 +426,23 @@
 </div>
 <div id="getIntTable-procs-all">
   <div id="getIntTable,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getIntTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getIntTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#getIntTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getIntTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">,</span>
     <span class="Identifier">int</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    Returns a integer-only table from a configuration table with the specified section and key.
+    <p>Returns a integer-only table from a configuration table with the specified section and key.</p>
+<p>Throws out any non-integer items.</p>
+
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;names_and_age = {</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: 21, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Kate</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: 22}&quot;</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;names_and_age&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L269" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L269" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+<span class="Keyword">let</span> <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getIntTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;names_and_age&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span>
+<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Punctuation">[</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">21</span>
+<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Punctuation">[</span><span class="StringLit">&quot;Kate&quot;</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">22</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L388" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L388" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -378,7 +450,7 @@
 </div>
 <div id="getString-procs-all">
   <div id="getString,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getString%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getString</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.
+  <dt><pre><span class="Keyword">func</span> <a href="#getString%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getString</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -390,8 +462,8 @@
     info_text = &quot;Insert some informational text here.&quot;
     &quot;&quot;&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getString</span><span class="Punctuation">(</span><span class="StringLit">&quot;dialog&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;info_text&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;Insert some informational text here.&quot;</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L48" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L48" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L57" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L57" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -399,7 +471,7 @@
 </div>
 <div id="getStringArray-procs-all">
   <div id="getStringArray,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getStringArray%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getStringArray</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> {.
+  <dt><pre><span class="Keyword">func</span> <a href="#getStringArray%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getStringArray</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -413,8 +485,8 @@
 <span class="Identifier">assert</span> <span class="Identifier">employees</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="StringLit">&quot;John&quot;</span>
 <span class="Identifier">assert</span> <span class="Identifier">employees</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="StringLit">&quot;Katie&quot;</span>
 <span class="Identifier">assert</span> <span class="Identifier">len</span><span class="Punctuation">(</span><span class="Identifier">employees</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L155" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L155" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L193" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L193" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -422,7 +494,7 @@
 </div>
 <div id="getStringArrayOrDefault-procs-all">
   <div id="getStringArrayOrDefault,ConfigTable,string,string,seq[string]">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getStringArrayOrDefault%2CConfigTable%2Cstring%2Cstring%2Cseq%5Bstring%5D"><span class="Identifier">getStringArrayOrDefault</span></a><span class="Other">(</span><span class="Identifier">config</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#getStringArrayOrDefault%2CConfigTable%2Cstring%2Cstring%2Cseq%5Bstring%5D"><span class="Identifier">getStringArrayOrDefault</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span>
                              <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
@@ -437,8 +509,8 @@
 <span class="Keyword">let</span> <span class="Identifier">table2</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getStringArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;users&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">]</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getStringArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;users&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L174" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L174" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L218" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L218" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -446,7 +518,7 @@
 </div>
 <div id="getStringOrDefault-procs-all">
   <div id="getStringOrDefault,ConfigTable,string,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getStringOrDefault%2CConfigTable%2Cstring%2Cstring%2Cstring"><span class="Identifier">getStringOrDefault</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">,</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.
+  <dt><pre><span class="Keyword">func</span> <a href="#getStringOrDefault%2CConfigTable%2Cstring%2Cstring%2Cstring"><span class="Identifier">getStringOrDefault</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">,</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -461,8 +533,8 @@
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getStringOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;dialog&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;info&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;Informational text&quot;</span>
 <span class="Comment"># This is not in the config file, so the procedure returns the `default` parameter.</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getStringOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;dialog&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;help&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;Helpful text&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;Helpful text&quot;</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L62" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L62" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L75" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L75" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -470,17 +542,23 @@
 </div>
 <div id="getStringTable-procs-all">
   <div id="getStringTable,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getStringTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getStringTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#getStringTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getStringTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span>
     <span class="Identifier">string</span><span class="Other">,</span> <span class="Identifier">string</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    Returns a string-only table from a configuration table with the specified section and key.
+    <p>Returns a string-only table from a configuration table with the specified section and key.</p>
+<p>Throws out any non-string items.</p>
+
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;names_and_likes = {</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Dogs</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Kate</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Cats</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">}&quot;</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;names_and_likes&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L239" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L239" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+<span class="Keyword">let</span> <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getStringTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;names_and_likes&quot;</span><span class="Punctuation">)</span>
+<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span>
+<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Punctuation">[</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="StringLit">&quot;Dogs&quot;</span>
+<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Punctuation">[</span><span class="StringLit">&quot;Kate&quot;</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="StringLit">&quot;Cats&quot;</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L338" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L338" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -488,7 +566,7 @@
 </div>
 <div id="getTable-procs-all">
   <div id="getTable,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">,</span>
+  <dt><pre><span class="Keyword">func</span> <a href="#getTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">,</span>
     <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -497,8 +575,8 @@
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;names_and_age = {</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: 21, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Kate</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: 22}&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;names_and_age&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L228" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L228" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L324" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L324" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -506,7 +584,7 @@
 </div>
 <div id="getValue-procs-all">
   <div id="getValue,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">proc</span> <a href="#getValue%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getValue</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.
+  <dt><pre><span class="Keyword">func</span> <a href="#getValue%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getValue</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
@@ -516,8 +594,8 @@
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;name = </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John Doe</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;name&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">kind</span> <span class="Operator">==</span> <span class="Identifier">CVString</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;name&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="StringLit">&quot;John Doe&quot;</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L42" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L42" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -533,7 +611,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-09 19:26:20 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-11 02:59:28 UTC</small>
       </div>
     </div>
   </div>

@@ -1,18 +1,20 @@
 nimTitle	retrieve	iniplus/retrieve.html	module src/iniplus/retrieve		0
-nim	exists	iniplus/retrieve.html#exists,ConfigTable,string,string	proc exists(table: ConfigTable; section, key: string): bool		21
-nim	getValue	iniplus/retrieve.html#getValue,ConfigTable,string,string	proc getValue(table: ConfigTable; section, key: string): ConfigValue		35
-nim	getString	iniplus/retrieve.html#getString,ConfigTable,string,string	proc getString(table: ConfigTable; section, key: string): string		48
-nim	getStringOrDefault	iniplus/retrieve.html#getStringOrDefault,ConfigTable,string,string,string	proc getStringOrDefault(table: ConfigTable; section, key, default: string): string		62
-nim	getBool	iniplus/retrieve.html#getBool,ConfigTable,string,string	proc getBool(table: ConfigTable; section, key: string): bool		80
-nim	getBoolOrDefault	iniplus/retrieve.html#getBoolOrDefault,ConfigTable,string,string,bool	proc getBoolOrDefault(config: ConfigTable; section, key: string; default: bool): bool		92
-nim	getInt	iniplus/retrieve.html#getInt,ConfigTable,string,string	proc getInt(table: ConfigTable; section, key: string): int		107
-nim	getIntOrDefault	iniplus/retrieve.html#getIntOrDefault,ConfigTable,string,string,int	proc getIntOrDefault(config: ConfigTable; section, key: string; default: int): int		120
-nim	getArray	iniplus/retrieve.html#getArray,ConfigTable,string,string	proc getArray(table: ConfigTable; section, key: string): seq[ConfigValue]		135
-nim	getStringArray	iniplus/retrieve.html#getStringArray,ConfigTable,string,string	proc getStringArray(table: ConfigTable; section, key: string): seq[string]		155
-nim	getStringArrayOrDefault	iniplus/retrieve.html#getStringArrayOrDefault,ConfigTable,string,string,seq[string]	proc getStringArrayOrDefault(config: ConfigTable; section, key: string;\n                        default: seq[string]): seq[string]		174
-nim	getIntArray	iniplus/retrieve.html#getIntArray,ConfigTable,string,string	proc getIntArray(table: ConfigTable; section, key: string): seq[int]		189
-nim	getBoolArray	iniplus/retrieve.html#getBoolArray,ConfigTable,string,string	proc getBoolArray(table: ConfigTable; section, key: string): seq[bool]		208
-nim	getTable	iniplus/retrieve.html#getTable,ConfigTable,string,string	proc getTable(table: ConfigTable; section, key: string): OrderedTable[string,\n    ConfigValue]		228
-nim	getStringTable	iniplus/retrieve.html#getStringTable,ConfigTable,string,string	proc getStringTable(table: ConfigTable; section, key: string): OrderedTable[string,\n    string]		239
-nim	getBoolTable	iniplus/retrieve.html#getBoolTable,ConfigTable,string,string	proc getBoolTable(table: ConfigTable; section, key: string): OrderedTable[string,\n    bool]		254
-nim	getIntTable	iniplus/retrieve.html#getIntTable,ConfigTable,string,string	proc getIntTable(table: ConfigTable; section, key: string): OrderedTable[string, int]		269
+nim	exists	iniplus/retrieve.html#exists,ConfigTable,string,string	proc exists(table: ConfigTable; section, key: string): bool		23
+nim	getValue	iniplus/retrieve.html#getValue,ConfigTable,string,string	proc getValue(table: ConfigTable; section, key: string): ConfigValue		42
+nim	getString	iniplus/retrieve.html#getString,ConfigTable,string,string	proc getString(table: ConfigTable; section, key: string): string		57
+nim	getStringOrDefault	iniplus/retrieve.html#getStringOrDefault,ConfigTable,string,string,string	proc getStringOrDefault(table: ConfigTable; section, key, default: string): string		75
+nim	getBool	iniplus/retrieve.html#getBool,ConfigTable,string,string	proc getBool(table: ConfigTable; section, key: string): bool		100
+nim	getBoolOrDefault	iniplus/retrieve.html#getBoolOrDefault,ConfigTable,string,string,bool	proc getBoolOrDefault(table: ConfigTable; section, key: string; default: bool): bool		116
+nim	getInt	iniplus/retrieve.html#getInt,ConfigTable,string,string	proc getInt(table: ConfigTable; section, key: string): int		135
+nim	getIntOrDefault	iniplus/retrieve.html#getIntOrDefault,ConfigTable,string,string,int	proc getIntOrDefault(table: ConfigTable; section, key: string; default: int): int		151
+nim	getArray	iniplus/retrieve.html#getArray,ConfigTable,string,string	proc getArray(table: ConfigTable; section, key: string): seq[ConfigValue]		169
+nim	getStringArray	iniplus/retrieve.html#getStringArray,ConfigTable,string,string	proc getStringArray(table: ConfigTable; section, key: string): seq[string]		193
+nim	getStringArrayOrDefault	iniplus/retrieve.html#getStringArrayOrDefault,ConfigTable,string,string,seq[string]	proc getStringArrayOrDefault(table: ConfigTable; section, key: string;\n                        default: seq[string]): seq[string]		218
+nim	getIntArray	iniplus/retrieve.html#getIntArray,ConfigTable,string,string	proc getIntArray(table: ConfigTable; section, key: string): seq[int]		237
+nim	getIntArrayOrDefault	iniplus/retrieve.html#getIntArrayOrDefault,ConfigTable,string,string,seq[int]	proc getIntArrayOrDefault(table: ConfigTable; section, key: string; default: seq[int]): seq[\n    int]		261
+nim	getBoolArray	iniplus/retrieve.html#getBoolArray,ConfigTable,string,string	proc getBoolArray(table: ConfigTable; section, key: string): seq[bool]		282
+nim	getBoolArrayOrDefault	iniplus/retrieve.html#getBoolArrayOrDefault,ConfigTable,string,string,seq[bool]	proc getBoolArrayOrDefault(table: ConfigTable; section, key: string;\n                      default: seq[bool]): seq[bool]		306
+nim	getTable	iniplus/retrieve.html#getTable,ConfigTable,string,string	proc getTable(table: ConfigTable; section, key: string): OrderedTable[string,\n    ConfigValue]		324
+nim	getStringTable	iniplus/retrieve.html#getStringTable,ConfigTable,string,string	proc getStringTable(table: ConfigTable; section, key: string): OrderedTable[string,\n    string]		338
+nim	getBoolTable	iniplus/retrieve.html#getBoolTable,ConfigTable,string,string	proc getBoolTable(table: ConfigTable; section, key: string): OrderedTable[string,\n    bool]		363
+nim	getIntTable	iniplus/retrieve.html#getIntTable,ConfigTable,string,string	proc getIntTable(table: ConfigTable; section, key: string): OrderedTable[string, int]		388

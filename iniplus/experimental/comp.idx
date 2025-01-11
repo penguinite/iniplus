@@ -1,41 +1,41 @@
 nimTitle	comp	iniplus/experimental/comp.html	module src/iniplus/experimental/comp		0
-nim	`==`	iniplus/experimental/comp.html#==,ConfigValue,string	proc `==`(a: ConfigValue; b: string): bool		4
-nim	`==`	iniplus/experimental/comp.html#==,string,ConfigValue	proc `==`(a: string; b: ConfigValue): bool		8
-nim	`==`	iniplus/experimental/comp.html#==,ConfigValue,int	proc `==`(a: ConfigValue; b: int): bool		12
-nim	`==`	iniplus/experimental/comp.html#==,int,ConfigValue	proc `==`(a: int; b: ConfigValue): bool		16
-nim	`==`	iniplus/experimental/comp.html#==,ConfigValue,bool	proc `==`(a: ConfigValue; b: bool): bool		20
-nim	`==`	iniplus/experimental/comp.html#==,bool,ConfigValue	proc `==`(a: bool; b: ConfigValue): bool		24
-nim	`==`	iniplus/experimental/comp.html#==,openArray[T],ConfigValue	proc `==`[T](a: openArray[T]; b: ConfigValue): bool		28
-nim	`==`	iniplus/experimental/comp.html#==,ConfigValue,openArray[T]	proc `==`[T](a: ConfigValue; b: openArray[T]): bool		32
-nim	`>`	iniplus/experimental/comp.html#>,int,ConfigValue	proc `>`(a: int; b: ConfigValue): bool		36
-nim	`<`	iniplus/experimental/comp.html#<,int,ConfigValue	proc `<`(a: int; b: ConfigValue): bool		40
-nim	`>=`	iniplus/experimental/comp.html#>=,int,ConfigValue	proc `>=`(a: int; b: ConfigValue): bool		44
-nim	`<=`	iniplus/experimental/comp.html#<=,int,ConfigValue	proc `<=`(a: int; b: ConfigValue): bool		48
-nim	`>`	iniplus/experimental/comp.html#>,ConfigValue,int	proc `>`(a: ConfigValue; b: int): bool		52
-nim	`<`	iniplus/experimental/comp.html#<,ConfigValue,int	proc `<`(a: ConfigValue; b: int): bool		56
-nim	`>=`	iniplus/experimental/comp.html#>=,ConfigValue,int	proc `>=`(a: ConfigValue; b: int): bool		60
-nim	`<=`	iniplus/experimental/comp.html#<=,ConfigValue,int	proc `<=`(a: ConfigValue; b: int): bool		64
-nim	`>`	iniplus/experimental/comp.html#>,SomeInteger,ConfigValue	proc `>`(a: SomeInteger; b: ConfigValue): bool		68
-nim	`<`	iniplus/experimental/comp.html#<,SomeInteger,ConfigValue	proc `<`(a: SomeInteger; b: ConfigValue): bool		72
-nim	`>=`	iniplus/experimental/comp.html#>=,SomeInteger,ConfigValue	proc `>=`(a: SomeInteger; b: ConfigValue): bool		76
-nim	`<=`	iniplus/experimental/comp.html#<=,SomeInteger,ConfigValue	proc `<=`(a: SomeInteger; b: ConfigValue): bool		80
-nim	`>`	iniplus/experimental/comp.html#>,ConfigValue,SomeInteger	proc `>`(a: ConfigValue; b: SomeInteger): bool		84
-nim	`<`	iniplus/experimental/comp.html#<,ConfigValue,SomeInteger	proc `<`(a: ConfigValue; b: SomeInteger): bool		88
-nim	`>=`	iniplus/experimental/comp.html#>=,ConfigValue,SomeInteger	proc `>=`(a: ConfigValue; b: SomeInteger): bool		92
-nim	`<=`	iniplus/experimental/comp.html#<=,ConfigValue,SomeInteger	proc `<=`(a: ConfigValue; b: SomeInteger): bool		96
-nim	`!=`	iniplus/experimental/comp.html#!=,ConfigValue,string	proc `!=`(a: ConfigValue; b: string): bool		100
-nim	`!=`	iniplus/experimental/comp.html#!=,string,ConfigValue	proc `!=`(a: string; b: ConfigValue): bool		104
-nim	`!=`	iniplus/experimental/comp.html#!=,ConfigValue,int	proc `!=`(a: ConfigValue; b: int): bool		108
-nim	`!=`	iniplus/experimental/comp.html#!=,int,ConfigValue	proc `!=`(a: int; b: ConfigValue): bool		112
-nim	`!=`	iniplus/experimental/comp.html#!=,ConfigValue,bool	proc `!=`(a: ConfigValue; b: bool): bool		116
-nim	`!=`	iniplus/experimental/comp.html#!=,bool,ConfigValue	proc `!=`(a: bool; b: ConfigValue): bool		120
-nim	`!=`	iniplus/experimental/comp.html#!=,openArray[T],ConfigValue	proc `!=`[T](a: openArray[T]; b: ConfigValue): bool		124
-nim	`!=`	iniplus/experimental/comp.html#!=,ConfigValue,openArray[T]	proc `!=`[T](a: ConfigValue; b: openArray[T]): bool		128
-nim	`==`	iniplus/experimental/comp.html#==,ConfigValue,ConfigValue	proc `==`(a, b: ConfigValue): bool		132
-nim	`!=`	iniplus/experimental/comp.html#!=,ConfigValue,ConfigValue	proc `!=`(a, b: ConfigValue): bool		145
-nimgrp	==	iniplus/experimental/comp.html#==-procs-all	proc		4
-nimgrp	>	iniplus/experimental/comp.html#>-procs-all	proc		36
-nimgrp	>=	iniplus/experimental/comp.html#>=-procs-all	proc		44
-nimgrp	!=	iniplus/experimental/comp.html#!=-procs-all	proc		100
-nimgrp	<=	iniplus/experimental/comp.html#<=-procs-all	proc		48
-nimgrp	<	iniplus/experimental/comp.html#<-procs-all	proc		40
+nim	`==`	iniplus/experimental/comp.html#==,ConfigValue,string	proc `==`(a: ConfigValue; b: string): bool		10
+nim	`==`	iniplus/experimental/comp.html#==,string,ConfigValue	proc `==`(a: string; b: ConfigValue): bool		14
+nim	`==`	iniplus/experimental/comp.html#==,ConfigValue,int	proc `==`(a: ConfigValue; b: int): bool		18
+nim	`==`	iniplus/experimental/comp.html#==,int,ConfigValue	proc `==`(a: int; b: ConfigValue): bool		22
+nim	`==`	iniplus/experimental/comp.html#==,ConfigValue,bool	proc `==`(a: ConfigValue; b: bool): bool		26
+nim	`==`	iniplus/experimental/comp.html#==,bool,ConfigValue	proc `==`(a: bool; b: ConfigValue): bool		30
+nim	`==`	iniplus/experimental/comp.html#==,openArray[T],ConfigValue	proc `==`[T](a: openArray[T]; b: ConfigValue): bool		34
+nim	`==`	iniplus/experimental/comp.html#==,ConfigValue,openArray[T]	proc `==`[T](a: ConfigValue; b: openArray[T]): bool		38
+nim	`>`	iniplus/experimental/comp.html#>,int,ConfigValue	proc `>`(a: int; b: ConfigValue): bool		42
+nim	`<`	iniplus/experimental/comp.html#<,int,ConfigValue	proc `<`(a: int; b: ConfigValue): bool		46
+nim	`>=`	iniplus/experimental/comp.html#>=,int,ConfigValue	proc `>=`(a: int; b: ConfigValue): bool		50
+nim	`<=`	iniplus/experimental/comp.html#<=,int,ConfigValue	proc `<=`(a: int; b: ConfigValue): bool		54
+nim	`>`	iniplus/experimental/comp.html#>,ConfigValue,int	proc `>`(a: ConfigValue; b: int): bool		58
+nim	`<`	iniplus/experimental/comp.html#<,ConfigValue,int	proc `<`(a: ConfigValue; b: int): bool		62
+nim	`>=`	iniplus/experimental/comp.html#>=,ConfigValue,int	proc `>=`(a: ConfigValue; b: int): bool		66
+nim	`<=`	iniplus/experimental/comp.html#<=,ConfigValue,int	proc `<=`(a: ConfigValue; b: int): bool		70
+nim	`>`	iniplus/experimental/comp.html#>,SomeInteger,ConfigValue	proc `>`(a: SomeInteger; b: ConfigValue): bool		74
+nim	`<`	iniplus/experimental/comp.html#<,SomeInteger,ConfigValue	proc `<`(a: SomeInteger; b: ConfigValue): bool		78
+nim	`>=`	iniplus/experimental/comp.html#>=,SomeInteger,ConfigValue	proc `>=`(a: SomeInteger; b: ConfigValue): bool		82
+nim	`<=`	iniplus/experimental/comp.html#<=,SomeInteger,ConfigValue	proc `<=`(a: SomeInteger; b: ConfigValue): bool		86
+nim	`>`	iniplus/experimental/comp.html#>,ConfigValue,SomeInteger	proc `>`(a: ConfigValue; b: SomeInteger): bool		90
+nim	`<`	iniplus/experimental/comp.html#<,ConfigValue,SomeInteger	proc `<`(a: ConfigValue; b: SomeInteger): bool		94
+nim	`>=`	iniplus/experimental/comp.html#>=,ConfigValue,SomeInteger	proc `>=`(a: ConfigValue; b: SomeInteger): bool		98
+nim	`<=`	iniplus/experimental/comp.html#<=,ConfigValue,SomeInteger	proc `<=`(a: ConfigValue; b: SomeInteger): bool		102
+nim	`!=`	iniplus/experimental/comp.html#!=,ConfigValue,string	proc `!=`(a: ConfigValue; b: string): bool		106
+nim	`!=`	iniplus/experimental/comp.html#!=,string,ConfigValue	proc `!=`(a: string; b: ConfigValue): bool		110
+nim	`!=`	iniplus/experimental/comp.html#!=,ConfigValue,int	proc `!=`(a: ConfigValue; b: int): bool		114
+nim	`!=`	iniplus/experimental/comp.html#!=,int,ConfigValue	proc `!=`(a: int; b: ConfigValue): bool		118
+nim	`!=`	iniplus/experimental/comp.html#!=,ConfigValue,bool	proc `!=`(a: ConfigValue; b: bool): bool		122
+nim	`!=`	iniplus/experimental/comp.html#!=,bool,ConfigValue	proc `!=`(a: bool; b: ConfigValue): bool		126
+nim	`!=`	iniplus/experimental/comp.html#!=,openArray[T],ConfigValue	proc `!=`[T](a: openArray[T]; b: ConfigValue): bool		130
+nim	`!=`	iniplus/experimental/comp.html#!=,ConfigValue,openArray[T]	proc `!=`[T](a: ConfigValue; b: openArray[T]): bool		134
+nim	`==`	iniplus/experimental/comp.html#==,ConfigValue,ConfigValue	proc `==`(a, b: ConfigValue): bool		138
+nim	`!=`	iniplus/experimental/comp.html#!=,ConfigValue,ConfigValue	proc `!=`(a, b: ConfigValue): bool		151
+nimgrp	==	iniplus/experimental/comp.html#==-procs-all	proc		10
+nimgrp	>	iniplus/experimental/comp.html#>-procs-all	proc		42
+nimgrp	>=	iniplus/experimental/comp.html#>=-procs-all	proc		50
+nimgrp	!=	iniplus/experimental/comp.html#!=-procs-all	proc		106
+nimgrp	<=	iniplus/experimental/comp.html#<=-procs-all	proc		54
+nimgrp	<	iniplus/experimental/comp.html#<-procs-all	proc		46

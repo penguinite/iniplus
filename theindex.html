@@ -48,6 +48,8 @@
           </ul></dd>
 <dt><a name="%60%24%60" href="#%60%24%60"><span>`$`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="objects: proc `$`(k: ConfigValueKind): string" href="iniplus/objects.html#%24%2CConfigValueKind">objects: proc `$`(k: ConfigValueKind): string</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="writer: proc `$`(table: ConfigTable): string" href="iniplus/writer.html#%24%2CConfigTable">writer: proc `$`(table: ConfigTable): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="writer: proc `$`(value: ConfigValue): string" href="iniplus/writer.html#%24%2CConfigValue">writer: proc `$`(value: ConfigValue): string</a></li>
@@ -112,9 +114,17 @@
           <li><a class="reference external"
           data-doc-search-tag="comp: proc `&gt;`(a: SomeInteger; b: ConfigValue): bool" href="iniplus/experimental/comp.html#%3E%2CSomeInteger%2CConfigValue">comp: proc `&gt;`(a: SomeInteger; b: ConfigValue): bool</a></li>
           </ul></dd>
+<dt><a name="%60%40%3D%60" href="#%60%40%3D%60"><span>`@=`:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="objects: proc `@=`[T](val: T): ConfigValue" href="iniplus/objects.html#%40%3D%2CT">objects: proc `@=`[T](val: T): ConfigValue</a></li>
+          </ul></dd>
 <dt><a name="Array" href="#Array"><span>Array:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="utils: State.Array" href="iniplus/private/utils.html#Array">utils: State.Array</a></li>
+          </ul></dd>
+<dt><a name="Checkmap" href="#Checkmap"><span>Checkmap:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="utils: type Checkmap" href="iniplus/private/utils.html#Checkmap">utils: type Checkmap</a></li>
           </ul></dd>
 <dt><a name="Colon" href="#Colon"><span>Colon:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -141,6 +151,10 @@
           data-doc-search-tag="utils: proc conv(v: seq[string]; table = false): ConfigValue" href="iniplus/private/utils.html#conv%2Cseq%5Bstring%5D">utils: proc conv(v: seq[string]; table = false): ConfigValue</a></li>
           <li><a class="reference external"
           data-doc-search-tag="utils: proc conv(v: string): ConfigValue" href="iniplus/private/utils.html#conv%2Cstring">utils: proc conv(v: string): ConfigValue</a></li>
+          </ul></dd>
+<dt><a name="createTable" href="#createTable"><span>createTable:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="writer: proc createTable(data: openArray[(string, Table[string, ConfigValue])]): ConfigTable" href="iniplus/writer.html#createTable%2CopenArray%5B%5D">writer: proc createTable(data: openArray[(string, Table[string, ConfigValue])]): ConfigTable</a></li>
           </ul></dd>
 <dt><a name="CTable" href="#CTable"><span>CTable:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -182,6 +196,10 @@
 <li><a class="reference external"
           data-doc-search-tag="objects: ConfigValueKind.CVType" href="iniplus/objects.html#CVType">objects: ConfigValueKind.CVType</a></li>
           </ul></dd>
+<dt><a name="detectChildKind" href="#detectChildKind"><span>detectChildKind:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="utils: proc detectChildKind(c: ConfigValue): ConfigValueKind" href="iniplus/private/utils.html#detectChildKind%2CConfigValue">utils: proc detectChildKind(c: ConfigValue): ConfigValueKind</a></li>
+          </ul></dd>
 <dt><a name="dump" href="#dump"><span>dump:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="writer: proc dump(table: ConfigTable): string" href="iniplus/writer.html#dump%2CConfigTable">writer: proc dump(table: ConfigTable): string</a></li>
@@ -210,9 +228,15 @@
 <li><a class="reference external"
           data-doc-search-tag="retrieve: proc getBoolArray(table: ConfigTable; section, key: string): seq[bool]" href="iniplus/retrieve.html#getBoolArray%2CConfigTable%2Cstring%2Cstring">retrieve: proc getBoolArray(table: ConfigTable; section, key: string): seq[bool]</a></li>
           </ul></dd>
+<dt><a name="getBoolArrayOrDefault" href="#getBoolArrayOrDefault"><span>getBoolArrayOrDefault:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="retrieve: proc getBoolArrayOrDefault(table: ConfigTable; section, key: string;
+                      default: seq[bool]): seq[bool]" href="iniplus/retrieve.html#getBoolArrayOrDefault%2CConfigTable%2Cstring%2Cstring%2Cseq%5Bbool%5D">retrieve: proc getBoolArrayOrDefault(table: ConfigTable; section, key: string;
+                      default: seq[bool]): seq[bool]</a></li>
+          </ul></dd>
 <dt><a name="getBoolOrDefault" href="#getBoolOrDefault"><span>getBoolOrDefault:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="retrieve: proc getBoolOrDefault(config: ConfigTable; section, key: string; default: bool): bool" href="iniplus/retrieve.html#getBoolOrDefault%2CConfigTable%2Cstring%2Cstring%2Cbool">retrieve: proc getBoolOrDefault(config: ConfigTable; section, key: string; default: bool): bool</a></li>
+          data-doc-search-tag="retrieve: proc getBoolOrDefault(table: ConfigTable; section, key: string; default: bool): bool" href="iniplus/retrieve.html#getBoolOrDefault%2CConfigTable%2Cstring%2Cstring%2Cbool">retrieve: proc getBoolOrDefault(table: ConfigTable; section, key: string; default: bool): bool</a></li>
           </ul></dd>
 <dt><a name="getBoolTable" href="#getBoolTable"><span>getBoolTable:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -228,9 +252,15 @@
 <li><a class="reference external"
           data-doc-search-tag="retrieve: proc getIntArray(table: ConfigTable; section, key: string): seq[int]" href="iniplus/retrieve.html#getIntArray%2CConfigTable%2Cstring%2Cstring">retrieve: proc getIntArray(table: ConfigTable; section, key: string): seq[int]</a></li>
           </ul></dd>
+<dt><a name="getIntArrayOrDefault" href="#getIntArrayOrDefault"><span>getIntArrayOrDefault:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="retrieve: proc getIntArrayOrDefault(table: ConfigTable; section, key: string; default: seq[int]): seq[
+    int]" href="iniplus/retrieve.html#getIntArrayOrDefault%2CConfigTable%2Cstring%2Cstring%2Cseq%5Bint%5D">retrieve: proc getIntArrayOrDefault(table: ConfigTable; section, key: string; default: seq[int]): seq[
+    int]</a></li>
+          </ul></dd>
 <dt><a name="getIntOrDefault" href="#getIntOrDefault"><span>getIntOrDefault:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="retrieve: proc getIntOrDefault(config: ConfigTable; section, key: string; default: int): int" href="iniplus/retrieve.html#getIntOrDefault%2CConfigTable%2Cstring%2Cstring%2Cint">retrieve: proc getIntOrDefault(config: ConfigTable; section, key: string; default: int): int</a></li>
+          data-doc-search-tag="retrieve: proc getIntOrDefault(table: ConfigTable; section, key: string; default: int): int" href="iniplus/retrieve.html#getIntOrDefault%2CConfigTable%2Cstring%2Cstring%2Cint">retrieve: proc getIntOrDefault(table: ConfigTable; section, key: string; default: int): int</a></li>
           </ul></dd>
 <dt><a name="getIntTable" href="#getIntTable"><span>getIntTable:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -246,8 +276,8 @@
           </ul></dd>
 <dt><a name="getStringArrayOrDefault" href="#getStringArrayOrDefault"><span>getStringArrayOrDefault:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="retrieve: proc getStringArrayOrDefault(config: ConfigTable; section, key: string;
-                        default: seq[string]): seq[string]" href="iniplus/retrieve.html#getStringArrayOrDefault%2CConfigTable%2Cstring%2Cstring%2Cseq%5Bstring%5D">retrieve: proc getStringArrayOrDefault(config: ConfigTable; section, key: string;
+          data-doc-search-tag="retrieve: proc getStringArrayOrDefault(table: ConfigTable; section, key: string;
+                        default: seq[string]): seq[string]" href="iniplus/retrieve.html#getStringArrayOrDefault%2CConfigTable%2Cstring%2Cstring%2Cseq%5Bstring%5D">retrieve: proc getStringArrayOrDefault(table: ConfigTable; section, key: string;
                         default: seq[string]): seq[string]</a></li>
           </ul></dd>
 <dt><a name="getStringOrDefault" href="#getStringOrDefault"><span>getStringOrDefault:</span></a></dt><dd><ul class="simple">
@@ -288,7 +318,11 @@
           </ul></dd>
 <dt><a name="newCValue" href="#newCValue"><span>newCValue:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="objects: proc newCValue(t: (ConfigValueKind, ConfigValueKind)): ConfigValue" href="iniplus/objects.html#newCValue">objects: proc newCValue(t: (ConfigValueKind, ConfigValueKind)): ConfigValue</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="objects: proc newCValue(value: bool): ConfigValue" href="iniplus/objects.html#newCValue%2Cbool">objects: proc newCValue(value: bool): ConfigValue</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="objects: proc newCValue(t: ConfigValueKind): ConfigValue" href="iniplus/objects.html#newCValue%2CConfigValueKind">objects: proc newCValue(t: ConfigValueKind): ConfigValue</a></li>
           <li><a class="reference external"
           data-doc-search-tag="objects: proc newCValue(value: int): ConfigValue" href="iniplus/objects.html#newCValue%2Cint">objects: proc newCValue(value: int): ConfigValue</a></li>
           <li><a class="reference external"
@@ -303,20 +337,6 @@
 <dt><a name="Newline" href="#Newline"><span>Newline:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="utils: TokenKind.Newline" href="iniplus/private/utils.html#Newline">utils: TokenKind.Newline</a></li>
-          </ul></dd>
-<dt><a name="newValue" href="#newValue"><span>newValue:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="writer: proc newValue(value: bool): ConfigValue" href="iniplus/writer.html#newValue%2Cbool">writer: proc newValue(value: bool): ConfigValue</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="writer: proc newValue(value: int): ConfigValue" href="iniplus/writer.html#newValue%2Cint">writer: proc newValue(value: int): ConfigValue</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="writer: proc newValue(value: seq[ConfigValue]): ConfigValue" href="iniplus/writer.html#newValue%2Cseq%5BConfigValue%5D">writer: proc newValue(value: seq[ConfigValue]): ConfigValue</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="writer: proc newValue[T](val: seq[T]): ConfigValue" href="iniplus/writer.html#newValue%2Cseq%5BT%5D">writer: proc newValue[T](val: seq[T]): ConfigValue</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="writer: proc newValue(value: string): ConfigValue" href="iniplus/writer.html#newValue%2Cstring">writer: proc newValue(value: string): ConfigValue</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="writer: proc newValue(value: varargs[ConfigValue]): ConfigValue" href="iniplus/writer.html#newValue%2Cvarargs%5BConfigValue%5D">writer: proc newValue(value: varargs[ConfigValue]): ConfigValue</a></li>
           </ul></dd>
 <dt><a name="None" href="#None"><span>None:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -347,6 +367,12 @@
           data-doc-search-tag="writer: proc setKey(table: var ConfigTable; section, key: string; value: ConfigValue)" href="iniplus/writer.html#setKey%2CConfigTable%2Cstring%2Cstring%2CConfigValue">writer: proc setKey(table: var ConfigTable; section, key: string; value: ConfigValue)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="writer: proc setKey[T](table: var ConfigTable; section, key: string; value: T)" href="iniplus/writer.html#setKey%2CConfigTable%2Cstring%2Cstring%2CT">writer: proc setKey[T](table: var ConfigTable; section, key: string; value: T)</a></li>
+          </ul></dd>
+<dt><a name="setKeys" href="#setKeys"><span>setKeys:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="writer: proc setKeys(table: var ConfigTable;
+        data: openArray[(string, Table[string, ConfigValue])])" href="iniplus/writer.html#setKeys%2CConfigTable%2CopenArray%5B%5D">writer: proc setKeys(table: var ConfigTable;
+        data: openArray[(string, Table[string, ConfigValue])])</a></li>
           </ul></dd>
 <dt><a name="SquareClose" href="#SquareClose"><span>SquareClose:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -386,7 +412,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-09 19:26:25 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-11 02:59:33 UTC</small>
       </div>
     </div>
   </div>
