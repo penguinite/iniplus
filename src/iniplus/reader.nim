@@ -12,7 +12,7 @@ import objects, strutils
 import private/utils
 export objects
 
-proc parseString*(input: string): ConfigTable =
+func parseString*(input: string): ConfigTable =
   ## This procedure takes a string of some kind as its input and returns a parsed ConfigTable object.
   runnableExamples:
     import iniplus
@@ -199,7 +199,7 @@ proc parseFile*(filename: string): ConfigTable =
     let config = parseFile("app.ini")
   return parseString(filename.readFile())
 
-proc parseComments*(input: string): seq[(int, string)] =
+func parseComments*(input: string): seq[(int, string)] =
   ## Parses only the comments from an INI file, returns exact line and 
   var
     comment = ""

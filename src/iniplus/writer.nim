@@ -25,14 +25,14 @@ proc dump*(table: ConfigTable): string =
     result = result[0..^2] # Remove last newline char
   return "{\n" & result & "\n}" # Add curly brackets
 
-proc escapeQuote(i: string): string =
+func escapeQuote(i: string): string =
   for ch in i:
     case ch:
     of '"': result.add("\\\"")
     else: result.add(ch)
   return result
 
-proc dumpCommentsNim*(comments: seq[(int, string)]): string =
+func dumpCommentsNim*(comments: seq[(int, string)]): string =
   ## Converts a comment sequence into loadable Nim code. Useful for writing tests and whatnot.
   ## 
   ## Note: If you want to *load* a file with only comments, then use the parseComments() procedure from reader.nim
@@ -42,7 +42,7 @@ proc dumpCommentsNim*(comments: seq[(int, string)]): string =
   result = result[0..^3]
   result.add("\n]")
 
-proc toString*(val: ConfigValue): string =
+func toString*(val: ConfigValue): string =
   ## Converts a single, individual configuration value into a loadable, human-readable string.
   runnableExamples:
     import iniplus
@@ -69,7 +69,7 @@ proc toString*(val: ConfigValue): string =
     result = "{" & result & "}"
   return result
 
-proc `$`*(value: ConfigValue): string =
+func `$`*(value: ConfigValue): string =
   ## Shorthand for `toString(value)`
   runnableExamples:
     import iniplus
@@ -78,8 +78,8 @@ proc `$`*(value: ConfigValue): string =
     echo toString(value)
   return toString(value)
 
-proc toString*(table: ConfigTable): string =
-  ## Converts a whole configuration table into a string that can be loaded again through iniplus/reader's parseString().
+func toString*(table: ConfigTable): string =
+  ## Converts a whole configuration table into a string that can be loaded again through parseString().
   runnableExamples:
     import iniplus
     let config = parseString("test_key=\"Hello\"")
@@ -110,7 +110,7 @@ proc toString*(table: ConfigTable): string =
 
   return result
 
-proc `$`*(table: ConfigTable): string =
+func `$`*(table: ConfigTable): string =
   ## Shorthand for `toString(table)`
   runnableExamples:
     import iniplus
@@ -120,7 +120,7 @@ proc `$`*(table: ConfigTable): string =
 
   return toString(table)
 
-proc newConfigTable*(): ConfigTable =
+func newConfigTable*(): ConfigTable =
   ## Simply returns a new, empty, ConfigTable object.
   runnableExamples:
     import iniplus
@@ -133,7 +133,7 @@ proc newConfigTable*(): ConfigTable =
     assert tableB.len() == 0
   return result
 
-proc setKey*[T](table: var ConfigTable, section, key: string, value: T) =
+func setKey*[T](table: var ConfigTable, section, key: string, value: T) =
   ## Allows you to set a key of a section in a table to a specific value.
   runnableExamples:
     import iniplus
@@ -156,7 +156,7 @@ proc setKey*[T](table: var ConfigTable, section, key: string, value: T) =
 
   table[(section, key)] = newCValue(value)
 
-proc setKey*(table: var ConfigTable, section, key: string, value: ConfigValue) =
+func setKey*(table: var ConfigTable, section, key: string, value: ConfigValue) =
   runnableExamples:
     import iniplus
     var

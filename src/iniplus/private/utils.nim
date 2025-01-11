@@ -18,19 +18,19 @@ func tl(s: string): string =
     else:
       result.add(ch)
 
-proc isBoolean*(raw: string): bool =
+func isBoolean*(raw: string): bool =
   case raw.tl():
   of "true", "false": return true
   else: return false
 
-proc isOnlyDigits*(raw: string): bool =
+func isOnlyDigits*(raw: string): bool =
   for ch in raw:
     case ch:
     of '1','2','3','4','5','6','7','8','9','0','-': continue
     else: return false
   return true
 
-proc trimString*(raw: string): string =
+func trimString*(raw: string): string =
   ## Trims any double and single quotes from a string.
   case raw:
   of "", " ", "\"": return ""
@@ -42,12 +42,12 @@ proc trimString*(raw: string): string =
       result = result[0..^2]
   return result
 
-proc getKind(raw: string): ConfigValueKind =
+func getKind(raw: string): ConfigValueKind =
   if isBoolean(raw): return CVBool
   if isOnlyDigits(raw): return CVInt
   return CVString
 
-proc conv*(v: string): ConfigValue =
+func conv*(v: string): ConfigValue =
   ## Converts a raw string into a configuration value, this is primarily used by the parser.
   let kind = getKind(v)
   result = ConfigValue(kind: kind)
@@ -60,7 +60,7 @@ proc conv*(v: string): ConfigValue =
 
   return result
 
-proc conv*(v: seq[string], table = false): ConfigValue =
+func conv*(v: seq[string], table = false): ConfigValue =
   if table:
     result = ConfigValue(kind: CVTable)
     # Quick and dirty "pairs"

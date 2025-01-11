@@ -30,7 +30,7 @@ type
   ## Simply a configuration table.
   ConfigTable* = Table[(string, string), ConfigValue]
 
-proc newCValue*(value: string): ConfigValue =
+func newCValue*(value: string): ConfigValue =
   ## Creates a ConfigValue object of the `String` kind
   runnableExamples:
     import iniplus
@@ -41,7 +41,7 @@ proc newCValue*(value: string): ConfigValue =
     assert config.getValue("","fav_person") == value
   return ConfigValue(kind: CVString, stringVal: value)
 
-proc newCValue*(value: int): ConfigValue =
+func newCValue*(value: int): ConfigValue =
   ## Creates a ConfigValue object of the `Int` kind
   runnableExamples:
     import iniplus
@@ -52,7 +52,7 @@ proc newCValue*(value: int): ConfigValue =
     assert config.getValue("","fav_number") == value
   return ConfigValue(kind: CVInt, intVal: value)
 
-proc newCValue*(value: bool): ConfigValue =
+func newCValue*(value: bool): ConfigValue =
   ## Creates a ConfigValue object of the `Boolean` kind. 
   runnableExamples:
     import iniplus
@@ -63,7 +63,7 @@ proc newCValue*(value: bool): ConfigValue =
     assert config.getValue("","fav_bool") == value
   return ConfigValue(kind: CVBool, boolVal: value)
 
-proc newCValue*(value: varargs[ConfigValue]): ConfigValue =
+func newCValue*(value: varargs[ConfigValue]): ConfigValue =
   ## Creates a ConfigValue object of the `Sequence` kind.
   runnableExamples:
     import iniplus
@@ -80,7 +80,7 @@ proc newCValue*(value: varargs[ConfigValue]): ConfigValue =
     assert config.getStringArray("","favorites")[2] == value.arrayVal[2]
   return ConfigValue(kind: CVArray, arrayVal: value.toSeq)
 
-proc newCValue*(value: seq[ConfigValue]): ConfigValue =
+func newCValue*(value: seq[ConfigValue]): ConfigValue =
   ## Creates a ConfigValue object of the `Sequence` kind.
   ## 
   ## This function is similar to the varargs-based function,
@@ -102,7 +102,7 @@ proc newCValue*(value: seq[ConfigValue]): ConfigValue =
     assert config.getArray("","favorites")[2] == value.arrayVal[2]
   return ConfigValue(kind: CVArray, arrayVal: value)
 
-proc newCValue*[T](val: seq[T]): ConfigValue =
+func newCValue*[T](val: seq[T]): ConfigValue =
   ## Creates a ConfigValue object of the `Sequence` kind.
   ## 
   ## This function is similar to the varargs-based function,

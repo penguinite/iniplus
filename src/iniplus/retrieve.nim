@@ -15,10 +15,10 @@ import objects
 import std/[tables, times, strutils]
 export tables, times
 
-proc raiseValueError(kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" has wrong type (" & $kind & ")")
-proc raiseIndexDefect(section, key: string) = raise (ref IndexDefect)(msg: "key \"" & key & "\" in section \"" & section & "\" does not exist")
+func raiseValueError(kind: ConfigValueKind, section, key: string) = raise (ref ValueError)(msg: "key \"" & key & "\" in section \"" & section & "\" has wrong type (" & $kind & ")")
+func raiseIndexDefect(section, key: string) = raise (ref IndexDefect)(msg: "key \"" & key & "\" in section \"" & section & "\" does not exist")
 
-proc exists*(table: ConfigTable, section, key: string): bool =
+func exists*(table: ConfigTable, section, key: string): bool =
   ## Simply detects if a given key inside of a given section exists.
   ## Returns true if it does, false if it doesn't.
   runnableExamples:
@@ -30,7 +30,7 @@ proc exists*(table: ConfigTable, section, key: string): bool =
     assert config.exists("","age") == false
   return table.hasKey((section, key))
 
-proc getValue*(table: ConfigTable, section, key: string): ConfigValue =
+func getValue*(table: ConfigTable, section, key: string): ConfigValue =
   ## Returns a pure ConfigValue object, typically this is only used for low-level retrieval.
   runnableExamples:
     import iniplus
@@ -42,7 +42,7 @@ proc getValue*(table: ConfigTable, section, key: string): ConfigValue =
     raiseIndexDefect(section, key)
   return table[(section, key)]
 
-proc getString*(table: ConfigTable, section, key: string): string =
+func getString*(table: ConfigTable, section, key: string): string =
   ## Returns a string from a table with the specified section and key.
   runnableExamples:
     import iniplus
@@ -58,7 +58,7 @@ proc getString*(table: ConfigTable, section, key: string): string =
     raiseValueError(val.kind, section, key)
   return val.stringVal
 
-proc getStringOrDefault*(table: ConfigTable, section, key, default: string): string =
+func getStringOrDefault*(table: ConfigTable, section, key, default: string): string =
   ## Returns a string from a table with the specified section and key, *or* if the key does
   ## not exist, it returns whatever the third parameter `default` has been set to.
   runnableExamples:
@@ -79,7 +79,7 @@ proc getStringOrDefault*(table: ConfigTable, section, key, default: string): str
     return val.stringVal
   return default
 
-proc getBool*(table: ConfigTable, section, key: string): bool =
+func getBool*(table: ConfigTable, section, key: string): bool =
   ## Returns a boolean from a table with the specified section and key.
   runnableExamples:
     import iniplus
@@ -93,7 +93,7 @@ proc getBool*(table: ConfigTable, section, key: string): bool =
   of CVBool: result = val.boolVal
   else: raiseValueError(val.kind, section, key)
 
-proc getBoolOrDefault*(table: ConfigTable, section, key: string, default: bool): bool =
+func getBoolOrDefault*(table: ConfigTable, section, key: string, default: bool): bool =
   ## Either returns the provided boolean in a table or a default value.
   runnableExamples:
     import iniplus
@@ -113,7 +113,7 @@ proc getBoolOrDefault*(table: ConfigTable, section, key: string, default: bool):
     else: raiseValueError(val.kind, section, key)
   return default
 
-proc getInt*(table: ConfigTable, section, key: string): int =
+func getInt*(table: ConfigTable, section, key: string): int =
   ## Returns an integer from a table with the specified section and key.
   runnableExamples:
     import iniplus
@@ -128,7 +128,7 @@ proc getInt*(table: ConfigTable, section, key: string): int =
   of CVInt: return val.intVal
   else: raiseValueError(val.kind, section, key)
 
-proc getIntOrDefault*(table: ConfigTable, section, key: string, default: int): int =
+func getIntOrDefault*(table: ConfigTable, section, key: string, default: int): int =
   ## Either returns the provided integer in a table or a default value.
   runnableExamples:
     import iniplus
@@ -147,7 +147,7 @@ proc getIntOrDefault*(table: ConfigTable, section, key: string, default: int): i
     else: raiseValueError(val.kind, section, key)
   return default
 
-proc getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] =
+func getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] =
   ## Returns an array containing a set of ConfigValue objects from a table with the specified section and key.
   runnableExamples:
     import iniplus
@@ -169,7 +169,7 @@ proc getArray*(table: ConfigTable, section, key: string): seq[ConfigValue] =
     raiseValueError(val.kind, section, key)
   return val.arrayVal
 
-proc getStringArray*(table: ConfigTable, section, key: string): seq[string] =
+func getStringArray*(table: ConfigTable, section, key: string): seq[string] =
   ## This procedure retrieves a string-only array from a table. It also throws out any non-string items
   runnableExamples:
     import iniplus
@@ -189,7 +189,7 @@ proc getStringArray*(table: ConfigTable, section, key: string): seq[string] =
     if item.kind == CVString: result.add(item.stringVal)
   return result
 
-proc getStringArrayOrDefault*(table: ConfigTable, section, key: string, default: seq[string]): seq[string] =
+func getStringArrayOrDefault*(table: ConfigTable, section, key: string, default: seq[string]): seq[string] =
   ## Either returns the provided string array in a table or a default value.
   runnableExamples:
     import iniplus
@@ -203,14 +203,7 @@ proc getStringArrayOrDefault*(table: ConfigTable, section, key: string, default:
   if not table.hasKey((section,key)):
     return default
 
-  let val = table[(section, key)]
-  if val.kind != CVArray:
-    raiseValueError(val.kind, section, key)
-  for item in val.arrayVal:
-    if item.kind == CVString: result.add(item.stringVal)
-  return result
-
-proc getIntArray*(table: ConfigTable, section, key: string): seq[int] =
+func getIntArray*(table: ConfigTable, section, key: string): seq[int] =
   ## This procedure retrieves a integer-only array from a table. It also throws out any non-integer items
   runnableExamples:
     import iniplus
@@ -230,7 +223,7 @@ proc getIntArray*(table: ConfigTable, section, key: string): seq[int] =
     if item.kind == CVInt: result.add(item.intVal)
   return result
 
-proc getIntArrayOrDefault*(table: ConfigTable, section, key: string, default: seq[int]): seq[int] =
+func getIntArrayOrDefault*(table: ConfigTable, section, key: string, default: seq[int]): seq[int] =
   ## Either returns the provided int array in a table or a default value.
   runnableExamples:
     import iniplus
@@ -251,7 +244,7 @@ proc getIntArrayOrDefault*(table: ConfigTable, section, key: string, default: se
     if item.kind == CVInt: result.add(item.intVal)
   return result
 
-proc getBoolArray*(table: ConfigTable, section, key: string): seq[bool] =
+func getBoolArray*(table: ConfigTable, section, key: string): seq[bool] =
   ## This procedure retrieves a boolean-only array from a table. It also throws out any non-boolean items
   runnableExamples:
     import iniplus 
@@ -271,7 +264,7 @@ proc getBoolArray*(table: ConfigTable, section, key: string): seq[bool] =
     if item.kind == CVBool: result.add(item.boolVal)
   return result
 
-proc getBoolArrayOrDefault*(table: ConfigTable, section, key: string, default: seq[bool]): seq[bool] =
+func getBoolArrayOrDefault*(table: ConfigTable, section, key: string, default: seq[bool]): seq[bool] =
   ## Either returns the provided bool array in a table or a default value.
   runnableExamples:
     import iniplus
