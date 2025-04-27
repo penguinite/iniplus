@@ -22,7 +22,7 @@ type
     of CVString: stringVal*: string
     of CVArray: arrayVal*: seq[ConfigValue]
     of CVTable: tableVal*: OrderedTable[string, ConfigValue]
-    else: discard
+    of CVNone: nil
   
   ## Simply a configuration table.
   ConfigTable* = Table[(string, string), ConfigValue]
@@ -34,7 +34,7 @@ func newCValue*(value: string): ConfigValue =
     let c = parseString("fav_person=\"John\"")
     
     assert c.getValue("","fav_person") == newCValue("John")
-  ConfigValue(kind: CVString, stringVal: value)
+  return ConfigValue(kind: CVString, stringVal: value)
 
 func newCValue*(value: int): ConfigValue =
   ## Creates a ConfigValue object of the `Int` kind
@@ -52,7 +52,7 @@ func newCValue*(value: bool): ConfigValue =
     let c = parseString("fav_bool=true")
 
     assert c.getValue("","fav_bool") == newCValue(true)
-  ConfigValue(kind: CVBool, boolVal: value)
+  return ConfigValue(kind: CVBool, boolVal: value)
 
 func newCValue*(value: varargs[ConfigValue]): ConfigValue =
   ## Creates a ConfigValue object of the `Sequence` kind.
@@ -67,7 +67,7 @@ func newCValue*(value: varargs[ConfigValue]): ConfigValue =
       )
     
     assert c.getArray("","favorites") == value
-  ConfigValue(kind: CVArray, arrayVal: value.toSeq)
+  return ConfigValue(kind: CVArray, arrayVal: value.toSeq)
 
 func newCValue*(value: seq[ConfigValue]): ConfigValue =
   ## Creates a ConfigValue object of the `Sequence` kind.
@@ -87,7 +87,7 @@ func newCValue*(value: seq[ConfigValue]): ConfigValue =
       )
     
     assert c.getArray("","favorites") == value
-  ConfigValue(kind: CVArray, arrayVal: value)
+  return ConfigValue(kind: CVArray, arrayVal: value)
 
 func newCValue*[T](val: openArray[T]): ConfigValue =
   ## Creates a ConfigValue object of the `Sequence` kind.
@@ -113,6 +113,7 @@ func newCValue*[T](val: openArray[T]): ConfigValue =
   result = ConfigValue(kind: CVArray)
   for i in val:
     result.arrayVal.add(newCValue(i))
+  return result
 
 func `@=`*[T](val: T): ConfigValue =
   ## Used for bulk-setting configuration options.
@@ -131,7 +132,7 @@ func `@=`*[T](val: T): ConfigValue =
         ]
       }.toTable
     }
-  newCValue(val)
+  return newCValue(val)
 
 func `$`*(k: ConfigValueKind): string =
   ## For convering config value types to strings.
@@ -142,3 +143,30 @@ func `$`*(k: ConfigValueKind): string =
     of CVInt: "integer"
     of CVNone: "none"
     of CVBool: "boolean"
+
+func `==`*(a,b: ConfigValue): bool =
+  if a.kind != b.kind:
+    return false
+
+  case a.kind:
+  of CVInt: return a.intVal == b.intVal
+  of CVBool: return a.boolVal == b.boolVal
+  of CVString: return a.stringVal == b.stringVal
+  of CVArray: return a.arrayVal == b.arrayVal
+  of CVTable: return a.tableVal == b.tableVal
+  of CVNone: return false
+
+func `!=`*(a,b: ConfigValue): bool =
+  return not (a == b)
+
+func `==`*(a: ConfigValue, b: seq[ConfigValue]): bool =
+  return ConfigValue(kind: CVArray, arrayVal: b) == a
+
+func `!=`*(a: ConfigValue, b: seq[ConfigValue]): bool =
+  return not (a == b)
+
+func `==`*(b: seq[ConfigValue], a: ConfigValue): bool =
+  return ConfigValue(kind: CVArray, arrayVal: b) == a
+
+func `!=`*(b: seq[ConfigValue], a: ConfigValue): bool =
+  return not (a == b)
