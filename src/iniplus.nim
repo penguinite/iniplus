@@ -66,6 +66,5 @@ runnableExamples:
 ## 3. reader contains the configuration file parser
 ## 4. writer contains the above-mentioned advanced features.
 
-import iniplus/[retrieve, objects, reader, writer], iniplus/experimental/comp
-import std/[tables]
-export objects, reader, writer, tables, retrieve, comp
+import iniplus/[retrieve, objects, reader, writer], std/[tables]
+export objects, reader, writer, tables, retrieve

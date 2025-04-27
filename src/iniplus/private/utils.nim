@@ -13,15 +13,11 @@ type
   State* = enum
     None, Section, Val, Array, CTable
 
-  Checkmap* = openArray[(string, Table[string, ConfigValue])]
-
 func tl(s: string): string =
   for ch in s:
     case ch:
-    of 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z':
-      result.add(char(uint8(ch) xor 0b0010_0000'u8))
-    else:
-      result.add(ch)
+    of 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z': result.add(char(uint8(ch) xor 0b0010_0000'u8))
+    else: result.add(ch)
 
 func isBoolean*(raw: string): bool =
   case raw.tl():
@@ -45,7 +41,6 @@ func trimString*(raw: string): string =
       result = result[1..^1]
     if raw.endsWith('"'):
       result = result[0..^2]
-  return result
 
 func getKind(raw: string): ConfigValueKind =
   if isBoolean(raw): return CVBool
@@ -61,9 +56,8 @@ func conv*(v: string): ConfigValue =
   of CVBool: result.boolVal = parseBool(v)
   of CVInt: result.intVal = parseInt(v)
   of CVString: result.stringVal = trimString(v)
-  else: return
-
-  return result
+  else:
+    raise newException(ValueError, "iniplus/private/utils.conv():65 Unknown input `v`: " & $(v))
 
 func conv*(v: seq[string], table = false): ConfigValue =
   if table:
@@ -72,7 +66,7 @@ func conv*(v: seq[string], table = false): ConfigValue =
     var tmp2 = ""
     for item in v:
       if tmp2 != "":
-        result.tableVal[tmp2] = conv(item)
+        result.tableVal[conv(item)] = conv(item)
         tmp2 = ""
       else:
         tmp2 = item
@@ -81,8 +75,6 @@ func conv*(v: seq[string], table = false): ConfigValue =
     result.arrayVal = @[]
     for item in v:
       result.arrayVal.add(conv(item))
-
-
 
 func detectChildKind*(c: ConfigValue): ConfigValueKind =
   var ctable: CountTable[ConfigValueKind]

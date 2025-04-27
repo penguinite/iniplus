@@ -30,17 +30,6 @@ func escapeQuote(i: string): string =
     case ch:
     of '"': result.add("\\\"")
     else: result.add(ch)
-  return result
-
-func dumpCommentsNim*(comments: seq[(int, string)]): string =
-  ## Converts a comment sequence into loadable Nim code. Useful for writing tests and whatnot.
-  ## 
-  ## Note: If you want to *load* a file with only comments, then use the parseComments() procedure from reader.nim
-  result = "@[\n"
-  for comment in comments:
-    result.add("  (" & $(comment[0]) & ", \"" & escapeQuote(comment[1]) & "\"),\n")
-  result = result[0..^3]
-  result.add("\n]")
 
 func toString*(val: ConfigValue): string =
   ## Converts a single, individual configuration value into a loadable, human-readable string.
@@ -67,7 +56,6 @@ func toString*(val: ConfigValue): string =
         result.add("\t \"" & key & "\": " & toString(val) & ",\n")
       result = "\n" & result[0..^2] & "\n"
     result = "{" & result & "}"
-  return result
 
 func `$`*(value: ConfigValue): string =
   ## Shorthand for `toString(value)`
@@ -76,7 +64,7 @@ func `$`*(value: ConfigValue): string =
     let value = newCValue("John")
 
     echo toString(value)
-  return toString(value)
+  toString(value)
 
 func toString*(table: ConfigTable): string =
   ## Converts a whole configuration table into a string that can be loaded again through parseString().
@@ -108,8 +96,6 @@ func toString*(table: ConfigTable): string =
       result.add("" & key & "\n")
     result.add(val)
 
-  return result
-
 func `$`*(table: ConfigTable): string =
   ## Shorthand for `toString(table)`
   runnableExamples:
@@ -117,8 +103,7 @@ func `$`*(table: ConfigTable): string =
     let config = parseString("test_key=\"Hello\"")
 
     echo toString(config)
-
-  return toString(table)
+  toString(table)
 
 func newConfigTable*(): ConfigTable =
   ## Simply returns a new, empty, ConfigTable object.
@@ -131,7 +116,7 @@ func newConfigTable*(): ConfigTable =
     assert tableA.len() == tableB.len()
     assert tableA.len() == 0
     assert tableB.len() == 0
-  return result
+  ConfigTable()
 
 func setKey*[T](table: var ConfigTable, section, key: string, value: T) =
   ## Allows you to set a key of a section in a table to a specific value.
@@ -153,7 +138,6 @@ func setKey*[T](table: var ConfigTable, section, key: string, value: T) =
       true # Value
     )
     assert table.getBool("favorite","boolean") == true
-
   table[(section, key)] = newCValue(value)
 
 func setKey*(table: var ConfigTable, section, key: string, value: ConfigValue) =
@@ -177,7 +161,6 @@ func setKey*(table: var ConfigTable, section, key: string, value: ConfigValue) =
     table.setKey("handmade","list",valueArr)
     assert table.getArray("handmade", "list")[0].stringVal == "Hello World!"
     assert table.getArray("handmade", "list")[1].intVal == 1000
-
   table[(section, key)] = value
 
 func setKeys*(table: var ConfigTable, data: openArray[(string, Table[string, ConfigValue])]) =
@@ -195,7 +178,6 @@ func setKeys*(table: var ConfigTable, data: openArray[(string, Table[string, Con
         "defunct": @= false
       }.toTable
     }
-
     table.setKeys(values)
 
     assert table.getString("company", "name") == "Acme Products Ltd."
