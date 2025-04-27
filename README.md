@@ -1,10 +1,16 @@
 # iniplus
 
-An INI parser written in Nim with support for extra datatypes such as arrays and tables. It's intended to be as performant as std/parsecfg but with a way friendly interface and design.
+A Nim-powered INI parser with support for arrays and tables. `iniplus` is designed to be performant but with an API that's way nicer to use.
 
-Documentation can be found [here](https://penguinite.github.io/iniplus/), you can also build the documentation locally by running `nimble docs` if you clone this repository
+Documentation can be found [here](https://penguinite.github.io/iniplus/), and it can be built locally by running `nimble docs`
 
-A simple `requires "iniplus ^= VERSION"` in your `.nimble` file is enough to import the project.
+To use iniplus within a project, add this to your `.nimble` file:
+
+```
+requires "iniplus ^= 0.3.3"
+```
+
+And then you can import `iniplus` and use all of its amazing features!
 
 ## Features/Drawbacks
 
@@ -38,7 +44,7 @@ I try to not break iniplus, and I try to document moments whenever I do break in
 
 TL;DR iniplus **can** break compatability, if you don't like this then use one of the following methods to import iniplus.
 
-(`0.3.3` is a placeholder, plate it with your own version obviously.)
+(`0.3.3` is a placeholder, replace it with your own version obviously.)
 
 ```nim
 requires "iniplus ^= 0.3.3" # This is the recommended way to import iniplus
