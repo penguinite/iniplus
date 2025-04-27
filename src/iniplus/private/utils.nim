@@ -66,7 +66,7 @@ func conv*(v: seq[string], table = false): ConfigValue =
     var tmp2 = ""
     for item in v:
       if tmp2 != "":
-        result.tableVal[conv(item)] = conv(item)
+        result.tableVal[tmp2] = conv(item)
         tmp2 = ""
       else:
         tmp2 = item

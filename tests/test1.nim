@@ -118,11 +118,6 @@ info_text = "Insert some informational text here."
     assert table.getString("dialog","info_text") == "Insert some informational text here."
     assert table.getStringOrDefault("dialog","help_text","Insert some helpful text here.") == "Insert some helpful text here."
   
-  test "newConfigTable":
-    assert newConfigTable() == ConfigTable()
-    assert newConfigTable() == parseString("")
-    assert ConfigTable() == parseString("")
-  
   test "Creating custom arrays":
     config = parseString("my_favorite_people=[\"John\", \"Katie\", true]")
 

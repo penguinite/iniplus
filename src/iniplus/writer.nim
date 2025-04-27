@@ -38,7 +38,7 @@ func toString*(val: ConfigValue): string =
     let value = newCValue("John")
     echo toString(value)
   case val.kind:
-  of CVNone, CVType: return "" # CVNone and CVType don't have string representation.
+  of CVNone: return "" # CVNone doesn't have string representation.
   of CVString: result = "\"" & val.stringVal & "\""
   of CVInt: result = $(val.intVal)
   of CVBool: result = $(val.boolVal)
@@ -116,7 +116,7 @@ func newConfigTable*(): ConfigTable =
     assert tableA.len() == tableB.len()
     assert tableA.len() == 0
     assert tableB.len() == 0
-  ConfigTable()
+  return result
 
 func setKey*[T](table: var ConfigTable, section, key: string, value: T) =
   ## Allows you to set a key of a section in a table to a specific value.

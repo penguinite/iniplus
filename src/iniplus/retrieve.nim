@@ -243,13 +243,13 @@ func getBoolArrayOrDefault*(table: ConfigTable, section, key: string, default: s
     return table.getBoolArray(section, key)
   return default
 
-func getTable*(table: ConfigTable, section, key: string): OrderedTable[ConfigValue, ConfigValue] =
+func getTable*(table: ConfigTable, section, key: string): OrderedTable[string, ConfigValue] =
   ## Returns a table from a configuration table with the specified section and key.
   runnableExamples:
     import iniplus
     let config = parseString("names_and_age = {\"John\": 21, \"Kate\": 22}")
     assert config.getTable("","names_and_age").len() == 2
   let val = table.getValue(section, key)
-  if val != CVTable:
+  if val.kind != CVTable:
     raiseValueError(val.kind, section, key)
   return val.tableVal

@@ -21,7 +21,7 @@ type
     of CVBool: boolVal*: bool
     of CVString: stringVal*: string
     of CVArray: arrayVal*: seq[ConfigValue]
-    of CVTable: tableVal*: OrderedTable[ConfigValue, ConfigValue]
+    of CVTable: tableVal*: OrderedTable[string, ConfigValue]
     else: discard
   
   ## Simply a configuration table.
