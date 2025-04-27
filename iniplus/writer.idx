@@ -1,15 +1,14 @@
 nimTitle	writer	iniplus/writer.html	module src/iniplus/writer		0
 nim	dump	iniplus/writer.html#dump,ConfigTable	proc dump(table: ConfigTable): string		9
-nim	dumpCommentsNim	iniplus/writer.html#dumpCommentsNim,seq[]	proc dumpCommentsNim(comments: seq[(int, string)]): string		35
-nim	toString	iniplus/writer.html#toString,ConfigValue	proc toString(val: ConfigValue): string		45
-nim	`$`	iniplus/writer.html#$,ConfigValue	proc `$`(value: ConfigValue): string		72
-nim	toString	iniplus/writer.html#toString,ConfigTable	proc toString(table: ConfigTable): string		81
-nim	`$`	iniplus/writer.html#$,ConfigTable	proc `$`(table: ConfigTable): string		113
-nim	newConfigTable	iniplus/writer.html#newConfigTable	proc newConfigTable(): ConfigTable		123
-nim	setKey	iniplus/writer.html#setKey,ConfigTable,string,string,T	proc setKey[T](table: var ConfigTable; section, key: string; value: T)		136
-nim	setKey	iniplus/writer.html#setKey,ConfigTable,string,string,ConfigValue	proc setKey(table: var ConfigTable; section, key: string; value: ConfigValue)		159
-nim	setKeys	iniplus/writer.html#setKeys,ConfigTable,openArray[]	proc setKeys(table: var ConfigTable;\n        data: openArray[(string, Table[string, ConfigValue])])		183
-nim	createTable	iniplus/writer.html#createTable,openArray[]	proc createTable(data: openArray[(string, Table[string, ConfigValue])]): ConfigTable		208
-nimgrp	setkey	iniplus/writer.html#setKey-procs-all	proc		136
-nimgrp	$	iniplus/writer.html#$-procs-all	proc		72
-nimgrp	tostring	iniplus/writer.html#toString-procs-all	proc		45
+nim	toString	iniplus/writer.html#toString,ConfigValue	proc toString(val: ConfigValue): string		34
+nim	`$`	iniplus/writer.html#$,ConfigValue	proc `$`(value: ConfigValue): string		60
+nim	toString	iniplus/writer.html#toString,ConfigTable	proc toString(table: ConfigTable): string		69
+nim	`$`	iniplus/writer.html#$,ConfigTable	proc `$`(table: ConfigTable): string		99
+nim	newConfigTable	iniplus/writer.html#newConfigTable	proc newConfigTable(): ConfigTable		108
+nim	setKey	iniplus/writer.html#setKey,ConfigTable,string,string,T	proc setKey[T](table: var ConfigTable; section, key: string; value: T)		121
+nim	setKey	iniplus/writer.html#setKey,ConfigTable,string,string,ConfigValue	proc setKey(table: var ConfigTable; section, key: string; value: ConfigValue)		143
+nim	setKeys	iniplus/writer.html#setKeys,ConfigTable,openArray[]	proc setKeys(table: var ConfigTable;\n        data: openArray[(string, Table[string, ConfigValue])])		166
+nim	createTable	iniplus/writer.html#createTable,openArray[]	proc createTable(data: openArray[(string, Table[string, ConfigValue])]): ConfigTable		190
+nimgrp	setkey	iniplus/writer.html#setKey-procs-all	proc		121
+nimgrp	$	iniplus/writer.html#$-procs-all	proc		60
+nimgrp	tostring	iniplus/writer.html#toString-procs-all	proc		34

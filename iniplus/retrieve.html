@@ -16,10 +16,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="../nimdoc.out.css?v=2.2.0">
+<link rel="stylesheet" type="text/css" href="../nimdoc.out.css?v=2.2.4">
 
 <!-- JS -->
-<script type="text/javascript" src="../dochack.js?v=2.2.0"></script>
+<script type="text/javascript" src="../dochack.js?v=2.2.4"></script>
 </head>
 <body>
   <div class="document" id="documentId">
@@ -84,12 +84,6 @@
   <li><a class="reference" href="#getBoolOrDefault%2CConfigTable%2Cstring%2Cstring%2Cbool" title="getBoolOrDefault(table: ConfigTable; section, key: string; default: bool): bool">getBoolOrDefault(table: ConfigTable; section, key: string; default: bool): bool</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">getBoolTable
-  <li><a class="reference" href="#getBoolTable%2CConfigTable%2Cstring%2Cstring" title="getBoolTable(table: ConfigTable; section, key: string): OrderedTable[string,
-    bool]">getBoolTable(table: ConfigTable; section, key: string): OrderedTable[string,
-    bool]</a></li>
-
-</ul>
 <ul class="simple nested-toc-section">getInt
   <li><a class="reference" href="#getInt%2CConfigTable%2Cstring%2Cstring" title="getInt(table: ConfigTable; section, key: string): int">getInt(table: ConfigTable; section, key: string): int</a></li>
 
@@ -108,10 +102,6 @@
   <li><a class="reference" href="#getIntOrDefault%2CConfigTable%2Cstring%2Cstring%2Cint" title="getIntOrDefault(table: ConfigTable; section, key: string; default: int): int">getIntOrDefault(table: ConfigTable; section, key: string; default: int): int</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">getIntTable
-  <li><a class="reference" href="#getIntTable%2CConfigTable%2Cstring%2Cstring" title="getIntTable(table: ConfigTable; section, key: string): OrderedTable[string, int]">getIntTable(table: ConfigTable; section, key: string): OrderedTable[string, int]</a></li>
-
-</ul>
 <ul class="simple nested-toc-section">getString
   <li><a class="reference" href="#getString%2CConfigTable%2Cstring%2Cstring" title="getString(table: ConfigTable; section, key: string): string">getString(table: ConfigTable; section, key: string): string</a></li>
 
@@ -128,12 +118,6 @@
 </ul>
 <ul class="simple nested-toc-section">getStringOrDefault
   <li><a class="reference" href="#getStringOrDefault%2CConfigTable%2Cstring%2Cstring%2Cstring" title="getStringOrDefault(table: ConfigTable; section, key, default: string): string">getStringOrDefault(table: ConfigTable; section, key, default: string): string</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">getStringTable
-  <li><a class="reference" href="#getStringTable%2CConfigTable%2Cstring%2Cstring" title="getStringTable(table: ConfigTable; section, key: string): OrderedTable[string,
-    string]">getStringTable(table: ConfigTable; section, key: string): OrderedTable[string,
-    string]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">getTable
@@ -190,8 +174,8 @@
 
 <span class="Comment"># This isn't in the config file, so it's false.</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">exists</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;age&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">false</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L23" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L23" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L25" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L25" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -217,8 +201,8 @@
 <span class="Identifier">assert</span> <span class="Identifier">employees</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="StringLit">&quot;John&quot;</span>
 <span class="Identifier">assert</span> <span class="Identifier">employees</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="StringLit">&quot;Katie&quot;</span>
 <span class="Identifier">assert</span> <span class="Identifier">employees</span><span class="Punctuation">[</span><span class="DecNumber">2</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">intVal</span> <span class="Operator">==</span> <span class="DecNumber">1000</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L169" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L169" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L133" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L133" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -235,8 +219,8 @@
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;enable_feature = true&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getBool</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;enable_feature&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">true</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L100" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L100" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L79" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L79" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -258,8 +242,8 @@
 <span class="Identifier">assert</span> <span class="Identifier">myFavoriteBooleans</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">true</span>
 <span class="Identifier">assert</span> <span class="Identifier">myFavoriteBooleans</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">false</span>
 <span class="Identifier">assert</span> <span class="Identifier">len</span><span class="Punctuation">(</span><span class="Identifier">myFavoriteBooleans</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L282" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L282" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L215" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L215" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -282,8 +266,8 @@
 <span class="Keyword">let</span> <span class="Identifier">table2</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getBoolArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fav_bools&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Identifier">false</span><span class="Punctuation">,</span> <span class="Identifier">false</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Identifier">false</span><span class="Punctuation">,</span> <span class="Identifier">false</span><span class="Punctuation">]</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getBoolArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fav_bools&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L306" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L306" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L231" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L231" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -305,32 +289,8 @@
 <span class="Keyword">let</span> <span class="Identifier">table2</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getBoolOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;enabled&quot;</span><span class="Punctuation">,</span> <span class="Identifier">false</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">false</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getBoolOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;enabled&quot;</span><span class="Punctuation">,</span> <span class="Identifier">true</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">true</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L116" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L116" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="getBoolTable-procs-all">
-  <div id="getBoolTable,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">func</span> <a href="#getBoolTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getBoolTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span>
-    <span class="Identifier">string</span><span class="Other">,</span> <span class="Identifier">bool</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    <p>Returns a boolean-only table from a configuration table with the specified section and key.</p>
-<p>Throws out any non-boolean items.</p>
-
-<p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
-<span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;names_and_adopted = {</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: true, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Kate</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: false}&quot;</span><span class="Punctuation">)</span>
-
-<span class="Keyword">let</span> <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getBoolTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;names_and_adopted&quot;</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span>
-<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Punctuation">[</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">true</span>
-<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Punctuation">[</span><span class="StringLit">&quot;Kate&quot;</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="Identifier">false</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L363" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L363" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L91" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L91" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -347,8 +307,8 @@
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;port = 8080&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getInt</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;port&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">8080</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L135" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L135" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L106" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L106" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -370,8 +330,8 @@
 <span class="Identifier">assert</span> <span class="Identifier">number</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">1000</span>
 <span class="Identifier">assert</span> <span class="Identifier">number</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">2000</span>
 <span class="Identifier">assert</span> <span class="Identifier">len</span><span class="Punctuation">(</span><span class="Identifier">number</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L237" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L237" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L184" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L184" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -394,8 +354,8 @@
 <span class="Keyword">let</span> <span class="Identifier">table2</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getIntArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fav_numbers&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">,</span><span class="DecNumber">2</span><span class="Punctuation">,</span><span class="DecNumber">4</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">,</span><span class="DecNumber">2</span><span class="Punctuation">,</span><span class="DecNumber">4</span><span class="Punctuation">]</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getIntArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fav_numbers&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L261" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L261" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L200" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L200" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -417,32 +377,8 @@
 <span class="Keyword">let</span> <span class="Identifier">table2</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getIntOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;port&quot;</span><span class="Punctuation">,</span> <span class="DecNumber">1000</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">1000</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getIntOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;port&quot;</span><span class="Punctuation">,</span> <span class="DecNumber">1010</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">1010</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L151" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L151" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="getIntTable-procs-all">
-  <div id="getIntTable,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">func</span> <a href="#getIntTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getIntTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">,</span>
-    <span class="Identifier">int</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    <p>Returns a integer-only table from a configuration table with the specified section and key.</p>
-<p>Throws out any non-integer items.</p>
-
-<p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
-<span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;names_and_age = {</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: 21, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Kate</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: 22}&quot;</span><span class="Punctuation">)</span>
-
-<span class="Keyword">let</span> <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getIntTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;names_and_age&quot;</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span>
-<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Punctuation">[</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">21</span>
-<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Punctuation">[</span><span class="StringLit">&quot;Kate&quot;</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="DecNumber">22</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L388" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L388" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L118" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L118" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -459,11 +395,11 @@
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="LongStringLit">&quot;&quot;&quot;
     [dialog]
-    info_text = &quot;Insert some informational text here.&quot;
+    info = &quot;Informational text here.&quot;
     &quot;&quot;&quot;</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getString</span><span class="Punctuation">(</span><span class="StringLit">&quot;dialog&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;info_text&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;Insert some informational text here.&quot;</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L57" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L57" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+<span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getString</span><span class="Punctuation">(</span><span class="StringLit">&quot;dialog&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;info&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;Informational text here.&quot;</span></pre>
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L48" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L48" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -485,8 +421,8 @@
 <span class="Identifier">assert</span> <span class="Identifier">employees</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="StringLit">&quot;John&quot;</span>
 <span class="Identifier">assert</span> <span class="Identifier">employees</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="StringLit">&quot;Katie&quot;</span>
 <span class="Identifier">assert</span> <span class="Identifier">len</span><span class="Punctuation">(</span><span class="Identifier">employees</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L193" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L193" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L153" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L153" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -509,8 +445,8 @@
 <span class="Keyword">let</span> <span class="Identifier">table2</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getStringArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;users&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">]</span>
 <span class="Identifier">assert</span> <span class="Identifier">table2</span><span class="Operator">.</span><span class="Identifier">getStringArrayOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;users&quot;</span><span class="Punctuation">,</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Operator">@</span><span class="Punctuation">[</span><span class="Punctuation">]</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L218" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L218" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L169" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L169" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -533,32 +469,8 @@
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getStringOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;dialog&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;info&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;Informational text&quot;</span>
 <span class="Comment"># This is not in the config file, so the procedure returns the `default` parameter.</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getStringOrDefault</span><span class="Punctuation">(</span><span class="StringLit">&quot;dialog&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;help&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;Helpful text&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;Helpful text&quot;</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L75" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L75" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
-<div id="getStringTable-procs-all">
-  <div id="getStringTable,ConfigTable,string,string">
-  <dt><pre><span class="Keyword">func</span> <a href="#getStringTable%2CConfigTable%2Cstring%2Cstring"><span class="Identifier">getStringTable</span></a><span class="Other">(</span><span class="Identifier">table</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a><span class="Other">;</span> <span class="Identifier">section</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OrderedTable</span><span class="Other">[</span>
-    <span class="Identifier">string</span><span class="Other">,</span> <span class="Identifier">string</span><span class="Other">]</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    <p>Returns a string-only table from a configuration table with the specified section and key.</p>
-<p>Throws out any non-string items.</p>
-
-<p><strong class="examples_text">Example:</strong></p>
-<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
-<span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;names_and_likes = {</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Dogs</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Kate</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Cats</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">}&quot;</span><span class="Punctuation">)</span>
-
-<span class="Keyword">let</span> <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getStringTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;names_and_likes&quot;</span><span class="Punctuation">)</span>
-<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span>
-<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Punctuation">[</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="StringLit">&quot;Dogs&quot;</span>
-<span class="Identifier">assert</span> <span class="Identifier">value</span><span class="Punctuation">[</span><span class="StringLit">&quot;Kate&quot;</span><span class="Punctuation">]</span> <span class="Operator">==</span> <span class="StringLit">&quot;Cats&quot;</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L338" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L338" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L62" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L62" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -575,8 +487,8 @@
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;names_and_age = {</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: 21, </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Kate</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">: 22}&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getTable</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;names_and_age&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L324" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L324" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L246" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L246" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -594,8 +506,8 @@
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;name = </span><span class="EscapeSequence">\&quot;</span><span class="StringLit">John Doe</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;name&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">kind</span> <span class="Operator">==</span> <span class="Identifier">CVString</span>
 <span class="Identifier">assert</span> <span class="Identifier">config</span><span class="Operator">.</span><span class="Identifier">getValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;name&quot;</span><span class="Punctuation">)</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="StringLit">&quot;John Doe&quot;</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L42" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L42" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/retrieve.nim#L37" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/retrieve.nim#L37" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -611,7 +523,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-11 02:59:28 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 21:54:05 UTC</small>
       </div>
     </div>
   </div>

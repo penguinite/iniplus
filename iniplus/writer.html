@@ -16,10 +16,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="../nimdoc.out.css?v=2.2.0">
+<link rel="stylesheet" type="text/css" href="../nimdoc.out.css?v=2.2.4">
 
 <!-- JS -->
-<script type="text/javascript" src="../dochack.js?v=2.2.0"></script>
+<script type="text/javascript" src="../dochack.js?v=2.2.4"></script>
 </head>
 <body>
   <div class="document" id="documentId">
@@ -71,10 +71,6 @@
   <li><a class="reference" href="#dump%2CConfigTable" title="dump(table: ConfigTable): string">dump(table: ConfigTable): string</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">dumpCommentsNim
-  <li><a class="reference" href="#dumpCommentsNim%2Cseq%5B%5D" title="dumpCommentsNim(comments: seq[(int, string)]): string">dumpCommentsNim(comments: seq[(int, string)]): string</a></li>
-
-</ul>
 <ul class="simple nested-toc-section">newConfigTable
   <li><a class="reference" href="#newConfigTable" title="newConfigTable(): ConfigTable">newConfigTable(): ConfigTable</a></li>
 
@@ -98,6 +94,9 @@
 
     </ul>
   </details>
+</li>
+<li>
+  <a class="reference reference-toplevel" href="#19" id="69">Exports</a>
 </li>
 
 </ul>
@@ -131,8 +130,8 @@
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;test_key=</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Hello</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">&quot;</span><span class="Punctuation">)</span>
 
 <span class="Identifier">echo</span> <span class="Identifier">toString</span><span class="Punctuation">(</span><span class="Identifier">config</span><span class="Punctuation">)</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L113" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L113" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L99" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L99" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -146,8 +145,8 @@
 <span class="Keyword">let</span> <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">)</span>
 
 <span class="Identifier">echo</span> <span class="Identifier">toString</span><span class="Punctuation">(</span><span class="Identifier">value</span><span class="Punctuation">)</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L72" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L72" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L60" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L60" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -175,8 +174,8 @@
 <span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getString</span><span class="Punctuation">(</span><span class="StringLit">&quot;company&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;name&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;Acme Products Ltd.&quot;</span>
 <span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getInt</span><span class="Punctuation">(</span><span class="StringLit">&quot;company&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;founding_year&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2020</span>
 <span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getBool</span><span class="Punctuation">(</span><span class="StringLit">&quot;company&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;defunct&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">false</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L208" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L208" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L190" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L190" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -200,22 +199,6 @@
 </div>
 
 </div>
-<div id="dumpCommentsNim-procs-all">
-  <div id="dumpCommentsNim,seq[]">
-  <dt><pre><span class="Keyword">func</span> <a href="#dumpCommentsNim%2Cseq%5B%5D"><span class="Identifier">dumpCommentsNim</span></a><span class="Other">(</span><span class="Identifier">comments</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Other">(</span><span class="Identifier">int</span><span class="Other">,</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-  <dd>
-    
-    <p>Converts a comment sequence into loadable Nim code. Useful for writing tests and whatnot.</p>
-<p>Note: If you want to <em>load</em> a file with only comments, then use the parseComments() procedure from reader.nim</p>
-
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L35" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L35" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
-
-  </dd>
-</div>
-
-</div>
 <div id="newConfigTable-procs-all">
   <div id="newConfigTable">
   <dt><pre><span class="Keyword">func</span> <a href="#newConfigTable"><span class="Identifier">newConfigTable</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -231,8 +214,8 @@
 <span class="Identifier">assert</span> <span class="Identifier">tableA</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">tableB</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">tableA</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">0</span>
 <span class="Identifier">assert</span> <span class="Identifier">tableB</span><span class="Operator">.</span><span class="Identifier">len</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">0</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L123" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L123" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L108" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L108" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -265,8 +248,8 @@
 <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">setKey</span><span class="Punctuation">(</span><span class="StringLit">&quot;handmade&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;list&quot;</span><span class="Punctuation">,</span><span class="Identifier">valueArr</span><span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;handmade&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;list&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">0</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">stringVal</span> <span class="Operator">==</span> <span class="StringLit">&quot;Hello World!&quot;</span>
 <span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getArray</span><span class="Punctuation">(</span><span class="StringLit">&quot;handmade&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;list&quot;</span><span class="Punctuation">)</span><span class="Punctuation">[</span><span class="DecNumber">1</span><span class="Punctuation">]</span><span class="Operator">.</span><span class="Identifier">intVal</span> <span class="Operator">==</span> <span class="DecNumber">1000</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L159" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L159" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L143" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L143" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -293,8 +276,8 @@
   <span class="Identifier">true</span> <span class="Comment"># Value</span>
 <span class="Punctuation">)</span>
 <span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getBool</span><span class="Punctuation">(</span><span class="StringLit">&quot;favorite&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;boolean&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">true</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L136" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L136" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L121" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L121" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -320,14 +303,13 @@
     <span class="StringLit">&quot;defunct&quot;</span><span class="Punctuation">:</span> <span class="Operator">@=</span> <span class="Identifier">false</span>
   <span class="Punctuation">}</span><span class="Operator">.</span><span class="Identifier">toTable</span>
 <span class="Punctuation">}</span>
-
 <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">setKeys</span><span class="Punctuation">(</span><span class="Identifier">values</span><span class="Punctuation">)</span>
 
 <span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getString</span><span class="Punctuation">(</span><span class="StringLit">&quot;company&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;name&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="StringLit">&quot;Acme Products Ltd.&quot;</span>
 <span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getInt</span><span class="Punctuation">(</span><span class="StringLit">&quot;company&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;founding_year&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="DecNumber">2020</span>
 <span class="Identifier">assert</span> <span class="Identifier">table</span><span class="Operator">.</span><span class="Identifier">getBool</span><span class="Punctuation">(</span><span class="StringLit">&quot;company&quot;</span><span class="Punctuation">,</span> <span class="StringLit">&quot;defunct&quot;</span><span class="Punctuation">)</span> <span class="Operator">==</span> <span class="Identifier">false</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L183" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L183" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L166" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L166" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -345,8 +327,8 @@
 <span class="Keyword">let</span> <span class="Identifier">config</span> <span class="Operator">=</span> <span class="Identifier">parseString</span><span class="Punctuation">(</span><span class="StringLit">&quot;test_key=</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">Hello</span><span class="EscapeSequence">\&quot;</span><span class="StringLit">&quot;</span><span class="Punctuation">)</span>
 
 <span class="Identifier">echo</span> <span class="Identifier">toString</span><span class="Punctuation">(</span><span class="Identifier">config</span><span class="Punctuation">)</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L81" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L81" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L69" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L69" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -359,14 +341,20 @@
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">iniplus</span>
 <span class="Keyword">let</span> <span class="Identifier">value</span> <span class="Operator">=</span> <span class="Identifier">newCValue</span><span class="Punctuation">(</span><span class="StringLit">&quot;John&quot;</span><span class="Punctuation">)</span>
 <span class="Identifier">echo</span> <span class="Identifier">toString</span><span class="Punctuation">(</span><span class="Identifier">value</span><span class="Punctuation">)</span></pre>
-    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L45" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L45" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/penguinite/iniplus/tree/main/src/iniplus/writer.nim#L34" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/penguinite/iniplus/edit/main/src/iniplus/writer.nim#L34" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
 
 </div>
 
+  </dl>
+</div>
+<div class="section" id="19">
+  <h1><a class="toc-backref" href="#19">Exports</a></h1>
+  <dl class="item">
+    <a href="objects.html#ConfigTable"><span class="Identifier">ConfigTable</span></a>, <a href="objects.html#ConfigValueKind"><span class="Identifier">ConfigValueKind</span></a>, <a href="objects.html#==,ConfigValue,seq[ConfigValue]"><span class="Identifier">==</span></a>, <a href="objects.html#ConfigValue"><span class="Identifier">ConfigValue</span></a>, <a href="objects.html#==,ConfigValue,ConfigValue"><span class="Identifier">==</span></a>, <a href="objects.html#newCValue,seq[ConfigValue]"><span class="Identifier">newCValue</span></a>, <a href="objects.html#!=,seq[ConfigValue],ConfigValue"><span class="Identifier">!=</span></a>, <a href="objects.html#@=,T"><span class="Identifier">@=</span></a>, <a href="objects.html#$,ConfigValueKind"><span class="Identifier">$</span></a>, <a href="objects.html#==,seq[ConfigValue],ConfigValue"><span class="Identifier">==</span></a>, <a href="objects.html#newCValue,varargs[ConfigValue]"><span class="Identifier">newCValue</span></a>, <a href="objects.html#newCValue,bool"><span class="Identifier">newCValue</span></a>, <a href="objects.html#newCValue,int"><span class="Identifier">newCValue</span></a>, <a href="objects.html#!=,ConfigValue,seq[ConfigValue]"><span class="Identifier">!=</span></a>, <a href="objects.html#newCValue,openArray[T]"><span class="Identifier">newCValue</span></a>, <a href="objects.html#newCValue,string"><span class="Identifier">newCValue</span></a>, <a href="objects.html#!=,ConfigValue,ConfigValue"><span class="Identifier">!=</span></a>
   </dl>
 </div>
 
@@ -376,7 +364,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-01-11 02:59:31 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-04-27 21:54:08 UTC</small>
       </div>
     </div>
   </div>

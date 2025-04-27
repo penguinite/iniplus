@@ -5,18 +5,23 @@ nim	CVBool	iniplus/objects.html#CVBool	ConfigValueKind.CVBool		14
 nim	CVString	iniplus/objects.html#CVString	ConfigValueKind.CVString		14
 nim	CVArray	iniplus/objects.html#CVArray	ConfigValueKind.CVArray		14
 nim	CVTable	iniplus/objects.html#CVTable	ConfigValueKind.CVTable		14
-nim	CVType	iniplus/objects.html#CVType	ConfigValueKind.CVType		14
 nim	ConfigValueKind	iniplus/objects.html#ConfigValueKind	enum ConfigValueKind		14
 nim	ConfigValue	iniplus/objects.html#ConfigValue	object ConfigValue		18
-nim	ConfigTable	iniplus/objects.html#ConfigTable	type ConfigTable		31
-nim	newCValue	iniplus/objects.html#newCValue,string	proc newCValue(value: string): ConfigValue		33
-nim	newCValue	iniplus/objects.html#newCValue,int	proc newCValue(value: int): ConfigValue		44
-nim	newCValue	iniplus/objects.html#newCValue,bool	proc newCValue(value: bool): ConfigValue		55
-nim	newCValue	iniplus/objects.html#newCValue,varargs[ConfigValue]	proc newCValue(value: varargs[ConfigValue]): ConfigValue		66
-nim	newCValue	iniplus/objects.html#newCValue,seq[ConfigValue]	proc newCValue(value: seq[ConfigValue]): ConfigValue		83
-nim	newCValue	iniplus/objects.html#newCValue,seq[T]	proc newCValue[T](val: seq[T]): ConfigValue		105
-nim	newCValue	iniplus/objects.html#newCValue,ConfigValueKind	proc newCValue(t: ConfigValueKind): ConfigValue		134
-nim	newCValue	iniplus/objects.html#newCValue	proc newCValue(t: (ConfigValueKind, ConfigValueKind)): ConfigValue		141
-nim	`@=`	iniplus/objects.html#@=,T	proc `@=`[T](val: T): ConfigValue		150
-nim	`$`	iniplus/objects.html#$,ConfigValueKind	proc `$`(k: ConfigValueKind): string		208
-nimgrp	newcvalue	iniplus/objects.html#newCValue-procs-all	proc		33
+nim	ConfigTable	iniplus/objects.html#ConfigTable	type ConfigTable		28
+nim	newCValue	iniplus/objects.html#newCValue,string	proc newCValue(value: string): ConfigValue		30
+nim	newCValue	iniplus/objects.html#newCValue,int	proc newCValue(value: int): ConfigValue		39
+nim	newCValue	iniplus/objects.html#newCValue,bool	proc newCValue(value: bool): ConfigValue		48
+nim	newCValue	iniplus/objects.html#newCValue,varargs[ConfigValue]	proc newCValue(value: varargs[ConfigValue]): ConfigValue		57
+nim	newCValue	iniplus/objects.html#newCValue,seq[ConfigValue]	proc newCValue(value: seq[ConfigValue]): ConfigValue		72
+nim	newCValue	iniplus/objects.html#newCValue,openArray[T]	proc newCValue[T](val: openArray[T]): ConfigValue		92
+nim	`@=`	iniplus/objects.html#@=,T	proc `@=`[T](val: T): ConfigValue		118
+nim	`$`	iniplus/objects.html#$,ConfigValueKind	proc `$`(k: ConfigValueKind): string		137
+nim	`==`	iniplus/objects.html#==,ConfigValue,ConfigValue	proc `==`(a, b: ConfigValue): bool		147
+nim	`!=`	iniplus/objects.html#!=,ConfigValue,ConfigValue	proc `!=`(a, b: ConfigValue): bool		159
+nim	`==`	iniplus/objects.html#==,ConfigValue,seq[ConfigValue]	proc `==`(a: ConfigValue; b: seq[ConfigValue]): bool		162
+nim	`!=`	iniplus/objects.html#!=,ConfigValue,seq[ConfigValue]	proc `!=`(a: ConfigValue; b: seq[ConfigValue]): bool		165
+nim	`==`	iniplus/objects.html#==,seq[ConfigValue],ConfigValue	proc `==`(b: seq[ConfigValue]; a: ConfigValue): bool		168
+nim	`!=`	iniplus/objects.html#!=,seq[ConfigValue],ConfigValue	proc `!=`(b: seq[ConfigValue]; a: ConfigValue): bool		171
+nimgrp	==	iniplus/objects.html#==-procs-all	proc		147
+nimgrp	!=	iniplus/objects.html#!=-procs-all	proc		159
+nimgrp	newcvalue	iniplus/objects.html#newCValue-procs-all	proc		30

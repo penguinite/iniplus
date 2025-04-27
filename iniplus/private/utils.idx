@@ -17,11 +17,10 @@ nim	Val	iniplus/private/utils.html#Val	State.Val		13
 nim	Array	iniplus/private/utils.html#Array	State.Array		13
 nim	CTable	iniplus/private/utils.html#CTable	State.CTable		13
 nim	State	iniplus/private/utils.html#State	enum State		13
-nim	Checkmap	iniplus/private/utils.html#Checkmap	type Checkmap		16
-nim	isBoolean	iniplus/private/utils.html#isBoolean,string	proc isBoolean(raw: string): bool		26
-nim	isOnlyDigits	iniplus/private/utils.html#isOnlyDigits,string	proc isOnlyDigits(raw: string): bool		31
-nim	trimString	iniplus/private/utils.html#trimString,string	proc trimString(raw: string): string		38
-nim	conv	iniplus/private/utils.html#conv,string	proc conv(v: string): ConfigValue		55
-nim	conv	iniplus/private/utils.html#conv,seq[string]	proc conv(v: seq[string]; table = false): ConfigValue		68
-nim	detectChildKind	iniplus/private/utils.html#detectChildKind,ConfigValue	proc detectChildKind(c: ConfigValue): ConfigValueKind		87
-nimgrp	conv	iniplus/private/utils.html#conv-procs-all	proc		55
+nim	isBoolean	iniplus/private/utils.html#isBoolean,string	proc isBoolean(raw: string): bool		22
+nim	isOnlyDigits	iniplus/private/utils.html#isOnlyDigits,string	proc isOnlyDigits(raw: string): bool		27
+nim	trimString	iniplus/private/utils.html#trimString,string	proc trimString(raw: string): string		34
+nim	conv	iniplus/private/utils.html#conv,string	proc conv(v: string): ConfigValue		50
+nim	conv	iniplus/private/utils.html#conv,seq[string]	proc conv(v: seq[string]; table = false): ConfigValue		62
+nim	detectChildKind	iniplus/private/utils.html#detectChildKind,ConfigValue	proc detectChildKind(c: ConfigValue): ConfigValueKind		79
+nimgrp	conv	iniplus/private/utils.html#conv-procs-all	proc		50
