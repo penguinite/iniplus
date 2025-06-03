@@ -1,5 +1,9 @@
 # iniplus
 
+**Migration notice:** The git repository for this project has moved to [https://codeberg.org/onbox/iniplus](https://codeberg.org/onbox/iniplus), this link will still work but it will not contain any new updates. Documentation for this project is available at [https://pony.biz/iniplus/](https://pony.biz/iniplus/)
+
+---
+
 A Nim-powered INI parser with support for arrays and tables. `iniplus` is designed to be performant but with an API that's way nicer to use.
 
 Documentation can be found [here](https://penguinite.github.io/iniplus/), and it can be built locally by running `nimble docs`
