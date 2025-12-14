@@ -1,6 +1,6 @@
 # iniplus
 
-**Migration notice:** The git repository for this project has moved to [https://codeberg.org/onbox/iniplus](https://codeberg.org/onbox/iniplus), this link will still work but it will not contain any new updates. Documentation for this project is available at [https://pony.biz/iniplus/](https://pony.biz/iniplus/)
+**Migration notice:** The git repository for this project has moved to [https://codeberg.org/onbox/iniplus](https://codeberg.org/onbox/iniplus), this link will still work but it will not contain any new updates. Documentation for this project is available at [https://docs.penguinite.dev/iniplus/](https://docs.penguinite.dev/iniplus/)
 
 ---
 
@@ -80,3 +80,4 @@ Also, if you are really serious about not getting broken dependencies then consi
 
 Copyright (c) penguinite 2023-2024 <penguinite@tuta.io>
 Licensed under the BSD 3-Clause license.
+
